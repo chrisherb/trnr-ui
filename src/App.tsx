@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Dial from "./components/Dial";
+import Value from "./components/Value";
 
 function App() {
   const [dialValue, setDialValue] = useState(0.5);
@@ -12,7 +13,7 @@ function App() {
         onChange={setDialValue}
         className="stroke-green-500"
       />
-      <label>{dialValue}</label>
+      <Value value={dialValue} rangeMax={100} suffix="%" />
     </div>
   );
 }
