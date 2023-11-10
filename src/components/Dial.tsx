@@ -20,7 +20,7 @@ const Dial = ({
   gear = 200,
   gap = 0.25,
   ringGap = false,
-  lineOffset = 0.2,
+  lineOffset = 0.1,
   className,
 }: DialProps) => {
   const radius = size / 2 - strokeWidth;
