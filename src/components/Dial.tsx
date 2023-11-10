@@ -21,7 +21,6 @@ const Dial = ({
   gap = 0.25,
   ringGap = false,
   lineOffset = 0.1,
-  className,
 }: DialProps) => {
   const radius = size / 2 - strokeWidth;
   const circumference = 2 * Math.PI * radius;
@@ -87,18 +86,13 @@ const Dial = ({
 
   return (
     <div onMouseDown={startDrag}>
-      <svg
-        height={size}
-        width={size}
-        xmlns="<http://www.w3.org/2000/svg>"
-        className={className}
-      >
+      <svg height={size} width={size} xmlns="<http://www.w3.org/2000/svg>">
         <circle
+          className="stroke-trnr-secondary"
           r={radius}
           cx={size / 2}
           cy={size / 2}
           fill="none"
-          stroke="gray"
           strokeWidth={strokeWidth}
           strokeDasharray={`${adjustedCircumference} ${circumference}`}
           transform={`rotate(${rotation} ${size / 2} ${size / 2})`}
@@ -106,6 +100,7 @@ const Dial = ({
         />
         {ringGap && (
           <circle
+            className="stroke-trnr-primary"
             r={radius}
             cx={size / 2}
             cy={size / 2}
@@ -118,6 +113,7 @@ const Dial = ({
           />
         )}
         <line
+          className="stroke-trnr-primary"
           x1={lineX1}
           y1={lineY1}
           x2={lineX2}
