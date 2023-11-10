@@ -16,7 +16,7 @@ const Dial = ({
   size,
   value,
   onChange,
-  strokeWidth = 5,
+  strokeWidth = 3,
   gear = 200,
   gap = 0.25,
   ringGap = false,
