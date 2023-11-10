@@ -6,13 +6,8 @@ function App() {
   const [dialValue, setDialValue] = useState(0.5);
 
   return (
-    <div className="container mx-auto">
-      <Dial
-        size={75}
-        value={dialValue}
-        onChange={setDialValue}
-        className="stroke-green-500"
-      />
+    <div className="container mx-auto bg-trnr-background">
+      <Dial size={200} value={dialValue} onChange={setDialValue} />
       <Value value={dialValue} rangeMax={100} suffix="%" />
     </div>
   );
