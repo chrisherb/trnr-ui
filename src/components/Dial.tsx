@@ -85,7 +85,7 @@ const Dial = ({
   });
 
   return (
-    <div onMouseDown={startDrag}>
+    <div onMouseDown={startDrag} className="active:cursor-none">
       <svg height={size} width={size} xmlns="<http://www.w3.org/2000/svg>">
         <circle
           className="stroke-trnr-secondary"
