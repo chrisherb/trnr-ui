@@ -7,6 +7,7 @@ interface DialProps {
   strokeWidth?: number;
   gear?: number;
   gap?: number;
+  ringGap?: boolean;
   lineOffset?: number;
   className?: string;
 }
@@ -18,13 +19,16 @@ const Dial = ({
   strokeWidth = 5,
   gear = 200,
   gap = 0.25,
+  ringGap = false,
   lineOffset = 0.9,
   className,
 }: DialProps) => {
   const radius = size / 2 - strokeWidth;
   const circumference = 2 * Math.PI * radius;
   const gapSize = gap * circumference;
-  const adjustedCircumference = circumference - gapSize;
+  const adjustedCircumference = ringGap
+    ? circumference - gapSize
+    : circumference;
   const dashOffset = adjustedCircumference * (1 - value);
 
   // Calculate the rotation angle to center the gap at the bottom
@@ -93,17 +97,19 @@ const Dial = ({
           transform={`rotate(${rotation} ${size / 2} ${size / 2})`}
           strokeLinecap="round"
         />
-        <circle
-          r={radius}
-          cx={size / 2}
-          cy={size / 2}
-          fill="none"
-          strokeWidth={strokeWidth}
-          strokeDasharray={`${adjustedCircumference} ${circumference}`}
-          strokeDashoffset={dashOffset}
-          transform={`rotate(${rotation} ${size / 2} ${size / 2})`}
-          strokeLinecap="round"
-        />
+        {ringGap && (
+          <circle
+            r={radius}
+            cx={size / 2}
+            cy={size / 2}
+            fill="none"
+            strokeWidth={strokeWidth}
+            strokeDasharray={`${adjustedCircumference} ${circumference}`}
+            strokeDashoffset={dashOffset}
+            transform={`rotate(${rotation} ${size / 2} ${size / 2})`}
+            strokeLinecap="round"
+          />
+        )}
         <line
           x1={size / 2}
           y1={size / 2}
