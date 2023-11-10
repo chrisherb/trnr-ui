@@ -3,6 +3,7 @@ interface ValueProps {
   decimals?: number;
   rangeMin?: number;
   rangeMax?: number;
+  hAlign?: "left" | "center" | "right";
   suffix?: string;
 }
 
@@ -11,14 +12,22 @@ const Value = ({
   decimals = 2,
   rangeMin = 0,
   rangeMax = 10,
+  hAlign = "center",
   suffix = "",
 }: ValueProps) => {
   const adjustedValue = value * (rangeMax - rangeMin) + rangeMin;
 
+  const horizontalAlignment =
+    hAlign == "left"
+      ? "text-left"
+      : hAlign == "center"
+      ? "text-center"
+      : "text-right";
+
   return (
-    <span className="text-trnr-primary">
+    <div className={`text-trnr-primary select-none ${horizontalAlignment}`}>
       {adjustedValue.toFixed(decimals) + " " + suffix}
-    </span>
+    </div>
   );
 };
 
