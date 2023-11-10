@@ -20,7 +20,7 @@ const Dial = ({
   gear = 200,
   gap = 0.25,
   ringGap = false,
-  lineOffset = 0.9,
+  lineOffset = 0.2,
   className,
 }: DialProps) => {
   const radius = size / 2 - strokeWidth;
@@ -35,11 +35,18 @@ const Dial = ({
   const rotationAngle = (gap * 360) / 2;
   const rotation = 90 + rotationAngle;
 
-  // Calculate the coordinates of the line
-  const adjustedValue = value * (1 - gap);
-  const theta = 2 * Math.PI * (adjustedValue + 0.25 + gap / 2);
-  const lineX = size / 2 + radius * Math.cos(theta);
-  const lineY = size / 2 + radius * Math.sin(theta);
+  // Calculate the inner coordinates of the line
+  const innerRadius = (size / 2) * lineOffset;
+  const adjustedValue1 = value * (1 - gap);
+  const theta1 = 2 * Math.PI * (adjustedValue1 + 0.25 + gap / 2);
+  const lineX1 = size / 2 + innerRadius * Math.cos(theta1);
+  const lineY1 = size / 2 + innerRadius * Math.sin(theta1);
+
+  // Calculate the outer coordinates of the line
+  const adjustedValue2 = value * (1 - gap);
+  const theta2 = 2 * Math.PI * (adjustedValue2 + 0.25 + gap / 2);
+  const lineX2 = size / 2 + radius * Math.cos(theta2);
+  const lineY2 = size / 2 + radius * Math.sin(theta2);
 
   const [origin, setOrigin] = useState(0);
   const [tempVal, setTempVal] = useState(0);
@@ -111,10 +118,10 @@ const Dial = ({
           />
         )}
         <line
-          x1={size / 2}
-          y1={size / 2}
-          x2={lineX}
-          y2={lineY}
+          x1={lineX1}
+          y1={lineY1}
+          x2={lineX2}
+          y2={lineY2}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
