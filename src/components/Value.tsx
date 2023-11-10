@@ -13,7 +13,13 @@ const Value = ({
   rangeMax = 10,
   suffix = "",
 }: ValueProps) => {
-  return <span>{(value * rangeMax).toFixed(decimals) + " " + suffix}</span>;
+  const adjustedValue = value * (rangeMax - rangeMin) + rangeMin;
+
+  return (
+    <span className="text-trnr-primary">
+      {adjustedValue.toFixed(decimals) + " " + suffix}
+    </span>
+  );
 };
 
 export default Value;
