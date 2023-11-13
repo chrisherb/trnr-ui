@@ -6,7 +6,6 @@ interface DialProps {
   onChange: (progress: number) => void;
   strokeWidth?: number;
   gear?: number;
-  gap?: number;
   lineOffset?: number;
   className?: string;
 }
@@ -17,10 +16,10 @@ const Dial = ({
   onChange,
   strokeWidth = 2,
   gear = 200,
-  gap = 0.25,
   lineOffset = 0.1,
 }: DialProps) => {
   const radius = size / 2 - strokeWidth;
+  const gap = 0.25;
 
   // Calculate the inner coordinates of the line
   const innerRadius = (size / 2) * lineOffset;
