@@ -8,6 +8,7 @@ interface DialProps {
   gear?: number;
   lineOffset?: number;
   className?: string;
+  onMouseDown?: (mouseDown: boolean) => void;
 }
 
 const Dial = ({
@@ -17,6 +18,7 @@ const Dial = ({
   strokeWidth = 2,
   gear = 200,
   lineOffset = 0.1,
+  onMouseDown,
 }: DialProps) => {
   const radius = size / 2 - strokeWidth;
   const gap = 0.25;
@@ -40,10 +42,14 @@ const Dial = ({
 
   const startDrag = (ev: React.MouseEvent<HTMLDivElement>) => {
     setDragging(true);
+    if (onMouseDown) onMouseDown(true);
     setOrigin(ev.clientY);
     setTempVal(value);
   };
-  const endDrag = () => setDragging(false);
+  const endDrag = () => {
+    setDragging(false);
+    if (onMouseDown) onMouseDown(false);
+  };
 
   const handleDrag = (ev: MouseEvent) => {
     if (dragging) {
