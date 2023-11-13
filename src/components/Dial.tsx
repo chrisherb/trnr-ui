@@ -7,7 +7,6 @@ interface DialProps {
   strokeWidth?: number;
   gear?: number;
   gap?: number;
-  ringGap?: boolean;
   lineOffset?: number;
   className?: string;
 }
@@ -16,23 +15,12 @@ const Dial = ({
   size,
   value,
   onChange,
-  strokeWidth = 3,
+  strokeWidth = 2,
   gear = 200,
   gap = 0.25,
-  ringGap = false,
   lineOffset = 0.1,
 }: DialProps) => {
   const radius = size / 2 - strokeWidth;
-  const circumference = 2 * Math.PI * radius;
-  const gapSize = gap * circumference;
-  const adjustedCircumference = ringGap
-    ? circumference - gapSize
-    : circumference;
-  const dashOffset = adjustedCircumference * (1 - value);
-
-  // Calculate the rotation angle to center the gap at the bottom
-  const rotationAngle = (gap * 360) / 2;
-  const rotation = 90 + rotationAngle;
 
   // Calculate the inner coordinates of the line
   const innerRadius = (size / 2) * lineOffset;
@@ -85,34 +73,20 @@ const Dial = ({
   });
 
   return (
-    <div onMouseDown={startDrag} className="active:cursor-none">
-      <svg height={size} width={size} xmlns="<http://www.w3.org/2000/svg>">
+    <div onMouseDown={startDrag} className="active:cursor-none w-32 h-32">
+      <svg xmlns="<http://www.w3.org/2000/svg>" viewBox={`0 0 ${size} ${size}`}>
         <circle
+          vectorEffect={"non-scaling-stroke"}
           className="stroke-trnr-secondary"
           r={radius}
           cx={size / 2}
           cy={size / 2}
           fill="none"
           strokeWidth={strokeWidth}
-          strokeDasharray={`${adjustedCircumference} ${circumference}`}
-          transform={`rotate(${rotation} ${size / 2} ${size / 2})`}
           strokeLinecap="round"
         />
-        {ringGap && (
-          <circle
-            className="stroke-trnr-primary"
-            r={radius}
-            cx={size / 2}
-            cy={size / 2}
-            fill="none"
-            strokeWidth={strokeWidth}
-            strokeDasharray={`${adjustedCircumference} ${circumference}`}
-            strokeDashoffset={dashOffset}
-            transform={`rotate(${rotation} ${size / 2} ${size / 2})`}
-            strokeLinecap="round"
-          />
-        )}
         <line
+          vectorEffect={"non-scaling-stroke"}
           className="stroke-trnr-primary"
           x1={lineX1}
           y1={lineY1}
