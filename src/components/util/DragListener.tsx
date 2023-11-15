@@ -1,5 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { clamp } from "./Math";
+import { useMouse as useMouse } from "../hooks/useMouse";
 
 interface DragListenerProps extends PropsWithChildren {
   value: number;
@@ -33,23 +34,14 @@ const DragListener = ({
     if (onMouseDown) onMouseDown(false);
   };
 
-  const handleDrag = (ev: MouseEvent) => {
+  const [mouseX, mouseY] = useMouse(endDrag);
+
+  useEffect(() => {
     if (dragging) {
-      const clientPos = orientation == "vertical" ? ev.clientY : ev.clientX;
+      console.log("dragging");
+      const clientPos = orientation == "vertical" ? mouseY : mouseX;
       const relativeDrag = (clientPos - origin) / gear;
       onChange(clamp(tempVal - relativeDrag));
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("mouseup", endDrag);
-  });
-
-  useEffect(() => {
-    if (dragging) {
-      window.onmousemove = handleDrag;
-    } else {
-      window.onmousemove = null;
     }
   });
 
