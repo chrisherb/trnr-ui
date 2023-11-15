@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { clamp } from "./Math";
 import { useMouse as useMouse } from "../hooks/useMouse";
 
@@ -29,26 +29,24 @@ const DragListener = ({
     setTempVal(value);
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setDragging(false);
     if (onMouseDown) onMouseDown(false);
-  };
+  }, [onMouseDown]);
 
   const [mouseX, mouseY] = useMouse(handleMouseUp);
 
   useEffect(() => {
     if (dragging) {
       const clientPos = orientation == "vertical" ? mouseY : mouseX;
-      const relativeDrag = (clientPos - origin) / gear;
+      let relativeDrag = 0;
+      if (orientation == "vertical") relativeDrag = (clientPos - origin) / gear;
+      else relativeDrag = (origin - clientPos) / gear;
       onChange(clamp(tempVal - relativeDrag));
     }
   });
 
-  return (
-    <div onMouseDown={handleMouseDown} className="active:cursor-none">
-      {children}
-    </div>
-  );
+  return <div onMouseDown={handleMouseDown}>{children}</div>;
 };
 
 export default DragListener;
