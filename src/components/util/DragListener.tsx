@@ -22,23 +22,22 @@ const DragListener = ({
   const [tempVal, setTempVal] = useState(0);
   const [dragging, setDragging] = useState(false);
 
-  const startDrag = (ev: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseDown = (ev: React.MouseEvent<HTMLDivElement>) => {
     setDragging(true);
     if (onMouseDown) onMouseDown(true);
     setOrigin(orientation == "vertical" ? ev.clientY : ev.clientX);
     setTempVal(value);
   };
 
-  const endDrag = () => {
+  const handleMouseUp = () => {
     setDragging(false);
     if (onMouseDown) onMouseDown(false);
   };
 
-  const [mouseX, mouseY] = useMouse(endDrag);
+  const [mouseX, mouseY] = useMouse(handleMouseUp);
 
   useEffect(() => {
     if (dragging) {
-      console.log("dragging");
       const clientPos = orientation == "vertical" ? mouseY : mouseX;
       const relativeDrag = (clientPos - origin) / gear;
       onChange(clamp(tempVal - relativeDrag));
@@ -46,7 +45,7 @@ const DragListener = ({
   });
 
   return (
-    <div onMouseDown={startDrag} className="active:cursor-none">
+    <div onMouseDown={handleMouseDown} className="active:cursor-none">
       {children}
     </div>
   );
