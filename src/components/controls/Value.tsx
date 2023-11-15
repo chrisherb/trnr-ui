@@ -1,4 +1,4 @@
-interface ValueProps {
+export interface ValueProps {
   value: number;
   decimals?: number;
   rangeMin?: number;
@@ -25,7 +25,9 @@ const Value = ({
       : "text-right";
 
   return (
-    <div className={`text-trnr-primary select-none ${horizontalAlignment}`}>
+    <div
+      className={`text-trnr-primary select-none w-32 ${horizontalAlignment}`}
+    >
       {adjustedValue.toFixed(decimals) + " " + suffix}
     </div>
   );

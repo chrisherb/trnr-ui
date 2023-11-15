@@ -1,4 +1,4 @@
-import DragListener from "./util/DragListener";
+import DragListener from "../util/DragListener";
 
 interface DialProps {
   size: number;
