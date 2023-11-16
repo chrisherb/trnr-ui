@@ -13,13 +13,19 @@ export const useMouse = (onMouseUp?: () => void) => {
   );
 
   useEffect(() => {
-    console.log("register mousemove");
     window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, [handleMouseMove]);
 
   useEffect(() => {
-    console.log("register mouseup");
     if (onMouseUp) window.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      if (onMouseUp) window.removeEventListener("mouseup", onMouseUp);
+    };
   }, [onMouseUp]);
 
   return [posX, posY];
