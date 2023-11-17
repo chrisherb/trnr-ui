@@ -1,8 +1,16 @@
 {
   "name": "trnr-ui",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
+  "main": "./dist/trnr-ui.umd.cjs",
+  "module": "./dist/trnr-ui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/trnr-ui.js",
+      "require": "./dist/trnr-ui.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
