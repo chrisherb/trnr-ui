@@ -1,24 +1,25 @@
-import { ValuePropsBase } from "./Value";
+import { InternalControlBaseProps } from "./ControlBase";
+import { ExternalValueProps } from "./Value";
 
-export interface LabelPropsBase extends ValuePropsBase {
+export interface ExternalLabelProps extends ExternalValueProps {
   label: string;
-  showValue?: boolean;
+  showValueOnLabel?: boolean;
 }
 
-interface LabelProps extends LabelPropsBase {
-  value?: number;
-}
+export interface InternalLabelProps
+  extends ExternalLabelProps,
+    InternalControlBaseProps {}
 
 const Label = ({
   label,
-  showValue = false,
+  showValueOnLabel: showValue = false,
   value,
   decimals = 2,
   rangeMin = 0,
   rangeMax = 10,
   hAlign = "center",
   suffix = "",
-}: LabelProps) => {
+}: InternalLabelProps) => {
   let adjustedValue = 0;
 
   if (showValue && value)

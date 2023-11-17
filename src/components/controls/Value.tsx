@@ -1,4 +1,6 @@
-export interface ValuePropsBase {
+import { InternalControlBaseProps } from "./ControlBase";
+
+export interface ExternalValueProps {
   decimals?: number;
   rangeMin?: number;
   rangeMax?: number;
@@ -6,9 +8,9 @@ export interface ValuePropsBase {
   suffix?: string;
 }
 
-interface ValueProps extends ValuePropsBase {
-  value: number;
-}
+export interface InternalValueProps
+  extends ExternalValueProps,
+    InternalControlBaseProps {}
 
 const Value = ({
   value,
@@ -17,8 +19,10 @@ const Value = ({
   rangeMax = 10,
   hAlign = "center",
   suffix = "",
-}: ValueProps) => {
-  const adjustedValue = value * (rangeMax - rangeMin) + rangeMin;
+}: InternalValueProps) => {
+  const internalValue = value ? value : 0;
+
+  const adjustedValue = internalValue * (rangeMax - rangeMin) + rangeMin;
 
   const horizontalAlignment =
     hAlign == "left"
