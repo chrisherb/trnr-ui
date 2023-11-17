@@ -1,4 +1,3 @@
-import { InternalControlBaseProps } from "./ControlBase";
 import { ExternalValueProps } from "./Value";
 
 export interface ExternalLabelProps extends ExternalValueProps {
@@ -6,13 +5,13 @@ export interface ExternalLabelProps extends ExternalValueProps {
   showValueOnLabel?: boolean;
 }
 
-export interface InternalLabelProps
-  extends ExternalLabelProps,
-    InternalControlBaseProps {}
+interface InternalLabelProps extends ExternalLabelProps {
+  value: number;
+}
 
 const Label = ({
   label,
-  showValueOnLabel: showValue = false,
+  showValueOnLabel = false,
   value,
   decimals = 2,
   rangeMin = 0,
@@ -22,7 +21,7 @@ const Label = ({
 }: InternalLabelProps) => {
   let adjustedValue = 0;
 
-  if (showValue && value)
+  if (showValueOnLabel && value)
     adjustedValue = value * (rangeMax - rangeMin) + rangeMin;
 
   const horizontalAlignment =
@@ -34,8 +33,8 @@ const Label = ({
 
   return (
     <div className={`text-secondary select-none w-32 ${horizontalAlignment}`}>
-      {!showValue && label}
-      {showValue &&
+      {!showValueOnLabel && label}
+      {showValueOnLabel &&
         value != undefined &&
         adjustedValue.toFixed(decimals) + " " + suffix}
     </div>

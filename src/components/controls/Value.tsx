@@ -1,5 +1,3 @@
-import { InternalControlBaseProps } from "./ControlBase";
-
 export interface ExternalValueProps {
   decimals?: number;
   rangeMin?: number;
@@ -8,9 +6,9 @@ export interface ExternalValueProps {
   suffix?: string;
 }
 
-export interface InternalValueProps
-  extends ExternalValueProps,
-    InternalControlBaseProps {}
+interface InternalValueProps extends ExternalValueProps {
+  value: number;
+}
 
 const Value = ({
   value,
@@ -20,9 +18,7 @@ const Value = ({
   hAlign = "center",
   suffix = "",
 }: InternalValueProps) => {
-  const internalValue = value ? value : 0;
-
-  const adjustedValue = internalValue * (rangeMax - rangeMin) + rangeMin;
+  const adjustedValue = value * (rangeMax - rangeMin) + rangeMin;
 
   const horizontalAlignment =
     hAlign == "left"
