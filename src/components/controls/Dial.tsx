@@ -10,6 +10,7 @@ export interface DialProps {
   gear?: number;
   lineOffset?: number;
   onMouseDown?: (mouseDown: boolean) => void;
+  onDoubleClick: () => void;
 }
 
 interface InternalDialProps extends DialProps {
@@ -24,6 +25,7 @@ const Dial = ({
   gear = 200,
   lineOffset = 0.1,
   onMouseDown,
+  onDoubleClick,
 }: InternalDialProps) => {
   const radius = size / 2 - strokeWidth;
   const gap = 0.25;
@@ -48,7 +50,7 @@ const Dial = ({
       gear={gear}
       onMouseDown={onMouseDown}
     >
-      <div className="w-32 h-32">
+      <div className="w-32 h-32" onDoubleClick={onDoubleClick}>
         <svg
           xmlns="<http://www.w3.org/2000/svg>"
           viewBox={`0 0 ${size} ${size}`}
@@ -95,10 +97,19 @@ const DialControl = ({
     setDialValue(v);
   };
 
+  const handleDoubleClick = () => {
+    setDialValue(defaultValue);
+  };
+
   return (
     <div>
       <Label {...props} value={dialValue} />
-      <Dial {...props} value={dialValue} onChange={handleDialOnChange} />
+      <Dial
+        {...props}
+        value={dialValue}
+        onChange={handleDialOnChange}
+        onDoubleClick={handleDoubleClick}
+      />
       <Value {...props} value={dialValue} />
     </div>
   );
