@@ -3,7 +3,7 @@ import DragListener from "../util/DragListener";
 import Label, { LabelPropsBase } from "./Label";
 import Value from "./Value";
 
-export interface DialPropsBase {
+export interface DialControlPropsBase {
   size: number;
   onChange: (value: number) => void;
   strokeWidth?: number;
@@ -12,12 +12,12 @@ export interface DialPropsBase {
   onMouseDown?: (mouseDown: boolean) => void;
 }
 
-interface DialProps extends DialPropsBase {
+interface DialControlProps extends DialControlPropsBase {
   value: number;
   onDoubleClick: () => void;
 }
 
-const Dial = ({
+const DialControl = ({
   size,
   value,
   onChange,
@@ -26,7 +26,7 @@ const Dial = ({
   lineOffset = 0.1,
   onMouseDown,
   onDoubleClick,
-}: DialProps) => {
+}: DialControlProps) => {
   const radius = size / 2 - strokeWidth;
   const gap = 0.25;
 
@@ -81,15 +81,11 @@ const Dial = ({
   );
 };
 
-interface DialControlProps extends DialPropsBase, LabelPropsBase {
+interface DialProps extends DialControlPropsBase, LabelPropsBase {
   defaultValue: number;
 }
 
-const DialControl = ({
-  defaultValue,
-  onChange,
-  ...props
-}: DialControlProps) => {
+const Dial = ({ defaultValue, onChange, ...props }: DialProps) => {
   const [dialValue, setDialValue] = useState(defaultValue);
 
   const handleDialOnChange = (v: number) => {
@@ -104,7 +100,7 @@ const DialControl = ({
   return (
     <div>
       <Label {...props} value={dialValue} />
-      <Dial
+      <DialControl
         {...props}
         value={dialValue}
         onChange={handleDialOnChange}
@@ -115,4 +111,4 @@ const DialControl = ({
   );
 };
 
-export default DialControl;
+export default Dial;
