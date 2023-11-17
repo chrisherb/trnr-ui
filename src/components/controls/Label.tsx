@@ -1,11 +1,11 @@
-import { ValueProps } from "./Value";
+import { ValuePropsBase } from "./Value";
 
-export interface LabelProps extends ValueProps {
+export interface LabelPropsBase extends ValuePropsBase {
   label: string;
   showValue?: boolean;
 }
 
-interface InternalDialProps extends LabelProps {
+interface LabelProps extends LabelPropsBase {
   value?: number;
 }
 
@@ -18,7 +18,7 @@ const Label = ({
   rangeMax = 10,
   hAlign = "center",
   suffix = "",
-}: InternalDialProps) => {
+}: LabelProps) => {
   let adjustedValue = 0;
 
   if (showValue && value)

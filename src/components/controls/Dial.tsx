@@ -1,20 +1,20 @@
 import { useState } from "react";
 import DragListener from "../util/DragListener";
-import Label, { LabelProps } from "./Label";
+import Label, { LabelPropsBase } from "./Label";
 import Value from "./Value";
 
-export interface DialProps {
+export interface DialPropsBase {
   size: number;
   onChange: (value: number) => void;
   strokeWidth?: number;
   gear?: number;
   lineOffset?: number;
   onMouseDown?: (mouseDown: boolean) => void;
-  onDoubleClick: () => void;
 }
 
-interface InternalDialProps extends DialProps {
+interface DialProps extends DialPropsBase {
   value: number;
+  onDoubleClick: () => void;
 }
 
 const Dial = ({
@@ -26,7 +26,7 @@ const Dial = ({
   lineOffset = 0.1,
   onMouseDown,
   onDoubleClick,
-}: InternalDialProps) => {
+}: DialProps) => {
   const radius = size / 2 - strokeWidth;
   const gap = 0.25;
 
@@ -81,7 +81,7 @@ const Dial = ({
   );
 };
 
-interface DialControlProps extends DialProps, LabelProps {
+interface DialControlProps extends DialPropsBase, LabelPropsBase {
   defaultValue: number;
 }
 
