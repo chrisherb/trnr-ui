@@ -1,14 +1,19 @@
+import { useState } from "react";
 import DragListener from "../util/DragListener";
+import Label, { LabelProps } from "./Label";
+import Value from "./Value";
 
-interface DialProps {
+export interface DialProps {
   size: number;
-  value: number;
   onChange: (value: number) => void;
   strokeWidth?: number;
   gear?: number;
   lineOffset?: number;
-  className?: string;
   onMouseDown?: (mouseDown: boolean) => void;
+}
+
+interface InternalDialProps extends DialProps {
+  value: number;
 }
 
 const Dial = ({
@@ -19,7 +24,7 @@ const Dial = ({
   gear = 200,
   lineOffset = 0.1,
   onMouseDown,
-}: DialProps) => {
+}: InternalDialProps) => {
   const radius = size / 2 - strokeWidth;
   const gap = 0.25;
 
@@ -74,4 +79,29 @@ const Dial = ({
   );
 };
 
-export default Dial;
+interface DialControlProps extends DialProps, LabelProps {
+  defaultValue: number;
+}
+
+const DialControl = ({
+  defaultValue,
+  onChange,
+  ...props
+}: DialControlProps) => {
+  const [dialValue, setDialValue] = useState(defaultValue);
+
+  const handleDialOnChange = (v: number) => {
+    onChange(v);
+    setDialValue(v);
+  };
+
+  return (
+    <div>
+      <Label {...props} value={dialValue} />
+      <Dial {...props} value={dialValue} onChange={handleDialOnChange} />
+      <Value {...props} value={dialValue} />
+    </div>
+  );
+};
+
+export default DialControl;

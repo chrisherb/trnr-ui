@@ -1,10 +1,13 @@
 export interface ValueProps {
-  value: number;
   decimals?: number;
   rangeMin?: number;
   rangeMax?: number;
   hAlign?: "left" | "center" | "right";
   suffix?: string;
+}
+
+interface InternalValueProps extends ValueProps {
+  value: number;
 }
 
 const Value = ({
@@ -14,7 +17,7 @@ const Value = ({
   rangeMax = 10,
   hAlign = "center",
   suffix = "",
-}: ValueProps) => {
+}: InternalValueProps) => {
   const adjustedValue = value * (rangeMax - rangeMin) + rangeMin;
 
   const horizontalAlignment =
