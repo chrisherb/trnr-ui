@@ -40,16 +40,14 @@ const Slider = ({
       onMouseDown={onMouseDown}
       orientation={orientation}
     >
-      <div
-        className={`border-2 rounded-md border-trnr-secondary p-1 ${barWidth}`}
-      >
+      <div className={`border-2 rounded-md border-primary p-1 ${barWidth}`}>
         <svg
           xmlns="<http://www.w3.org/2000/svg>"
           style={{ width: "100%", height: "100%" }}
         >
           {style == "bar" && (
             <rect
-              className="fill-trnr-primary stroke-trnr-primary"
+              className="fill-secondary stroke-secondary"
               rx={2}
               ry={2}
               stroke="2"

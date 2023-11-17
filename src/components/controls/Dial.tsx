@@ -57,7 +57,7 @@ const DialControl = ({
         >
           <circle
             vectorEffect={"non-scaling-stroke"}
-            className="stroke-trnr-secondary"
+            className="stroke-primary"
             r={radius}
             cx={size / 2}
             cy={size / 2}
@@ -67,7 +67,7 @@ const DialControl = ({
           />
           <line
             vectorEffect={"non-scaling-stroke"}
-            className="stroke-trnr-primary"
+            className="stroke-secondary"
             x1={lineX1}
             y1={lineY1}
             x2={lineX2}

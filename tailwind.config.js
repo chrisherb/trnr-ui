@@ -3,9 +3,12 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
-      "trnr-primary": "#87DEAA",
-      "trnr-secondary": "#F55A50",
-      "trnr-background": "black",
+      // "primary": "#87DEAA",
+      // "secondary": "#F55A50",
+      // "background": "black",
+      primary: "var(--color-primary)",
+      secondary: "var(--color-secondary)",
+      background: "var(--color-background)",
     },
     extend: {},
   },
