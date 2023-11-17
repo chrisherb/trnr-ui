@@ -4,23 +4,23 @@ import ControlBase, {
 } from "./ControlBase";
 import { ExternalLabelProps } from "./Label";
 
-export interface DialControlPropsBase {
+export interface ExternalBaseDialProps {
   size: number;
   strokeWidth?: number;
   gear?: number;
   lineOffset?: number;
 }
 
-interface DialControlProps
-  extends DialControlPropsBase,
+interface InternalDialBaseProps
+  extends ExternalBaseDialProps,
     InternalControlBaseProps {}
 
-const DialControl = ({
+const DialBase = ({
   size,
   value,
   strokeWidth = 2,
   lineOffset = 0.1,
-}: DialControlProps) => {
+}: InternalDialBaseProps) => {
   const internalValue = value ? value : 0;
 
   const radius = size / 2 - strokeWidth;
@@ -68,7 +68,7 @@ const DialControl = ({
 };
 
 interface DialProps
-  extends DialControlPropsBase,
+  extends ExternalBaseDialProps,
     ExternalLabelProps,
     ExternalControlBaseProps {}
 
@@ -76,7 +76,7 @@ const Dial = ({ ...props }: DialProps) => {
   return (
     <div>
       <ControlBase {...props}>
-        <DialControl {...props} />
+        <DialBase {...props} />
       </ControlBase>
     </div>
   );
