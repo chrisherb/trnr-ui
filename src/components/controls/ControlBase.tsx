@@ -1,32 +1,23 @@
-import {
-  Children,
-  cloneElement,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { clamp } from "../util/Math";
 import { useMouse as useMouse } from "../hooks/useMouse";
 import Label, { ExternalLabelProps } from "./Label";
 import Value, { ExternalValueProps } from "./Value";
 
-export interface InternalControlBaseProps {
-  value?: number;
-}
-
-export interface ExternalControlBaseProps {
+export interface ExternalControlBaseProps
+  extends ExternalLabelProps,
+    ExternalValueProps {
   defaultValue: number;
   gear?: number;
   onChange: (value: number) => void;
-  orientation?: "horizontal" | "vertical";
   onMouseDown?: (mouseDown: boolean) => void;
+  orientation?: "horizontal" | "vertical";
 }
 
-interface ControlBaseProps
+interface InternalControlBaseProps
   extends ExternalControlBaseProps,
-    ExternalLabelProps,
-    ExternalValueProps {
-  children: React.ReactElement<InternalControlBaseProps>;
+    React.PropsWithChildren {
+  value: number;
 }
 
 const ControlBase = ({
@@ -36,9 +27,9 @@ const ControlBase = ({
   gear = 200,
   onChange,
   onMouseDown,
+  value,
   ...props
-}: ControlBaseProps) => {
-  const [value, setValue] = useState(defaultValue);
+}: InternalControlBaseProps) => {
   const [origin, setOrigin] = useState(0);
   const [tempVal, setTempVal] = useState(0);
   const [dragging, setDragging] = useState(false);
@@ -65,19 +56,17 @@ const ControlBase = ({
       else relativeDrag = (origin - clientPos) / gear;
       const calulatedValue = clamp(tempVal - relativeDrag);
       onChange(calulatedValue);
-      setValue(calulatedValue);
     }
   }, [dragging, orientation, mouseY, mouseX, origin, gear, tempVal, onChange]);
 
   const handleDoubleClick = () => {
-    setValue(defaultValue);
     onChange(defaultValue);
   };
 
   return (
     <div onMouseDown={handleMouseDown} onDoubleClick={handleDoubleClick}>
       <Label {...props} value={value} />
-      {Children.map(children, (child) => cloneElement(child, { value: value }))}
+      {children}
       <Value {...props} value={value} />
     </div>
   );
