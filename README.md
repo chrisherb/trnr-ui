@@ -1,6 +1,8 @@
 # trnr-ui
 
-A zero-config, easy-to-use React library focused on components for audio applications. Currently under development.
+A zero-config, easy-to-use React library focused on components for audio applications.
+
+Currently under development.
 
 ## How to build
 
