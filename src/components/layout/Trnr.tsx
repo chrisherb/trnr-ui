@@ -1,13 +1,13 @@
 import { PropsWithChildren, useEffect } from "react";
 
-interface TrnrUIProps extends PropsWithChildren {
+interface TrnrProps extends PropsWithChildren {
   colors?: { primary: string; secondary: string; background: string };
 }
 
-const TrnrUI = ({
+const Trnr = ({
   colors = { primary: "#F55A50", secondary: "#87DEAA", background: "#000000" },
   children,
-}: TrnrUIProps) => {
+}: TrnrProps) => {
   useEffect(() => {
     const root = document.documentElement;
     root.style.setProperty("--color-primary", colors.primary);
@@ -17,9 +17,9 @@ const TrnrUI = ({
 
   return (
     <div className="h-screen w-screen bg-background">
-      <div className="container mx-auto">{children}</div>
+      <div className="h-full w-full mx-auto">{children}</div>
     </div>
   );
 };
 
-export default TrnrUI;
+export default Trnr;
