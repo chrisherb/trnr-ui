@@ -1,21 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
+import { TrnrContext, TrnrProps } from "../layout/Trnr";
 
 interface InternalDialProps extends ExternalControlBaseProps {
-  strokeWidth?: number;
   lineOffset?: number;
 }
 
-const Dial = ({
-  strokeWidth = 2,
-  lineOffset = 0.1,
-  onChange,
-  ...props
-}: InternalDialProps) => {
+const Dial = ({ lineOffset = 0.1, onChange, ...props }: InternalDialProps) => {
   const [value, setValue] = useState(0);
+  const context = useContext(TrnrContext) as TrnrProps;
 
   const size = 100;
-
+  const strokeWidth = context.strokeWidth!;
   const radius = size / 2 - strokeWidth;
   const gap = 0.25;
 
@@ -46,12 +42,11 @@ const Dial = ({
       >
         <circle
           vectorEffect={"non-scaling-stroke"}
-          className="stroke-primary"
+          className="stroke-primary stroke-global"
           r={radius}
           cx={size / 2}
           cy={size / 2}
           fill="none"
-          strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
         <line

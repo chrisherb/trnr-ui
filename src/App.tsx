@@ -1,15 +1,34 @@
-import { useState } from "react";
-import Dial from "./components/Dial";
-import Value from "./components/Value";
+import Trnr from "./components/layout/Trnr";
+import Grid from "./components/layout/Grid";
+import GridCell from "./components/layout/GridCell";
+import Slider from "./components/controls/Slider";
+import Dial from "./components/controls/Dial";
 
 function App() {
-  const [dialValue, setDialValue] = useState(0.5);
-
   return (
-    <div className="container mx-auto bg-trnr-background">
-      <Dial size={200} value={dialValue} onChange={setDialValue} />
-      <Value value={dialValue} rangeMax={100} suffix="%" />
-    </div>
+    <Trnr strokeWidth={4}>
+      <Grid rows={3} columns={6}>
+        <GridCell>
+          <Dial defaultValue={0.5} label="Dial" onChange={() => null} />
+        </GridCell>
+        <GridCell>
+          <Slider
+            defaultValue={0.5}
+            label="Slider"
+            orientation="vertical"
+            onChange={() => null}
+            width={32}
+          />
+        </GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+      </Grid>
+    </Trnr>
   );
 }
 

@@ -44,7 +44,7 @@ const Slider = ({
       {...props}
     >
       <div
-        className={`border-2 rounded-md border-primary p-1 w-full h-full ${barWidth} flex`}
+        className={`border-global rounded-md border-primary p-1 w-full h-full ${barWidth} flex`}
       >
         {orientation === "horizontal" && <HorizontalSlider value={value} />}
         {orientation === "vertical" && <VerticalSlider value={value} />}

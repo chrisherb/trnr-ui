@@ -7,6 +7,10 @@ export default {
       secondary: "var(--color-secondary)",
       background: "var(--color-background)",
     },
+    borderWidth: {
+      global: "var(--border-width)",
+    },
+    strokeWidth: { global: "var(--border-width)" },
     extend: {},
   },
   plugins: [],

@@ -1,11 +1,20 @@
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, createContext, useEffect } from "react";
 
-interface TrnrProps extends PropsWithChildren {
+export interface TrnrProps extends PropsWithChildren {
   colors?: { primary: string; secondary: string; background: string };
+  strokeWidth?: number;
 }
 
+const defaultProps = {
+  colors: { primary: "#F55A50", secondary: "#87DEAA", background: "#000000" },
+  strokeWidth: 2,
+};
+
+export const TrnrContext = createContext<TrnrProps>(defaultProps);
+
 const Trnr = ({
-  colors = { primary: "#F55A50", secondary: "#87DEAA", background: "#000000" },
+  colors = defaultProps.colors,
+  strokeWidth = defaultProps.strokeWidth,
   children,
 }: TrnrProps) => {
   useEffect(() => {
@@ -13,12 +22,15 @@ const Trnr = ({
     root.style.setProperty("--color-primary", colors.primary);
     root.style.setProperty("--color-secondary", colors.secondary);
     root.style.setProperty("--color-background", colors.background);
-  }, [colors.background, colors.primary, colors.secondary]);
+    root.style.setProperty("--border-width", `${strokeWidth}px`);
+  }, [colors.background, colors.primary, colors.secondary, strokeWidth]);
 
   return (
-    <div className="h-screen w-screen bg-background">
-      <div className="h-full w-full mx-auto">{children}</div>
-    </div>
+    <TrnrContext.Provider value={{ colors, strokeWidth }}>
+      <div className="h-screen w-screen bg-background">
+        <div className="h-full w-full mx-auto">{children}</div>
+      </div>
+    </TrnrContext.Provider>
   );
 };
 
