@@ -1,26 +1,24 @@
-import DragListener from "../util/DragListener";
+import { useState } from "react";
+import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 
-interface SliderProps {
-  value: number;
-  onChange: (value: number) => void;
+interface InternalSliderBaseProps extends ExternalControlBaseProps {
   polarity?: "uni" | "bi";
   style?: "bar" | "line";
   orientation?: "horizontal" | "vertical";
   width: number;
-  gear?: number;
-  onMouseDown?: (mouseDown: boolean) => void;
 }
 
 const Slider = ({
-  value,
   onChange,
   polarity = "uni",
   style = "bar",
   orientation = "horizontal",
   width,
   gear = 400,
-  onMouseDown,
-}: SliderProps) => {
+  ...props
+}: InternalSliderBaseProps) => {
+  const [value, setValue] = useState(0);
+
   let barWidth = "";
 
   switch (width) {
@@ -32,34 +30,44 @@ const Slider = ({
       break;
   }
 
+  const handleOnChange = (v: number) => {
+    onChange(v);
+    setValue(v);
+  };
+
   return (
-    <DragListener
+    <ControlBase
       value={value}
-      onChange={onChange}
+      onChange={handleOnChange}
       gear={gear}
-      onMouseDown={onMouseDown}
       orientation={orientation}
+      {...props}
     >
-      <div className={`border-2 rounded-md border-primary p-1 ${barWidth}`}>
-        <svg
-          xmlns="<http://www.w3.org/2000/svg>"
-          style={{ width: "100%", height: "100%" }}
-        >
-          {style == "bar" && (
-            <rect
-              className="fill-secondary stroke-secondary"
-              rx={2}
-              ry={2}
-              stroke="2"
-              strokeLinejoin="round"
-              width={orientation == "horizontal" ? `${value * 100}%` : "100%"}
-              height={orientation == "vertical" ? `${value * 100}%` : "100%"}
-              y={orientation == "vertical" ? `${value * 100}%` : 0}
-            />
-          )}
-        </svg>
+      <div
+        className={`border-2 rounded-md border-primary p-1 w-full h-full ${barWidth} flex`}
+      >
+        {orientation === "horizontal" && <HorizontalSlider value={value} />}
+        {orientation === "vertical" && <VerticalSlider value={value} />}
       </div>
-    </DragListener>
+    </ControlBase>
+  );
+};
+
+const HorizontalSlider = (props: { value: number }) => {
+  return (
+    <div
+      className={`bg-secondary h-full rounded-sm`}
+      style={{ width: `${props.value * 100}%` }}
+    ></div>
+  );
+};
+
+const VerticalSlider = (props: { value: number }) => {
+  return (
+    <div
+      className={`bg-secondary w-full rounded-sm self-end`}
+      style={{ height: `${props.value * 100}%` }}
+    ></div>
   );
 };
 
