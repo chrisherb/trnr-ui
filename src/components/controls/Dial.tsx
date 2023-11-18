@@ -6,8 +6,13 @@ interface InternalDialProps extends ExternalControlBaseProps {
   lineOffset?: number;
 }
 
-const Dial = ({ lineOffset = 0.1, onChange, ...props }: InternalDialProps) => {
-  const [value, setValue] = useState(0);
+const Dial = ({
+  lineOffset = 0.1,
+  onChange,
+  defaultValue,
+  ...props
+}: InternalDialProps) => {
+  const [value, setValue] = useState(defaultValue);
   const [radius, setRadius] = useState(0);
   const [strokeWidth, setStrokeWidth] = useState(2);
   const [lineCoordinates, setLineCoordinates] = useState({
@@ -46,7 +51,12 @@ const Dial = ({ lineOffset = 0.1, onChange, ...props }: InternalDialProps) => {
   };
 
   return (
-    <ControlBase value={value} onChange={handleOnChange} {...props}>
+    <ControlBase
+      value={value}
+      defaultValue={defaultValue}
+      onChange={handleOnChange}
+      {...props}
+    >
       <svg
         className="grow"
         xmlns="<http://www.w3.org/2000/svg>"

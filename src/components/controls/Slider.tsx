@@ -15,9 +15,10 @@ const Slider = ({
   orientation = "horizontal",
   width,
   gear = 400,
+  defaultValue,
   ...props
 }: InternalSliderBaseProps) => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(defaultValue);
 
   let barWidth = "";
 
@@ -41,6 +42,7 @@ const Slider = ({
       onChange={handleOnChange}
       gear={gear}
       orientation={orientation}
+      defaultValue={defaultValue}
       {...props}
     >
       <div
