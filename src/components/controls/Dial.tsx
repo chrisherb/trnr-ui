@@ -39,7 +39,11 @@ const Dial = ({
 
   return (
     <ControlBase value={value} onChange={handleOnChange} {...props}>
-      <svg xmlns="<http://www.w3.org/2000/svg>" viewBox={`0 0 ${size} ${size}`}>
+      <svg
+        className="grow"
+        xmlns="<http://www.w3.org/2000/svg>"
+        viewBox={`0 0 ${size} ${size}`}
+      >
         <circle
           vectorEffect={"non-scaling-stroke"}
           className="stroke-primary"
