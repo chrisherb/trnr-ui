@@ -11,13 +11,13 @@ export interface ExternalControlBaseProps
   gear?: number;
   onChange: (value: number) => void;
   onMouseDown?: (mouseDown: boolean) => void;
-  orientation?: "horizontal" | "vertical";
 }
 
 interface InternalControlBaseProps
   extends ExternalControlBaseProps,
     React.PropsWithChildren {
   value: number;
+  orientation?: "horizontal" | "vertical";
 }
 
 const ControlBase = ({
@@ -64,7 +64,11 @@ const ControlBase = ({
   };
 
   return (
-    <div onMouseDown={handleMouseDown} onDoubleClick={handleDoubleClick}>
+    <div
+      className="flex flex-col h-full w-full"
+      onMouseDown={handleMouseDown}
+      onDoubleClick={handleDoubleClick}
+    >
       <Label {...props} value={value} />
       {children}
       <Value {...props} value={value} />

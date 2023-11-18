@@ -2,19 +2,19 @@ import { useState } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 
 interface InternalDialProps extends ExternalControlBaseProps {
-  size: number;
   strokeWidth?: number;
   lineOffset?: number;
 }
 
 const Dial = ({
-  size,
   strokeWidth = 2,
   lineOffset = 0.1,
   onChange,
   ...props
 }: InternalDialProps) => {
   const [value, setValue] = useState(0);
+
+  const size = 100;
 
   const radius = size / 2 - strokeWidth;
   const gap = 0.25;
@@ -39,33 +39,28 @@ const Dial = ({
 
   return (
     <ControlBase value={value} onChange={handleOnChange} {...props}>
-      <div className="w-32 h-32">
-        <svg
-          xmlns="<http://www.w3.org/2000/svg>"
-          viewBox={`0 0 ${size} ${size}`}
-        >
-          <circle
-            vectorEffect={"non-scaling-stroke"}
-            className="stroke-primary"
-            r={radius}
-            cx={size / 2}
-            cy={size / 2}
-            fill="none"
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-          />
-          <line
-            vectorEffect={"non-scaling-stroke"}
-            className="stroke-secondary"
-            x1={lineX1}
-            y1={lineY1}
-            x2={lineX2}
-            y2={lineY2}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-          />
-        </svg>
-      </div>
+      <svg xmlns="<http://www.w3.org/2000/svg>" viewBox={`0 0 ${size} ${size}`}>
+        <circle
+          vectorEffect={"non-scaling-stroke"}
+          className="stroke-primary"
+          r={radius}
+          cx={size / 2}
+          cy={size / 2}
+          fill="none"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+        />
+        <line
+          vectorEffect={"non-scaling-stroke"}
+          className="stroke-secondary"
+          x1={lineX1}
+          y1={lineY1}
+          x2={lineX2}
+          y2={lineY2}
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+        />
+      </svg>
     </ControlBase>
   );
 };
