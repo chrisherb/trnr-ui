@@ -14,45 +14,77 @@ const Grid = ({
 }: GridProps) => {
   const borderStyle = hasBorder ? "border-2 rounded-md border-primary p-4" : "";
 
-  let colStyle;
-
-  switch (columns) {
-    case 1:
-      colStyle = "grid-cols-1";
-      break;
-    case 2:
-      colStyle = "grid-cols-2";
-      break;
-    case 3:
-      colStyle = "grid-cols-3";
-      break;
-    case 4:
-      colStyle = "grid-cols-4";
-      break;
-  }
-
-  let rowStyle;
-
-  switch (rows) {
-    case 1:
-      rowStyle = "grid-rows-1";
-      break;
-    case 2:
-      rowStyle = "grid-rows-2";
-      break;
-    case 3:
-      rowStyle = "grid-rows-3";
-      break;
-    case 4:
-      rowStyle = "grid-rows-4";
-      break;
-  }
-
   return (
-    <div className={`grid ${colStyle} ${rowStyle} gap-4 h-full ${borderStyle}`}>
+    <div
+      className={`grid ${getColStyle(columns)} ${getRowStyle(
+        rows
+      )} gap-4 h-full ${borderStyle}`}
+    >
       {children}
     </div>
   );
+};
+
+const getColStyle = (cols: number): string => {
+  switch (cols) {
+    case 1:
+      return "grid-cols-1";
+    case 2:
+      return "grid-cols-2";
+    case 3:
+      return "grid-cols-3";
+    case 4:
+      return "grid-cols-4";
+    case 5:
+      return "grid-cols-5";
+    case 6:
+      return "grid-cols-6";
+    case 7:
+      return "grid-cols-7";
+    case 8:
+      return "grid-cols-8";
+    case 9:
+      return "grid-cols-9";
+    case 10:
+      return "grid-cols-10";
+    case 11:
+      return "grid-cols-11";
+    case 12:
+      return "grid-cols-12";
+    default:
+      return "";
+  }
+};
+
+const getRowStyle = (rows: number): string => {
+  switch (rows) {
+    case 1:
+      return "grid-rows-1";
+    case 2:
+      return "grid-rows-2";
+    case 3:
+      return "grid-rows-3";
+    case 4:
+      return "grid-rows-4";
+    case 5:
+      return "grid-rows-5";
+    case 6:
+      return "grid-rows-6";
+    case 7:
+      return "grid-rows-7";
+    case 8:
+      return "grid-rows-8";
+    case 9:
+      return "grid-rows-9";
+    case 10:
+      return "grid-rows-10";
+    case 11:
+      return "grid-rows-11";
+    case 12:
+      return "grid-rows-12";
+    default:
+      return "";
+  }
 };
 
 export default Grid;
