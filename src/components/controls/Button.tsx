@@ -6,7 +6,11 @@ export interface ButtonProps {
 }
 
 const Button = ({ label, onClick }: ButtonProps) => {
-  return <Frame onClick={onClick}>{label}</Frame>;
+  return (
+    <Frame isButton onClick={onClick}>
+      {label}
+    </Frame>
+  );
 };
 
 export default Button;
