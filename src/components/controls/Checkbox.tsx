@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ButtonProps } from "./Button";
+import Frame from "./Frame";
 
 interface StateButtonProps extends ButtonProps {}
 
@@ -19,12 +20,9 @@ const Checkbox = ({ label, onClick }: StateButtonProps) => {
         className="hidden"
         onChange={(ev) => setChecked(ev.target.checked)}
       />
-      <div
-        className="border-global flex-grow rounded-md border-primary p-global"
-        onClick={handleClick}
-      >
+      <Frame onClick={handleClick}>
         {checked && <div className="w-full h-full rounded-sm bg-secondary" />}
-      </div>
+      </Frame>
     </label>
   );
 };

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
+import Frame from "./Frame";
 
 interface InternalSliderBaseProps extends ExternalControlBaseProps {
   polarity?: "uni" | "bi";
@@ -45,12 +46,10 @@ const Slider = ({
       defaultValue={defaultValue}
       {...props}
     >
-      <div
-        className={`border-global rounded-md border-primary p-global w-full h-full flex`}
-      >
+      <Frame>
         {orientation === "horizontal" && <HorizontalSlider value={value} />}
         {orientation === "vertical" && <VerticalSlider value={value} />}
-      </div>
+      </Frame>
     </ControlBase>
   );
 };

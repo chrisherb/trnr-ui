@@ -8,7 +8,7 @@ import Checkbox from "./components/controls/Checkbox";
 
 function App() {
   return (
-    <Trnr thickness={2}>
+    <Trnr thickness={3}>
       <Grid rows={3} columns={4}>
         <GridCell>
           <Dial defaultValue={0.5} label="Dial" onChange={() => null} />
