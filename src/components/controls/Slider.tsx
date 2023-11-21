@@ -46,7 +46,7 @@ const Slider = ({
       defaultValue={defaultValue}
       {...props}
     >
-      <Frame>
+      <Frame className="flex align-bottom">
         {orientation === "horizontal" && <HorizontalSlider value={value} />}
         {orientation === "vertical" && <VerticalSlider value={value} />}
       </Frame>
