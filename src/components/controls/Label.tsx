@@ -32,12 +32,12 @@ const Label = ({
       : "text-right";
 
   return (
-    <div className={`select-none ${horizontalAlignment}`}>
+    <label className={`select-none ${horizontalAlignment}`}>
       {!showValueOnLabel && label}
       {showValueOnLabel &&
         value != undefined &&
         adjustedValue.toFixed(decimals) + " " + suffix}
-    </div>
+    </label>
   );
 };
 
