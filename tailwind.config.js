@@ -6,12 +6,18 @@ export default {
       primary: "var(--color-primary)",
       secondary: "var(--color-secondary)",
       background: "var(--color-background)",
+      transparent: "rgba(0, 0, 0, 0)",
     },
     borderWidth: {
       global: "var(--border-width)",
     },
     strokeWidth: { global: "var(--border-width)" },
+    outlineWidth: {
+      global: "var(--border-width)",
+    },
+    padding: {
+      global: "calc(var(--border-width) * 1.5)",
+    },
     extend: {},
   },
-  plugins: [],
 };

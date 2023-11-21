@@ -25,7 +25,7 @@ const Dial = ({
   const SIZE = 100;
 
   useEffect(() => {
-    if (context.strokeWidth) setStrokeWidth(context.strokeWidth);
+    if (context.thickness) setStrokeWidth(context.thickness);
     setRadius(SIZE / 2 - strokeWidth);
     const gap = 0.25;
 
@@ -43,7 +43,7 @@ const Dial = ({
     const lineY2 = SIZE / 2 + radius * Math.sin(theta2);
 
     setLineCoordinates({ x1: lineX1, y1: lineY1, x2: lineX2, y2: lineY2 });
-  }, [lineOffset, value, radius, strokeWidth, context.strokeWidth]);
+  }, [lineOffset, value, radius, strokeWidth, context.thickness]);
 
   const handleOnChange = (v: number) => {
     onChange(v);

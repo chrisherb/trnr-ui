@@ -2,7 +2,7 @@ import { PropsWithChildren, createContext, useEffect } from "react";
 
 export interface TrnrProps extends PropsWithChildren {
   colors?: { primary: string; secondary: string; background: string };
-  strokeWidth?: number;
+  thickness?: number;
 }
 
 const defaultProps = {
@@ -14,7 +14,7 @@ export const TrnrContext = createContext<TrnrProps>(defaultProps);
 
 const Trnr = ({
   colors = defaultProps.colors,
-  strokeWidth = defaultProps.strokeWidth,
+  thickness: strokeWidth = defaultProps.strokeWidth,
   children,
 }: TrnrProps) => {
   useEffect(() => {
@@ -26,7 +26,7 @@ const Trnr = ({
   }, [colors.background, colors.primary, colors.secondary, strokeWidth]);
 
   return (
-    <TrnrContext.Provider value={{ colors, strokeWidth }}>
+    <TrnrContext.Provider value={{ colors, thickness: strokeWidth }}>
       <div className="h-screen w-screen bg-background">
         <div className="h-full w-full mx-auto">{children}</div>
       </div>
