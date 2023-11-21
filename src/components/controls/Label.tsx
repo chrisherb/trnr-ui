@@ -32,7 +32,7 @@ const Label = ({
       : "text-right";
 
   return (
-    <div className={`text-secondary select-none ${horizontalAlignment}`}>
+    <div className={`select-none ${horizontalAlignment}`}>
       {!showValueOnLabel && label}
       {showValueOnLabel &&
         value != undefined &&

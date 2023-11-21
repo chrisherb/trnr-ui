@@ -28,7 +28,7 @@ const Value = ({
       : "text-right";
 
   return (
-    <div className={`text-secondary select-none ${horizontalAlignment}`}>
+    <div className={`select-none ${horizontalAlignment}`}>
       {adjustedValue.toFixed(decimals) + " " + suffix}
     </div>
   );
