@@ -16,7 +16,7 @@ export default {
       global: "var(--border-width)",
     },
     padding: {
-      global: "calc(var(--border-width) * 1.5)",
+      global: "calc(var(--border-width))",
     },
     extend: {},
   },
