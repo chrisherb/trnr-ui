@@ -4,10 +4,11 @@ import GridCell from "./components/layout/GridCell";
 import Slider from "./components/controls/Slider";
 import Dial from "./components/controls/Dial";
 import Button from "./components/controls/Button";
+import Checkbox from "./components/controls/Checkbox";
 
 function App() {
   return (
-    <Trnr strokeWidth={2}>
+    <Trnr thickness={2}>
       <Grid rows={3} columns={4}>
         <GridCell>
           <Dial defaultValue={0.5} label="Dial" onChange={() => null} />
@@ -24,7 +25,9 @@ function App() {
         <GridCell>
           <Button label="Click" />
         </GridCell>
-        <GridCell></GridCell>
+        <GridCell>
+          <Checkbox label="State" />
+        </GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
