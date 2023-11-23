@@ -9,9 +9,9 @@ interface StackProps extends PropsWithChildren {
 const Stack = ({ style = "default", header, footer, children }: StackProps) => {
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="h-8 uppercase text-center">{header}</div>
+      <div className="h-7 shrink-0 uppercase text-center">{header}</div>
       {children}
-      <div className="h-8 uppercase text-center">
+      <div className="h-7 shrink-0 uppercase text-center">
         {style == "default" && footer}
       </div>
     </div>
