@@ -10,7 +10,9 @@ const Button = ({ label, onClick }: ButtonProps) => {
   return (
     <Stack>
       <Frame isButton onClick={onClick}>
-        <span className="uppercase">{label}</span>
+        <div className="hover:bg-secondary hover:text-background w-full h-full uppercase grid justify-center content-center">
+          {label}
+        </div>
       </Frame>
     </Stack>
   );
