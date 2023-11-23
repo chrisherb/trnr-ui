@@ -1,4 +1,5 @@
 import { PropsWithChildren, createContext, useEffect } from "react";
+import "@fontsource/jura/700.css";
 
 export interface TrnrProps extends PropsWithChildren {
   colors?: { primary: string; secondary: string; background: string };
@@ -27,7 +28,7 @@ const Trnr = ({
 
   return (
     <TrnrContext.Provider value={{ colors, thickness: strokeWidth }}>
-      <div className="h-screen w-screen bg-background font-sans text-base">
+      <div className="h-screen w-screen bg-background font-sans text-lg">
         <div className="h-full w-full mx-auto text-secondary">{children}</div>
       </div>
     </TrnrContext.Provider>

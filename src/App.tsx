@@ -9,7 +9,7 @@ import Checkbox from "./components/controls/Checkbox";
 function App() {
   return (
     <Trnr thickness={3}>
-      <Grid rows={3} columns={12}>
+      <Grid rows={3} columns={12} hasGap>
         <GridCell colSpan={2}>
           <Dial defaultValue={0.5} label="Dial" onChange={() => null} />
         </GridCell>
@@ -23,16 +23,40 @@ function App() {
           />
         </GridCell>
         <GridCell>
-          <Button label="Click" />
+          <Grid rows={2} columns={1}>
+            <Button label="Button" />
+            <Checkbox label="Checkbox" />
+          </Grid>
         </GridCell>
         <GridCell>
-          <Checkbox label="State" />
+          <Grid rows={2} columns={1}>
+            <Button label="Button" />
+            <Button label="Button" />
+          </Grid>
+        </GridCell>
+        <GridCell>
+          <Grid rows={2} columns={1}>
+            <Button label="Button" />
+            <Button label="Button" />
+          </Grid>
         </GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell>
+          <Slider
+            defaultValue={0.5}
+            label="Slider"
+            orientation="vertical"
+            onChange={() => null}
+            width={32}
+          />
+        </GridCell>
       </Grid>
     </Trnr>
   );
