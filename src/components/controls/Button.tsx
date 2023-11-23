@@ -1,4 +1,5 @@
 import Frame from "./Frame";
+import Stack from "./Stack";
 
 export interface ButtonProps {
   label: string;
@@ -7,9 +8,11 @@ export interface ButtonProps {
 
 const Button = ({ label, onClick }: ButtonProps) => {
   return (
-    <Frame isButton onClick={onClick}>
-      {label}
-    </Frame>
+    <Stack>
+      <Frame isButton onClick={onClick}>
+        <span className="uppercase">{label}</span>
+      </Frame>
+    </Stack>
   );
 };
 

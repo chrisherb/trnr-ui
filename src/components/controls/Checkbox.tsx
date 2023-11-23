@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ButtonProps } from "./Button";
 import Frame from "./Frame";
+import Stack from "./Stack";
 
 interface StateButtonProps extends ButtonProps {}
 
@@ -13,8 +14,7 @@ const Checkbox = ({ label, onClick }: StateButtonProps) => {
   };
 
   return (
-    <label className="w-full h-full flex flex-col">
-      <span className={`text-secondary`}>{label}</span>
+    <Stack header={<span className={`text-secondary`}>{label}</span>}>
       <input
         type="checkbox"
         className="hidden"
@@ -23,7 +23,7 @@ const Checkbox = ({ label, onClick }: StateButtonProps) => {
       <Frame onClick={handleClick}>
         {checked && <div className="w-full h-full rounded-sm bg-secondary" />}
       </Frame>
-    </label>
+    </Stack>
   );
 };
 

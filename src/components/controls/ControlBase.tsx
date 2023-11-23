@@ -1,8 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  Children,
+  ReactElement,
+  cloneElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { clamp } from "../util/Math";
 import { useMouse as useMouse } from "../hooks/useMouse";
 import Label, { ExternalLabelProps } from "./Label";
 import Value, { ExternalValueProps } from "./Value";
+import Stack from "./Stack";
 
 export interface ExternalControlBaseProps
   extends ExternalLabelProps,
@@ -64,15 +72,17 @@ const ControlBase = ({
   };
 
   return (
-    <div
-      className="flex flex-col h-full w-full"
-      onMouseDown={handleMouseDown}
-      onDoubleClick={handleDoubleClick}
+    <Stack
+      header={<Label {...props} value={value} />}
+      footer={<Value {...props} value={value} />}
     >
-      <Label {...props} value={value} />
-      {children}
-      <Value {...props} value={value} />
-    </div>
+      {Children.map(children, (child) => {
+        return cloneElement(child as ReactElement, {
+          onMouseDown: handleMouseDown,
+          onDoubleClick: handleDoubleClick,
+        });
+      })}
+    </Stack>
   );
 };
 
