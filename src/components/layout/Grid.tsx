@@ -18,7 +18,7 @@ const Grid = ({
     <div
       className={`grid ${getColStyle(columns)} ${getRowStyle(
         rows
-      )} gap-4 h-full ${borderStyle}`}
+      )} h-full gap-x-7 ${borderStyle}`}
     >
       {children}
     </div>
