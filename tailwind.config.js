@@ -17,6 +17,7 @@ export default {
     },
     padding: {
       global: "calc(var(--border-width))",
+      1: "1rem",
     },
     fontFamily: {
       sans: ["Jura"],

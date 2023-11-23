@@ -18,7 +18,7 @@ const Frame = ({
 
   if (isButton) {
     return (
-      <button className={classNames} {...props}>
+      <button type="button" className={classNames} {...props}>
         {children}
       </button>
     );

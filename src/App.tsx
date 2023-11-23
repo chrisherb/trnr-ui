@@ -5,11 +5,12 @@ import Slider from "./components/controls/Slider";
 import Dial from "./components/controls/Dial";
 import Button from "./components/controls/Button";
 import Checkbox from "./components/controls/Checkbox";
+import Dropdown from "./components/controls/Dropdown";
 
 function App() {
   return (
     <Trnr thickness={3}>
-      <Grid rows={3} columns={12} hasGap>
+      <Grid rows={3} columns={10}>
         <GridCell colSpan={2}>
           <Dial defaultValue={0.5} label="Dial" onChange={() => null} />
         </GridCell>
@@ -28,21 +29,14 @@ function App() {
             <Checkbox label="Checkbox" />
           </Grid>
         </GridCell>
-        <GridCell>
+        <GridCell colSpan={2}>
           <Grid rows={2} columns={1}>
-            <Button label="Button" />
-            <Button label="Button" />
+            <Dropdown
+              label="Dropdown"
+              options={["option 1", "option 2", "option 3"]}
+            />
           </Grid>
         </GridCell>
-        <GridCell>
-          <Grid rows={2} columns={1}>
-            <Button label="Button" />
-            <Button label="Button" />
-          </Grid>
-        </GridCell>
-        <GridCell></GridCell>
-        <GridCell></GridCell>
-        <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
@@ -57,6 +51,10 @@ function App() {
             width={32}
           />
         </GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
+        <GridCell></GridCell>
       </Grid>
     </Trnr>
   );
