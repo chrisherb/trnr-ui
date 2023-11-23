@@ -28,7 +28,7 @@ const Trnr = ({
 
   return (
     <TrnrContext.Provider value={{ colors, thickness: strokeWidth }}>
-      <div className="h-screen w-screen bg-background font-sans text-lg">
+      <div className="h-screen w-screen bg-background font-sans text-lg crt">
         <div className="h-full w-full mx-auto text-secondary">{children}</div>
       </div>
     </TrnrContext.Provider>
