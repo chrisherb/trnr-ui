@@ -25,7 +25,7 @@ const Dropdown = ({ label, options }: DropdownProps) => {
               <Listbox.Option
                 key={index}
                 value={option}
-                className="flex-grow hover:bg-secondary hover:text-background flex content-center"
+                className="flex-grow hover:bg-secondary hover:text-background rounded-sm flex content-center"
               >
                 {option}
               </Listbox.Option>
