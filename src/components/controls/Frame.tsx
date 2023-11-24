@@ -14,7 +14,7 @@ const Frame = ({
   children,
   ...props
 }: FrameProps) => {
-  const classNames = `border-global w-full h-full rounded-global border-primary p-thickness ${className}`;
+  const classNames = `border-global w-full h-full rounded-global border-primary p-thickness-1 ${className}`;
 
   if (isButton) {
     return (

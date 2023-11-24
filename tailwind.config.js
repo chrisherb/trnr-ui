@@ -10,7 +10,8 @@ export default {
     },
     strokeWidth: { global: "var(--trnr-thickness)" },
     padding: {
-      thickness: "var(--trnr-thickness)",
+      "thickness-1": "var(--trnr-thickness)",
+      "thickness-2": "calc(var(--trnr-thickness) * 2)",
       1: "1rem",
     },
     borderRadius: {
