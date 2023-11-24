@@ -1,39 +1,41 @@
 import { PropsWithChildren, createContext, useEffect } from "react";
 import "@fontsource/jura/700.css";
 
-export interface TrnrProps extends PropsWithChildren {
-  colors?: { primary: string; secondary: string; background: string };
-  thickness?: number;
-  crt?: boolean;
-}
-
-const defaultProps = {
+const defaultTheme: TrnrTheme = {
   colors: { primary: "#F55A50", secondary: "#87DEAA", background: "#000000" },
-  strokeWidth: 2,
+  thickness: 2,
   crt: false,
 };
 
-export const TrnrContext = createContext<TrnrProps>(defaultProps);
+export const TrnrContext = createContext<TrnrTheme>(defaultTheme);
 
-const Trnr = ({
-  colors = defaultProps.colors,
-  thickness: strokeWidth = defaultProps.strokeWidth,
-  crt,
-  children,
-}: TrnrProps) => {
+export type TrnrTheme = {
+  crt?: boolean;
+  colors?: { primary: string; secondary: string; background: string };
+  thickness?: number;
+};
+
+interface TrnrProps extends PropsWithChildren {
+  theme?: TrnrTheme;
+}
+
+const Trnr = ({ theme = defaultTheme, children }: TrnrProps) => {
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty("--color-primary", colors.primary);
-    root.style.setProperty("--color-secondary", colors.secondary);
-    root.style.setProperty("--color-background", colors.background);
-    root.style.setProperty("--border-width", `${strokeWidth}px`);
-  }, [colors.background, colors.primary, colors.secondary, strokeWidth]);
+    if (theme.colors) {
+      root.style.setProperty("--color-primary", theme.colors.primary);
+      root.style.setProperty("--color-secondary", theme.colors.secondary);
+      root.style.setProperty("--color-background", theme.colors.background);
+    }
+    theme.thickness &&
+      root.style.setProperty("--border-width", `${theme.thickness}px`);
+  }, [theme.colors, theme.thickness]);
 
   return (
-    <TrnrContext.Provider value={{ colors, thickness: strokeWidth }}>
+    <TrnrContext.Provider value={theme}>
       <div
         className={`h-screen w-screen bg-background font-sans text-lg ${
-          crt && "crt"
+          theme.crt && "crt"
         }`}
       >
         <div className="h-full w-full mx-auto text-secondary">{children}</div>
