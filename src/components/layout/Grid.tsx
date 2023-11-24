@@ -12,7 +12,9 @@ const Grid = ({
   columns,
   borderEnabled: hasBorder = false,
 }: GridProps) => {
-  const borderStyle = hasBorder ? "border-2 rounded-md border-primary p-4" : "";
+  const borderStyle = hasBorder
+    ? "border-2 rounded-global border-primary p-4"
+    : "";
 
   return (
     <div

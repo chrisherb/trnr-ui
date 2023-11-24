@@ -46,10 +46,12 @@ const Slider = ({
       defaultValue={defaultValue}
       {...props}
     >
-      <Frame className="flex align-bottom">
+      <div
+        className={`flex rounded-global outline outline-global outline-primary outline-offset-global m-thickness-2 h-full`}
+      >
         {orientation === "horizontal" && <HorizontalSlider value={value} />}
         {orientation === "vertical" && <VerticalSlider value={value} />}
-      </Frame>
+      </div>
     </ControlBase>
   );
 };
@@ -57,7 +59,7 @@ const Slider = ({
 const HorizontalSlider = (props: { value: number }) => {
   return (
     <div
-      className={`bg-secondary h-full rounded-sm`}
+      className={`bg-secondary h-full rounded-global`}
       style={{ width: `${props.value * 100}%` }}
     ></div>
   );
@@ -66,7 +68,7 @@ const HorizontalSlider = (props: { value: number }) => {
 const VerticalSlider = (props: { value: number }) => {
   return (
     <div
-      className={`bg-secondary w-full rounded-sm self-end`}
+      className={`bg-secondary w-full rounded-global self-end`}
       style={{ height: `${props.value * 100}%` }}
     ></div>
   );

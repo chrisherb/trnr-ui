@@ -9,7 +9,7 @@ import Dropdown from "./components/controls/Dropdown";
 
 function App() {
   return (
-    <Trnr theme={{ thickness: 3, crt: true }}>
+    <Trnr theme={{ crt: true, thickness: 0.2, roundness: 0.1 }}>
       <Grid rows={3} columns={10}>
         <GridCell colSpan={2}>
           <Dial defaultValue={0.5} label="Dial" onChange={() => null} />

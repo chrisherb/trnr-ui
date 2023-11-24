@@ -1,4 +1,3 @@
-import Frame from "./Frame";
 import Stack from "./Stack";
 
 export interface ButtonProps {
@@ -9,11 +8,12 @@ export interface ButtonProps {
 const Button = ({ label, onClick }: ButtonProps) => {
   return (
     <Stack>
-      <Frame isButton onClick={onClick}>
-        <div className="hover:bg-secondary hover:text-background w-full h-full uppercase grid justify-center content-center rounded-sm">
-          {label}
-        </div>
-      </Frame>
+      <button
+        onClick={onClick}
+        className="uppercase rounded-global outline outline-global outline-primary outline-offset-global m-thickness-2 grow hover:bg-secondary hover:text-background"
+      >
+        {label}
+      </button>
     </Stack>
   );
 };

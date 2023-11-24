@@ -26,7 +26,7 @@ const Dial = ({
 
   useEffect(() => {
     if (context.thickness) setStrokeWidth(context.thickness);
-    setRadius(SIZE / 2 - strokeWidth);
+    setRadius(SIZE / 2 - strokeWidth * 2);
     const gap = 0.25;
 
     // Calculate the inner coordinates of the line
