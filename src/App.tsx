@@ -9,7 +9,7 @@ import Dropdown from "./components/controls/Dropdown";
 
 function App() {
   return (
-    <Trnr thickness={3}>
+    <Trnr thickness={3} crt>
       <Grid rows={3} columns={10}>
         <GridCell colSpan={2}>
           <Dial defaultValue={0.5} label="Dial" onChange={() => null} />

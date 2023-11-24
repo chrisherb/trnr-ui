@@ -4,11 +4,13 @@ import "@fontsource/jura/700.css";
 export interface TrnrProps extends PropsWithChildren {
   colors?: { primary: string; secondary: string; background: string };
   thickness?: number;
+  crt?: boolean;
 }
 
 const defaultProps = {
   colors: { primary: "#F55A50", secondary: "#87DEAA", background: "#000000" },
   strokeWidth: 2,
+  crt: false,
 };
 
 export const TrnrContext = createContext<TrnrProps>(defaultProps);
@@ -16,6 +18,7 @@ export const TrnrContext = createContext<TrnrProps>(defaultProps);
 const Trnr = ({
   colors = defaultProps.colors,
   thickness: strokeWidth = defaultProps.strokeWidth,
+  crt,
   children,
 }: TrnrProps) => {
   useEffect(() => {
@@ -28,7 +31,11 @@ const Trnr = ({
 
   return (
     <TrnrContext.Provider value={{ colors, thickness: strokeWidth }}>
-      <div className="h-screen w-screen bg-background font-sans text-lg crt">
+      <div
+        className={`h-screen w-screen bg-background font-sans text-lg ${
+          crt && "crt"
+        }`}
+      >
         <div className="h-full w-full mx-auto text-secondary">{children}</div>
       </div>
     </TrnrContext.Provider>
