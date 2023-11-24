@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
-import { TrnrContext, TrnrProps } from "../layout/Trnr";
+import { TrnrContext } from "../layout/Trnr";
 
 interface InternalDialProps extends ExternalControlBaseProps {
   lineOffset?: number;
@@ -21,7 +21,7 @@ const Dial = ({
     x2: 0,
     y2: 0,
   });
-  const context = useContext(TrnrContext) as TrnrProps;
+  const context = useContext(TrnrContext);
   const SIZE = 100;
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const Dial = ({
         />
         <line
           vectorEffect={"non-scaling-stroke"}
-          className="stroke-secondary"
+          className="stroke-secondary stroke-global"
           x1={lineCoordinates.x1}
           y1={lineCoordinates.y1}
           x2={lineCoordinates.x2}
