@@ -40,3 +40,5 @@ npm run dev
 - Grid
 - GridCell
 - Button
+- Checkbox
+- Dropdown
