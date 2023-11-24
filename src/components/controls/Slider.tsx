@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
-import Frame from "./Frame";
 
 interface InternalSliderBaseProps extends ExternalControlBaseProps {
   polarity?: "uni" | "bi";
