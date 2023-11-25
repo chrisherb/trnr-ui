@@ -1,5 +1,5 @@
-import { Listbox } from "@headlessui/react";
-import { useState } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
 
 interface DropdownProps {
   options: string[];
@@ -17,17 +17,27 @@ const Dropdown = ({ options }: DropdownProps) => {
           </Listbox.Button>
         </div>
         <div className="absolute p-thickness-2 w-full z-50 ">
-          <Listbox.Options className="bg-background rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background w-full mt-2 uppercase flex flex-col justify-center">
-            {options.map((option, index) => (
-              <Listbox.Option
-                key={index}
-                value={option}
-                className="flex-grow hover:bg-secondary hover:text-background rounded-global flex content-center p-thickness-1"
-              >
-                {option}
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
+          <Transition
+            as={Fragment}
+            leave="transition ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            enter="transition ease-in duration-100"
+          >
+            <Listbox.Options className="bg-background rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background w-full mt-2 uppercase flex flex-col justify-center">
+              {options.map((option, index) => (
+                <Listbox.Option
+                  key={index}
+                  value={option}
+                  className="flex-grow hover:bg-secondary hover:text-background rounded-global flex content-center p-thickness-1"
+                >
+                  {option}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Transition>
         </div>
       </div>
     </Listbox>
