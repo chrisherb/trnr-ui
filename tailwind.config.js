@@ -20,11 +20,16 @@ export default {
     fontFamily: {
       sans: ["Jura"],
     },
-    outlineWidth: {
+    ringWidth: {
       global: "var(--trnr-thickness)",
     },
-    outlineOffset: {
+    ringOffsetWidth: {
       global: "var(--trnr-thickness)",
+    },
+    ringOffsetColor: {
+      primary: "var(--trnr-color-primary)",
+      secondary: "var(--trnr-color-secondary)",
+      background: "var(--trnr-color-background)",
     },
     extend: {
       margin: {

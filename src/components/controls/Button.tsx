@@ -10,7 +10,7 @@ const Button = ({ label, onClick }: ButtonProps) => {
     <Stack>
       <button
         onClick={onClick}
-        className="uppercase rounded-global outline outline-global outline-primary outline-offset-global m-thickness-2 grow hover:bg-secondary hover:text-background"
+        className="uppercase rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background m-thickness-2 grow hover:bg-secondary hover:text-background"
       >
         {label}
       </button>

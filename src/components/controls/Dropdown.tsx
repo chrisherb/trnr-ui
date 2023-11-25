@@ -15,12 +15,12 @@ const Dropdown = ({ label, options }: DropdownProps) => {
       <Listbox value={selectedOption} onChange={setSelectedOption}>
         <div className="relative w-full h-full">
           <div className="w-full h-full flex">
-            <Listbox.Button className="block truncate rounded-global outline outline-global outline-primary outline-offset-global m-thickness-2 grow hover:bg-secondary hover:text-background uppercase">
+            <Listbox.Button className="block truncate rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background m-thickness-2 grow hover:bg-secondary hover:text-background uppercase">
               {selectedOption}
             </Listbox.Button>
           </div>
           <div className="absolute p-thickness-2 w-full z-50 ">
-            <Listbox.Options className="bg-background rounded-global outline outline-global outline-primary outline-offset-global w-full mt-4 uppercase flex flex-col justify-center">
+            <Listbox.Options className="bg-background rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background w-full mt-4 uppercase flex flex-col justify-center">
               {options.map((option, index) => (
                 <Listbox.Option
                   key={index}

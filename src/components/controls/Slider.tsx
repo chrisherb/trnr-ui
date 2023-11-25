@@ -46,7 +46,7 @@ const Slider = ({
       {...props}
     >
       <div
-        className={`flex rounded-global outline outline-global outline-primary outline-offset-global m-thickness-2 h-full`}
+        className={`flex rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background m-thickness-2 h-full`}
       >
         {orientation === "horizontal" && <HorizontalSlider value={value} />}
         {orientation === "vertical" && <VerticalSlider value={value} />}
