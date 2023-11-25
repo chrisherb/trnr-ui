@@ -38,6 +38,7 @@ function App() {
             <Dropdown
               label="Dropdown"
               options={["option 1", "option 2", "option 3"]}
+              stackOrientation="horizontal"
             />
           </Grid>
         </GridCell>

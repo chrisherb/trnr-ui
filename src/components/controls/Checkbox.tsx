@@ -2,9 +2,15 @@ import { useState } from "react";
 import { ButtonProps } from "./Button";
 import Stack from "./Stack";
 
-interface StateButtonProps extends ButtonProps {}
+interface StateButtonProps extends ButtonProps {
+  stackOrientation?: "horizontal" | "vertical";
+}
 
-const Checkbox = ({ label, onClick }: StateButtonProps) => {
+const Checkbox = ({
+  label,
+  onClick,
+  stackOrientation = "vertical",
+}: StateButtonProps) => {
   const [checked, setChecked] = useState(false);
 
   const handleClick = () => {
@@ -13,7 +19,10 @@ const Checkbox = ({ label, onClick }: StateButtonProps) => {
   };
 
   return (
-    <Stack header={<span className={`text-secondary`}>{label}</span>}>
+    <Stack
+      orientation={stackOrientation}
+      header={<span className={`text-secondary`}>{label}</span>}
+    >
       <input
         type="checkbox"
         className="hidden"

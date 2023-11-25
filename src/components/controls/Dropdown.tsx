@@ -5,13 +5,18 @@ import { useState } from "react";
 interface DropdownProps {
   label?: string;
   options: string[];
+  stackOrientation?: "horizontal" | "vertical";
 }
 
-const Dropdown = ({ label, options }: DropdownProps) => {
+const Dropdown = ({
+  label,
+  options,
+  stackOrientation = "vertical",
+}: DropdownProps) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   return (
-    <Stack header={<span>{label}</span>}>
+    <Stack header={<span>{label}</span>} orientation={stackOrientation}>
       <Listbox value={selectedOption} onChange={setSelectedOption}>
         <div className="relative w-full h-full">
           <div className="w-full h-full flex">
