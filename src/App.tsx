@@ -35,6 +35,10 @@ function App() {
               label="Dropdown"
               options={["option 1", "option 2", "option 3"]}
             />
+            <Dropdown
+              label="Dropdown"
+              options={["option 1", "option 2", "option 3"]}
+            />
           </Grid>
         </GridCell>
         <GridCell></GridCell>

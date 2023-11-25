@@ -19,13 +19,13 @@ const Dropdown = ({ label, options }: DropdownProps) => {
               {selectedOption}
             </Listbox.Button>
           </div>
-          <div className="absolute p-thickness-2 w-full">
-            <Listbox.Options className="bg-background rounded-global outline outline-global outline-primary outline-offset-global w-full p-thickness-1 mt-4 uppercase flex flex-col justify-center">
+          <div className="absolute p-thickness-2 w-full z-50 ">
+            <Listbox.Options className="bg-background rounded-global outline outline-global outline-primary outline-offset-global w-full mt-4 uppercase flex flex-col justify-center">
               {options.map((option, index) => (
                 <Listbox.Option
                   key={index}
                   value={option}
-                  className="flex-grow hover:bg-secondary hover:text-background rounded-global flex content-center"
+                  className="flex-grow hover:bg-secondary hover:text-background rounded-global flex content-center p-thickness-1"
                 >
                   {option}
                 </Listbox.Option>
