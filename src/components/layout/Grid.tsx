@@ -1,28 +1,50 @@
 import { PropsWithChildren } from "react";
+import Stack, { StackProps } from "../controls/Stack";
 
-interface GridProps extends PropsWithChildren {
+interface Spannable {
+  colSpan?: 1 | 2 | 3 | 4 | 5 | 6;
+  rowSpan?: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+interface GridProps extends Spannable, PropsWithChildren {
   rows: number;
   columns: number;
   borderEnabled?: boolean;
 }
 
-const Grid = ({
+export const Grid = ({
   children,
+  colSpan = 1,
+  rowSpan = 1,
   rows,
   columns,
-  borderEnabled: hasBorder = false,
+  borderEnabled = false,
 }: GridProps) => {
-  const borderStyle = hasBorder
-    ? "border-2 rounded-global border-primary p-4"
-    : "";
+  const borderStyle =
+    borderEnabled && "border-2 rounded-global border-primary p-4";
 
   return (
     <div
       className={`grid ${getColStyle(columns)} ${getRowStyle(
         rows
-      )} h-full gap-x-7 ${borderStyle}`}
+      )} h-full gap-x-7 ${borderStyle} ${getSpans(colSpan, rowSpan)} gap-y-2`}
     >
       {children}
+    </div>
+  );
+};
+
+interface GridCellProps extends Spannable, StackProps {}
+
+export const GridCell = ({
+  children,
+  colSpan = 1,
+  rowSpan = 1,
+  ...props
+}: GridCellProps) => {
+  return (
+    <div className={getSpans(colSpan, rowSpan)}>
+      <Stack {...props}>{children}</Stack>
     </div>
   );
 };
@@ -89,4 +111,28 @@ const getRowStyle = (rows: number): string => {
   }
 };
 
-export default Grid;
+const getSpans = (colSpan: number, rowSpan: number) => {
+  let colSpanStyle = "";
+
+  switch (colSpan) {
+    case 1:
+      colSpanStyle = "col-span-1";
+      break;
+    case 2:
+      colSpanStyle = "col-span-2";
+      break;
+  }
+
+  let rowSpanStyle = "";
+
+  switch (rowSpan) {
+    case 1:
+      rowSpanStyle = "row-span-1";
+      break;
+    case 2:
+      rowSpanStyle = "row-span-2";
+      break;
+  }
+
+  return `${colSpanStyle} ${rowSpanStyle}`;
+};

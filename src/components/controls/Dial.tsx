@@ -10,9 +10,9 @@ const Dial = ({
   lineOffset = 0.1,
   onChange,
   defaultValue,
+  value,
   ...props
 }: InternalDialProps) => {
-  const [value, setValue] = useState(defaultValue);
   const [radius, setRadius] = useState(0);
   const [strokeWidth, setStrokeWidth] = useState(2);
   const [lineCoordinates, setLineCoordinates] = useState({
@@ -47,7 +47,6 @@ const Dial = ({
 
   const handleOnChange = (v: number) => {
     onChange(v);
-    setValue(v);
   };
 
   return (

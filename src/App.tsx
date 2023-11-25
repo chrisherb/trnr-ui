@@ -1,58 +1,66 @@
 import Trnr from "./components/layout/Trnr";
-import Grid from "./components/layout/Grid";
-import GridCell from "./components/layout/GridCell";
 import Slider from "./components/controls/Slider";
 import Dial from "./components/controls/Dial";
 import Button from "./components/controls/Button";
 import Checkbox from "./components/controls/Checkbox";
 import Dropdown from "./components/controls/Dropdown";
+import { useState } from "react";
+import Value from "./components/controls/Value";
+import { Grid, GridCell } from "./components";
 
 function App() {
+  const [value, setValue] = useState(0.5);
+  const [checked, setChecked] = useState(false);
+
   return (
     <Trnr theme={{ crt: true, thickness: 0.2, roundness: 0.1 }}>
       <Grid rows={3} columns={10}>
-        <GridCell colSpan={2}>
-          <Dial defaultValue={0.5} label="Dial" onChange={() => null} />
+        <GridCell colSpan={2} header={"Dial"} footer={<Value value={value} />}>
+          <Dial value={value} onChange={setValue} defaultValue={0.5} />
         </GridCell>
-        <GridCell>
+        <GridCell header="Slider" footer={<Value value={value} />}>
           <Slider
+            value={value}
+            onChange={setValue}
             defaultValue={0.5}
-            label="Slider"
             orientation="vertical"
-            onChange={() => null}
             width={32}
           />
         </GridCell>
-        <GridCell>
-          <Grid rows={2} columns={1}>
+        <Grid rows={2} columns={1}>
+          <GridCell>
             <Button label="Button" />
-            <Checkbox label="Checkbox" />
-          </Grid>
-        </GridCell>
-        <GridCell colSpan={2}>
-          <Grid rows={2} columns={1}>
-            <Dropdown
-              label="Dropdown"
-              options={["option 1", "option 2", "option 3"]}
-            />
-            <Dropdown
-              label="Dropdown"
-              options={["option 1", "option 2", "option 3"]}
-              stackOrientation="horizontal"
-            />
-          </Grid>
-        </GridCell>
+          </GridCell>
+          <GridCell header="Checkbox">
+            <Checkbox checked={checked} onChange={setChecked} />
+          </GridCell>
+        </Grid>
+        <Grid rows={2} columns={1} colSpan={2}>
+          <GridCell header="Dropdown">
+            <Dropdown options={["option 1", "option 2", "option 3"]} />
+          </GridCell>
+          <GridCell>
+            <Grid rows={2} columns={1}>
+              <GridCell header={"Dropdown"} orientation="horizontal">
+                <Dropdown options={["option 1", "option 2", "option 3"]} />
+              </GridCell>
+              <GridCell header="Ceckbox" orientation="horizontal">
+                <Checkbox checked={checked} onChange={setChecked} />
+              </GridCell>
+            </Grid>
+          </GridCell>
+        </Grid>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
         <GridCell></GridCell>
-        <GridCell>
+        <GridCell header="Slider" footer={<Value value={value} />}>
           <Slider
+            value={value}
+            onChange={setValue}
             defaultValue={0.5}
-            label="Slider"
             orientation="vertical"
-            onChange={() => null}
             width={32}
           />
         </GridCell>

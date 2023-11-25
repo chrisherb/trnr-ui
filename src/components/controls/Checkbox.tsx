@@ -1,40 +1,24 @@
-import { useState } from "react";
-import { ButtonProps } from "./Button";
-import Stack from "./Stack";
-
-interface StateButtonProps extends ButtonProps {
+interface StateButtonProps {
   stackOrientation?: "horizontal" | "vertical";
+  checked: boolean;
+  onChange: (checked: boolean) => void;
 }
 
-const Checkbox = ({
-  label,
-  onClick,
-  stackOrientation = "vertical",
-}: StateButtonProps) => {
-  const [checked, setChecked] = useState(false);
-
-  const handleClick = () => {
-    if (onClick) onClick();
-    setChecked((prevCheck) => !prevCheck);
-  };
-
+const Checkbox = ({ checked, onChange }: StateButtonProps) => {
   return (
-    <Stack
-      orientation={stackOrientation}
-      header={<span className={`text-secondary`}>{label}</span>}
-    >
+    <>
       <input
         type="checkbox"
         className="hidden"
-        onChange={(ev) => setChecked(ev.target.checked)}
+        onChange={(ev) => onChange(ev.target.checked)}
       />
       <div
-        onClick={handleClick}
+        onClick={() => onChange(!checked)}
         className={`rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background m-thickness-2 grow ${
           checked && "bg-secondary"
         }`}
       />
-    </Stack>
+    </>
   );
 };
 

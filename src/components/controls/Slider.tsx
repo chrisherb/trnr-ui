@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 
 interface InternalSliderBaseProps extends ExternalControlBaseProps {
@@ -9,6 +8,7 @@ interface InternalSliderBaseProps extends ExternalControlBaseProps {
 }
 
 const Slider = ({
+  value,
   onChange,
   polarity = "uni",
   style = "bar",
@@ -18,8 +18,6 @@ const Slider = ({
   defaultValue,
   ...props
 }: InternalSliderBaseProps) => {
-  const [value, setValue] = useState(defaultValue);
-
   let barWidth = "";
 
   switch (width) {
@@ -33,7 +31,6 @@ const Slider = ({
 
   const handleOnChange = (v: number) => {
     onChange(v);
-    setValue(v);
   };
 
   return (

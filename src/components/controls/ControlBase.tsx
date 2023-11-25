@@ -1,5 +1,6 @@
 import {
   Children,
+  PropsWithChildren,
   ReactElement,
   cloneElement,
   useCallback,
@@ -8,23 +9,18 @@ import {
 } from "react";
 import { clamp } from "../util/Math";
 import { useMouse as useMouse } from "../hooks/useMouse";
-import Label, { ExternalLabelProps } from "./Label";
-import Value, { ExternalValueProps } from "./Value";
-import Stack from "./Stack";
 
-export interface ExternalControlBaseProps
-  extends ExternalLabelProps,
-    ExternalValueProps {
+export interface ExternalControlBaseProps {
   defaultValue: number;
   gear?: number;
   onChange: (value: number) => void;
   onMouseDown?: (mouseDown: boolean) => void;
+  value: number;
 }
 
 interface InternalControlBaseProps
   extends ExternalControlBaseProps,
-    React.PropsWithChildren {
-  value: number;
+    PropsWithChildren {
   orientation?: "horizontal" | "vertical";
 }
 
@@ -36,7 +32,6 @@ const ControlBase = ({
   onChange,
   onMouseDown,
   value,
-  ...props
 }: InternalControlBaseProps) => {
   const [origin, setOrigin] = useState(0);
   const [tempVal, setTempVal] = useState(0);
@@ -72,17 +67,14 @@ const ControlBase = ({
   };
 
   return (
-    <Stack
-      header={<Label {...props} value={value} />}
-      footer={<Value {...props} value={value} />}
-    >
+    <>
       {Children.map(children, (child) => {
         return cloneElement(child as ReactElement, {
           onMouseDown: handleMouseDown,
           onDoubleClick: handleDoubleClick,
         });
       })}
-    </Stack>
+    </>
   );
 };
 
