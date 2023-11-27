@@ -121,6 +121,17 @@ const getSpans = (colSpan: number, rowSpan: number) => {
     case 2:
       colSpanStyle = "col-span-2";
       break;
+    case 3:
+      colSpanStyle = "col-span-3";
+      break;
+    case 4:
+      colSpanStyle = "col-span-4";
+      break;
+    case 5:
+      colSpanStyle = "col-span-5";
+      break;
+    case 6:
+      colSpanStyle = "col-span-6";
   }
 
   let rowSpanStyle = "";
@@ -131,6 +142,18 @@ const getSpans = (colSpan: number, rowSpan: number) => {
       break;
     case 2:
       rowSpanStyle = "row-span-2";
+      break;
+    case 3:
+      rowSpanStyle = "row-span-3";
+      break;
+    case 4:
+      rowSpanStyle = "row-span-4";
+      break;
+    case 5:
+      rowSpanStyle = "row-span-5";
+      break;
+    case 6:
+      rowSpanStyle = "row-span-6";
       break;
   }
 
