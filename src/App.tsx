@@ -79,17 +79,6 @@ function App() {
               </GridCell>
             </Grid>
           </GridCell>
-          <GridCell></GridCell>
-          <GridCell></GridCell>
-          <GridCell></GridCell>
-          <GridCell></GridCell>
-          <GridCell header="Slider" footer={<Value value={value} />}>
-            <Slider value={value} onChange={setValue} defaultValue={0.5} />
-          </GridCell>
-          <GridCell></GridCell>
-          <GridCell></GridCell>
-          <GridCell></GridCell>
-          <GridCell></GridCell>
         </Grid>
         <Grid columns={2} rows={2}></Grid>
       </Container>
