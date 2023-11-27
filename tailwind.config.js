@@ -10,33 +10,40 @@ export default {
     },
     strokeWidth: { global: "var(--trnr-thickness)" },
     padding: {
-      "thickness-1": "var(--trnr-thickness)",
-      "thickness-2": "calc(var(--trnr-thickness) * 2)",
-      1: "1rem",
+      1: "var(--trnr-thickness)",
+      2: "calc(var(--trnr-thickness) * 2)",
+      9: "calc(var(--trnr-thickness) * 9)",
+    },
+    margin: {
+      1: "var(--trnr-thickness)",
+      2: "calc(var(--trnr-thickness) * 2)",
     },
     borderRadius: {
-      global: "var(--trnr-roundness)",
+      1: "var(--trnr-roundness)",
     },
     fontFamily: {
       sans: ["Jura"],
     },
     ringWidth: {
-      global: "var(--trnr-thickness)",
+      1: "var(--trnr-thickness)",
     },
     ringOffsetWidth: {
-      global: "var(--trnr-thickness)",
+      1: "var(--trnr-thickness)",
+      4: "calc(var(--trnr-thickness) * 4)",
     },
     ringOffsetColor: {
       primary: "var(--trnr-color-primary)",
       secondary: "var(--trnr-color-secondary)",
       background: "var(--trnr-color-background)",
     },
-    extend: {
-      margin: {
-        "thickness-1/2": "calc(var(--trnr-thickness) / 2)",
-        "thickness-1": "var(--trnr-thickness)",
-        "thickness-2": "calc(var(--trnr-thickness) * 2)",
-      },
+    gap: {
+      2: "calc(var(--trnr-thickness) * 2)",
+      9: "calc(var(--trnr-thickness) * 9)",
+    },
+    height: {
+      9: "calc(var(--trnr-thickness) * 9)",
+      full: "100%",
+      screen: "100vh",
     },
   },
 };

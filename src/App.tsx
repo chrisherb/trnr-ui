@@ -24,7 +24,6 @@ function App() {
             onChange={setValue}
             defaultValue={0.5}
             orientation="vertical"
-            width={32}
           />
         </GridCell>
         <Grid rows={2} columns={1}>
@@ -40,7 +39,7 @@ function App() {
             <Dropdown options={["option 1", "option 2", "option 3"]} />
           </GridCell>
           <GridCell>
-            <Grid rows={2} columns={1}>
+            <Grid rows={2} columns={1} borderEnabled>
               <GridCell header={"Dropdown"} orientation="horizontal">
                 <Dropdown options={["option 1", "option 2", "option 3"]} />
               </GridCell>
@@ -61,7 +60,6 @@ function App() {
             onChange={setValue}
             defaultValue={0.5}
             orientation="vertical"
-            width={32}
           />
         </GridCell>
         <GridCell></GridCell>

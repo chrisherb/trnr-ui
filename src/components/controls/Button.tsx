@@ -7,7 +7,7 @@ const Button = ({ label, onClick }: ButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className="uppercase truncate rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background m-thickness-2 grow hover:bg-secondary hover:text-background"
+      className="uppercase truncate rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 grow hover:bg-secondary hover:text-background"
     >
       {label}
     </button>

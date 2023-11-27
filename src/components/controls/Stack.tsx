@@ -15,11 +15,11 @@ const Stack = ({ orientation = "vertical", ...props }: StackProps) => {
 const VerticalStack = ({ header, footer, children }: StackProps) => {
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="h-7 shrink-0 uppercase text-center select-none">
+      <div className="h-9 shrink-0 uppercase text-center select-none">
         {header}
       </div>
       {children}
-      <div className="h-7 shrink-0 uppercase text-center select-none">
+      <div className="h-9 shrink-0 uppercase text-center select-none">
         {footer}
       </div>
     </div>

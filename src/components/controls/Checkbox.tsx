@@ -14,7 +14,7 @@ const Checkbox = ({ checked, onChange }: StateButtonProps) => {
       />
       <div
         onClick={() => onChange(!checked)}
-        className={`rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background m-thickness-2 grow ${
+        className={`rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 grow ${
           checked && "bg-secondary"
         }`}
       />

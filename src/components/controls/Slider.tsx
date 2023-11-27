@@ -4,7 +4,6 @@ interface InternalSliderBaseProps extends ExternalControlBaseProps {
   polarity?: "uni" | "bi";
   style?: "bar" | "line";
   orientation?: "horizontal" | "vertical";
-  width: number;
 }
 
 const Slider = ({
@@ -13,22 +12,10 @@ const Slider = ({
   polarity = "uni",
   style = "bar",
   orientation = "horizontal",
-  width,
   gear = 400,
   defaultValue,
   ...props
 }: InternalSliderBaseProps) => {
-  let barWidth = "";
-
-  switch (width) {
-    case 16:
-      barWidth = orientation == "horizontal" ? "h-16" : "w-16";
-      break;
-    case 32:
-      barWidth = orientation == "horizontal" ? "h-32" : "w-32";
-      break;
-  }
-
   const handleOnChange = (v: number) => {
     onChange(v);
   };
@@ -43,7 +30,7 @@ const Slider = ({
       {...props}
     >
       <div
-        className={`flex rounded-global ring ring-global ring-primary ring-offset-global ring-offset-background m-thickness-2 h-full`}
+        className={`flex rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 h-full`}
       >
         {orientation === "horizontal" && <HorizontalSlider value={value} />}
         {orientation === "vertical" && <VerticalSlider value={value} />}
@@ -55,7 +42,7 @@ const Slider = ({
 const HorizontalSlider = (props: { value: number }) => {
   return (
     <div
-      className={`bg-secondary h-full rounded-global`}
+      className={`bg-secondary h-full rounded-1`}
       style={{ width: `${props.value * 100}%` }}
     ></div>
   );
@@ -64,7 +51,7 @@ const HorizontalSlider = (props: { value: number }) => {
 const VerticalSlider = (props: { value: number }) => {
   return (
     <div
-      className={`bg-secondary w-full rounded-global self-end`}
+      className={`bg-secondary w-full rounded-1 self-end`}
       style={{ height: `${props.value * 100}%` }}
     ></div>
   );

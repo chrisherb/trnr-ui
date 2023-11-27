@@ -21,13 +21,13 @@ export const Grid = ({
   borderEnabled = false,
 }: GridProps) => {
   const borderStyle =
-    borderEnabled && "border-2 rounded-global border-primary p-4";
-
+    borderEnabled &&
+    "rounded-1 ring ring-1 ring-primary ring-offset-4 ring-offset-background";
   return (
     <div
       className={`grid ${getColStyle(columns)} ${getRowStyle(
         rows
-      )} h-full gap-x-7 ${borderStyle} ${getSpans(colSpan, rowSpan)} gap-y-2`}
+      )} h-full gap-x-9 ${borderStyle} ${getSpans(colSpan, rowSpan)} gap-y-2`}
     >
       {children}
     </div>
