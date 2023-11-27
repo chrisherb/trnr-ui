@@ -12,7 +12,18 @@ const Container = ({ label, tabs, children }: TabProps) => {
       <div className="flex flex-col h-full w-full px-8 pt-3 pb-8">
         <Tab.List className={"h-9 flex gap-9 px-3"}>
           <div className="grow uppercase">{label}</div>
-          {tabs && tabs.map((tab) => <Tab className="uppercase">{tab}</Tab>)}
+          {tabs &&
+            tabs.map((tab) => (
+              <Tab
+                className={({ selected }) => {
+                  return selected
+                    ? "uppercase text-secondary"
+                    : "uppercase text-secondary opacity-50";
+                }}
+              >
+                {tab}
+              </Tab>
+            ))}
         </Tab.List>
         <Tab.Panels className="flex rounded-1 grow ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 px-8 overflow-hidden">
           {Children.map(children, (child) => (
