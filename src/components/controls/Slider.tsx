@@ -11,7 +11,7 @@ const Slider = ({
   onChange,
   polarity = "uni",
   style = "bar",
-  orientation = "horizontal",
+  orientation = "vertical",
   gear = 400,
   defaultValue,
   ...props

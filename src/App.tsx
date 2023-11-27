@@ -25,12 +25,7 @@ function App() {
             <Dial value={value} onChange={setValue} defaultValue={0.5} />
           </GridCell>
           <GridCell header="Slider" footer={<Value value={value} />}>
-            <Slider
-              value={value}
-              onChange={setValue}
-              defaultValue={0.5}
-              orientation="vertical"
-            />
+            <Slider value={value} onChange={setValue} defaultValue={0.5} />
           </GridCell>
           <Grid rows={2} columns={1}>
             <GridCell>
@@ -63,11 +58,17 @@ function App() {
               <GridCell header="Button Label">
                 <Button label="Button" />
               </GridCell>
-              <GridCell header="Button Label">
-                <Button label="Button" />
-              </GridCell>
-              <GridCell header="Button Label">
-                <Button label="Button" />
+              <GridCell
+                colSpan={2}
+                header="Horizontal Slider"
+                footer={<Value value={value} />}
+              >
+                <Slider
+                  value={value}
+                  onChange={setValue}
+                  defaultValue={0.5}
+                  orientation="horizontal"
+                />
               </GridCell>
             </Grid>
           </GridCell>
@@ -76,12 +77,7 @@ function App() {
           <GridCell></GridCell>
           <GridCell></GridCell>
           <GridCell header="Slider" footer={<Value value={value} />}>
-            <Slider
-              value={value}
-              onChange={setValue}
-              defaultValue={0.5}
-              orientation="vertical"
-            />
+            <Slider value={value} onChange={setValue} defaultValue={0.5} />
           </GridCell>
           <GridCell></GridCell>
           <GridCell></GridCell>
