@@ -18,7 +18,7 @@ function Showcase() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <Trnr theme={{ thickness: 0.2, roundness: 0.1 }}>
+    <Trnr theme={{ thickness: 0.2, roundness: 0.1, effects: ["honeycomb"] }}>
       <Container
         label={`${packageJson.name} System ${packageJson.version}`}
         tabs={["Tab 1", "Tab 2", "Tab 3"]}
@@ -31,12 +31,7 @@ function Showcase() {
           >
             <Dial value={value} onChange={setValue} defaultValue={0.5} />
           </GridCell>
-          <GridCell
-            header="Slider"
-            footer={
-              <Value value={value} rangeMax={100} suffix="%" decimals={0} />
-            }
-          >
+          <GridCell header="Slider" footer={<Value value={value} />}>
             <Slider value={value} onChange={setValue} defaultValue={0.5} />
           </GridCell>
           <Grid rows={2} columns={1}>

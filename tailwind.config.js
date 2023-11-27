@@ -50,6 +50,7 @@ export default {
       background: "var(--trnr-color-background)",
     },
     gap: {
+      1: "var(--trnr-thickness)",
       2: "calc(var(--trnr-thickness) * 2)",
       9: "calc(var(--trnr-thickness) * 9)",
     },
