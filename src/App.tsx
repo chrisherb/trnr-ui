@@ -8,6 +8,7 @@ import { useState } from "react";
 import Value from "./components/controls/Value";
 import { Grid, GridCell } from "./components";
 import Container from "./components/layout/Container";
+import packageJson from "../package.json";
 
 function App() {
   const [value, setValue] = useState(0.5);
@@ -15,7 +16,10 @@ function App() {
 
   return (
     <Trnr theme={{ crt: true, thickness: 0.2, roundness: 0.1 }}>
-      <Container label="Label" tabs={["Tab 1", "Tab 2", "Tab 3"]}>
+      <Container
+        label={`${packageJson.name} System ${packageJson.version}`}
+        tabs={["Tab 1", "Tab 2", "Tab 3"]}
+      >
         <Grid rows={3} columns={10}>
           <GridCell
             colSpan={2}
