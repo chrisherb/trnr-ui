@@ -25,9 +25,9 @@ const Container = ({ label, tabs, children }: TabProps) => {
               </Tab>
             ))}
         </Tab.List>
-        <Tab.Panels className="flex rounded-1 grow ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 px-8 overflow-hidden">
+        <Tab.Panels className="flex grow rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 px-8 overflow-hidden">
           {Children.map(children, (child) => (
-            <Tab.Panel>{child}</Tab.Panel>
+            <Tab.Panel className="grow">{child}</Tab.Panel>
           ))}
         </Tab.Panels>
       </div>
