@@ -1,14 +1,17 @@
-import Trnr from "./components/layout/Trnr";
-import Slider from "./components/controls/Slider";
-import Dial from "./components/controls/Dial";
-import Button from "./components/controls/Button";
-import Checkbox from "./components/controls/Checkbox";
-import Dropdown from "./components/controls/Dropdown";
 import { useState } from "react";
-import Value from "./components/controls/Value";
-import { Grid, GridCell } from "./components";
-import Container from "./components/layout/Container";
 import packageJson from "../package.json";
+import {
+  Button,
+  Checkbox,
+  Container,
+  Dial,
+  Dropdown,
+  Grid,
+  GridCell,
+  Slider,
+  Trnr,
+  Value,
+} from "./components";
 
 function App() {
   const [value, setValue] = useState(0.5);
