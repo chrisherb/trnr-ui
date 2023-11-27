@@ -31,7 +31,12 @@ function App() {
           >
             <Dial value={value} onChange={setValue} defaultValue={0.5} />
           </GridCell>
-          <GridCell header="Slider" footer={<Value value={value} />}>
+          <GridCell
+            header="Slider"
+            footer={
+              <Value value={value} rangeMax={100} suffix="%" decimals={0} />
+            }
+          >
             <Slider value={value} onChange={setValue} defaultValue={0.5} />
           </GridCell>
           <Grid rows={2} columns={1}>
