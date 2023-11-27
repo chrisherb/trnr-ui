@@ -13,8 +13,9 @@ const Container = ({ label, tabs, children }: TabProps) => {
         <Tab.List className={"h-9 flex gap-9 px-3"}>
           <div className="grow uppercase">{label}</div>
           {tabs &&
-            tabs.map((tab) => (
+            tabs.map((tab, index) => (
               <Tab
+                key={index}
                 className={({ selected }) => {
                   return selected
                     ? "uppercase text-secondary"
