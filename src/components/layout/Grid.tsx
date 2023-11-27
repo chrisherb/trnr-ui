@@ -22,12 +22,12 @@ export const Grid = ({
 }: GridProps) => {
   const borderStyle =
     borderEnabled &&
-    "rounded-1 ring ring-1 ring-primary ring-offset-4 ring-offset-background";
+    "rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 px-8";
   return (
     <div
-      className={`grid ${getColStyle(columns)} ${getRowStyle(
-        rows
-      )} h-full gap-x-9 ${borderStyle} ${getSpans(colSpan, rowSpan)} gap-y-2`}
+      className={`h-full grid gap-x-9 gap-y-2 ${getColStyle(
+        columns
+      )} ${getRowStyle(rows)} ${borderStyle} ${getSpans(colSpan, rowSpan)}`}
     >
       {children}
     </div>
