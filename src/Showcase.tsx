@@ -13,7 +13,7 @@ import {
   Value,
 } from "./components";
 
-function App() {
+function Showcase() {
   const [value, setValue] = useState(0.5);
   const [checked, setChecked] = useState(false);
 
@@ -91,4 +91,4 @@ function App() {
   );
 }
 
-export default App;
+export default Showcase;
