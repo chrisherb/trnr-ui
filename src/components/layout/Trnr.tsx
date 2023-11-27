@@ -52,11 +52,11 @@ const Trnr = ({ theme, children }: TrnrProps) => {
   return (
     <TrnrContext.Provider value={mergedTheme}>
       <div
-        className={`h-screen w-screen bg-background font-sans text-lg p-9 ${
+        className={`h-screen w-screen bg-background font-sans text-lg ${
           mergedTheme.crt && "crt"
         }`}
       >
-        <div className="h-full w-full mx-auto text-secondary">{children}</div>
+        <div className="h-full w-full text-secondary">{children}</div>
       </div>
     </TrnrContext.Provider>
   );
