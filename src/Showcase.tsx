@@ -18,7 +18,7 @@ function Showcase() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <Trnr theme={{ crt: true, thickness: 0.2, roundness: 0.1 }}>
+    <Trnr theme={{ thickness: 0.2, roundness: 0.1 }}>
       <Container
         label={`${packageJson.name} System ${packageJson.version}`}
         tabs={["Tab 1", "Tab 2", "Tab 3"]}

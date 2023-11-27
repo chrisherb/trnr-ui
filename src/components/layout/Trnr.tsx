@@ -1,20 +1,21 @@
 import { PropsWithChildren, createContext, useEffect } from "react";
 import "@fontsource/jura/700.css";
+import { Honeycomb } from "../../assets/Honeycomb";
 
 const defaultTheme: TrnrTheme = {
   colors: { primary: "#F55A50", secondary: "#87DEAA", background: "#000000" },
   thickness: 0.125,
   roundness: 0.375,
-  crt: false,
+  effects: ["honeycomb", "blur"],
 };
 
 export const TrnrContext = createContext<TrnrTheme>(defaultTheme);
 
 export type TrnrTheme = {
-  crt?: boolean;
   colors?: { primary: string; secondary: string; background: string };
   thickness?: number;
   roundness?: number;
+  effects?: ("honeycomb" | "blur")[];
 };
 
 interface TrnrProps extends PropsWithChildren {
@@ -52,11 +53,19 @@ const Trnr = ({ theme, children }: TrnrProps) => {
   return (
     <TrnrContext.Provider value={mergedTheme}>
       <div
-        className={`h-screen w-screen bg-background font-sans text-lg ${
-          mergedTheme.crt && "crt"
-        }`}
+        className={`relative h-screen w-screen bg-background font-sans text-lg`}
       >
         <div className="h-full w-full text-secondary">{children}</div>
+        {mergedTheme.effects?.includes("blur") && (
+          <div className="absolute top-0 pointer-events-none h-full w-full text-secondary blur-md opacity-50">
+            {children}
+          </div>
+        )}
+        {mergedTheme.effects?.includes("honeycomb") && (
+          <div className="absolute top-0 pointer-events-none h-full w-full z-50">
+            <Honeycomb />
+          </div>
+        )}
       </div>
     </TrnrContext.Provider>
   );
