@@ -30,16 +30,20 @@ const Slider = ({
       {...props}
     >
       <div
-        className={`flex rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 h-full`}
+        className={`rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 grow`}
       >
-        {orientation === "horizontal" && <HorizontalSlider value={value} />}
-        {orientation === "vertical" && <VerticalSlider value={value} />}
+        {orientation === "horizontal" && (
+          <HorizontalSlider value={value} segments={100} />
+        )}
+        {orientation === "vertical" && (
+          <VerticalSlider value={value} segments={33} />
+        )}
       </div>
     </ControlBase>
   );
 };
 
-const HorizontalSlider = (props: { value: number }) => {
+const HorizontalSlider = (props: { value: number; segments: number }) => {
   return (
     <div
       className={`bg-secondary h-full rounded-1`}
@@ -48,12 +52,21 @@ const HorizontalSlider = (props: { value: number }) => {
   );
 };
 
-const VerticalSlider = (props: { value: number }) => {
+const VerticalSlider = (props: { value: number; segments: number }) => {
   return (
-    <div
-      className={`bg-secondary w-full rounded-1 self-end`}
-      style={{ height: `${props.value * 100}%` }}
-    ></div>
+    <div className="flex flex-col-reverse w-full h-full gap-1 select-none">
+      {[...Array(props.segments)].map((_, i) => {
+        const bla = Math.floor(props.segments * props.value);
+        const opacity = i > bla ? 0.5 : 1;
+
+        return (
+          <div
+            className={`grow rounded-1 bg-secondary`}
+            style={{ opacity: opacity }}
+          ></div>
+        );
+      })}
+    </div>
   );
 };
 

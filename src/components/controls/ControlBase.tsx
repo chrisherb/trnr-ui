@@ -7,8 +7,8 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useMouse } from "../hooks/useMouse";
 import { clamp } from "../util/Math";
-import { useMouse as useMouse } from "../hooks/useMouse";
 
 export interface ExternalControlBaseProps {
   defaultValue: number;
@@ -22,11 +22,13 @@ interface InternalControlBaseProps
   extends ExternalControlBaseProps,
     PropsWithChildren {
   orientation?: "horizontal" | "vertical";
+  polarity?: "bi" | "uni";
 }
 
 const ControlBase = ({
   defaultValue,
   orientation = "vertical",
+  polarity = "bi",
   children,
   gear = 200,
   onChange,
@@ -57,10 +59,20 @@ const ControlBase = ({
       let relativeDrag = 0;
       if (orientation == "vertical") relativeDrag = (clientPos - origin) / gear;
       else relativeDrag = (origin - clientPos) / gear;
-      const calulatedValue = clamp(tempVal - relativeDrag);
+      const calulatedValue = clamp(tempVal - relativeDrag, polarity);
       onChange(calulatedValue);
     }
-  }, [dragging, orientation, mouseY, mouseX, origin, gear, tempVal, onChange]);
+  }, [
+    dragging,
+    orientation,
+    mouseY,
+    mouseX,
+    origin,
+    gear,
+    tempVal,
+    onChange,
+    polarity,
+  ]);
 
   const handleDoubleClick = () => {
     onChange(defaultValue);

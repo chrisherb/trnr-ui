@@ -12,16 +12,13 @@ const Stack = ({ orientation = "vertical", ...props }: StackProps) => {
   if (orientation === "horizontal") return <HorizontalStack {...props} />;
 };
 
-const VerticalStack = ({ header, footer, children }: StackProps) => {
+const VerticalStack = ({ header, children }: StackProps) => {
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="h-9 shrink-0 uppercase text-center select-none truncate">
+      <div className="h-10 shrink-0 uppercase text-center select-none truncate">
         {header}
       </div>
-      {children}
-      <div className="h-9 shrink-0 uppercase text-center select-none truncate">
-        {footer}
-      </div>
+      <div className="grid grow justify-center ">{children}</div>
     </div>
   );
 };

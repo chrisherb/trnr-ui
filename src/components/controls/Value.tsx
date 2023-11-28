@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { clamp } from "../util/Math";
+import { clampUni } from "../util/Math";
 
 export interface ExternalValueProps {}
 
@@ -11,7 +11,7 @@ const Value = ({ value }: InternalValueProps) => {
   const [values, setValues] = useState(["0", "0", "0", "0"]);
 
   useEffect(() => {
-    const clampedValue = clamp(value);
+    const clampedValue = clampUni(value);
     const adjustedValue = clampedValue * 99.99;
     const fixedValue = adjustedValue.toFixed(2).padStart(5, "0");
     const digits = fixedValue.split("");

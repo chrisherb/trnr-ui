@@ -25,7 +25,7 @@ export const Grid = ({
     "rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 px-8";
   return (
     <div
-      className={`h-full grid gap-x-9 gap-y-2 ${getColStyle(
+      className={`grow grid gap-x-9 gap-y-2 ${getColStyle(
         columns
       )} ${getRowStyle(rows)} ${borderStyle} ${getSpans(colSpan, rowSpan)}`}
     >

@@ -5,8 +5,8 @@ import { Honeycomb } from "../../assets/Honeycomb";
 const defaultTheme: TrnrTheme = {
   colors: { primary: "#F55A50", secondary: "#87DEAA", background: "#000000" },
   thickness: 0.125,
-  roundness: 0.375,
-  effects: ["honeycomb", "blur"],
+  roundness: 4,
+  effects: [],
 };
 
 export const TrnrContext = createContext<TrnrTheme>(defaultTheme);
@@ -53,7 +53,7 @@ const Trnr = ({ theme, children }: TrnrProps) => {
   return (
     <TrnrContext.Provider value={mergedTheme}>
       <div
-        className={`relative h-screen w-screen bg-background font-sans text-lg`}
+        className={`relative h-screen w-screen bg-background font-sans text-xl`}
       >
         <div className="h-full w-full text-secondary">{children}</div>
         {mergedTheme.effects?.includes("blur") && (
