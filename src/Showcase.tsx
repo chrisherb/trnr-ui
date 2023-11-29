@@ -7,7 +7,7 @@ import Radio from "./components/controls/Radio";
 
 function Showcase() {
   const [value, setValue] = useState(0);
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState("Option 1");
 
   return (
     <Trnr theme={{ thickness: 0.15, roundness: 1, effects: ["honeycomb"] }}>
