@@ -3,6 +3,7 @@ import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 import { TrnrContext } from "../layout/Trnr";
 
 const SVG_SIZE = 100;
+const SVG_OFFSET = 5;
 
 interface DialProps extends ExternalControlBaseProps {
   segments?: number;
@@ -19,14 +20,16 @@ const Dial = ({
   const [innerRadius, setInnerRadius] = useState(0);
   const [middleRadius, setMiddleRadius] = useState(0);
   const [outerRadius, setOuterRadius] = useState(0);
+  const [labelRadius, setLabelRadius] = useState(0);
 
   useEffect(() => {
     const strokeWidth = context.thickness || 0;
     const radius = SVG_SIZE / 2 - strokeWidth;
     const outer = radius - strokeWidth * 2;
-    setOuterRadius(outer * 0.97);
-    setMiddleRadius(outer * 0.9);
-    setInnerRadius(outer * 0.55);
+    setLabelRadius(outer * 0.9);
+    setOuterRadius(outer * 0.85);
+    setMiddleRadius(outer * 0.8);
+    setInnerRadius(outer * 0.45);
   }, [context.thickness, outerRadius]);
 
   return (
@@ -38,9 +41,11 @@ const Dial = ({
       {...props}
     >
       <svg
-        className="w-full h-full drop-shadow-glow"
+        className="w-full h-full select-none"
         xmlns="<http://www.w3.org/2000/svg>"
-        viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
+        viewBox={`${SVG_OFFSET * -1} 0 ${
+          SVG_SIZE + SVG_OFFSET * 2
+        } ${SVG_SIZE}`}
       >
         <ArcPath x={SVG_SIZE / 2} y={SVG_SIZE / 2} radius={middleRadius} />
         <ArcPath x={SVG_SIZE / 2} y={SVG_SIZE / 2} radius={innerRadius} />
@@ -67,6 +72,7 @@ const Dial = ({
           outerRadius={outerRadius}
         />
         <Line degree={1} innerRadius={middleRadius} outerRadius={outerRadius} />
+        <Labels radius={labelRadius} />
       </svg>
     </ControlBase>
   );
@@ -81,6 +87,63 @@ const getPointCoordinates = (value: number, radius: number) => {
   const x = SVG_SIZE / 2 + radius * Math.cos(theta);
   const y = SVG_SIZE / 2 + radius * Math.sin(theta);
   return [x, y];
+};
+
+const Labels = ({ radius }: { radius: number }) => {
+  const numLabels = 5;
+  const labels = [];
+  for (let i = 0; i < numLabels; i++) {
+    labels.push(i / (numLabels - 1));
+  }
+
+  return (
+    <>
+      {labels.map((label) => {
+        let textAnchor = "middle";
+
+        if (label < 0.5) {
+          textAnchor = "end";
+        } else if (label > 0.5) {
+          textAnchor = "start";
+        }
+
+        return (
+          <Label
+            key={label}
+            text={label.toString()}
+            value={label}
+            radius={radius}
+            textAnchor={textAnchor}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+const Label = (props: {
+  text: string;
+  value: number;
+  radius: number;
+  textAnchor: string;
+}) => {
+  const [point, setPoint] = useState([0, 0]);
+
+  useEffect(() => {
+    setPoint(getPointCoordinates(props.value, props.radius));
+  }, [props.value, props.radius]);
+
+  return (
+    <text
+      x={point[0]}
+      y={point[1]}
+      fontSize={6}
+      textAnchor={props.textAnchor}
+      className="fill-secondary"
+    >
+      {props.text}
+    </text>
+  );
 };
 
 const Line = (props: {
