@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { clamp } from "../util/Math";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
-import { useSize } from "../hooks/useSize";
 
 interface DigitalProps extends ExternalControlBaseProps {
   value: number;
@@ -16,7 +15,21 @@ const Digital = ({
   ...props
 }: DigitalProps) => {
   const [values, setValues] = useState(["", "", "", ""]);
-  const sizeStyle = useSize(size);
+  let sizeStyle = "";
+
+  switch (size) {
+    case "small":
+      sizeStyle = "h-16 w-24";
+      break;
+    case "medium":
+      sizeStyle = "h-20 w-32";
+      break;
+    case "large":
+      sizeStyle = "h-28 w-44";
+      break;
+    default:
+      sizeStyle = "";
+  }
 
   useEffect(() => {
     const clampedValue = clamp(value, polarity);

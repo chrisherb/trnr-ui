@@ -1,14 +1,26 @@
-import { useSize } from "../hooks/useSize";
-
 interface RadioProps {
   value: string;
   options: string[];
   onChange: (value: string) => void;
-  size?: "small" | "medium" | "large";
+  size?: "none" | "small" | "medium" | "large";
 }
 
 const Radio = ({ value, onChange, options, size = "medium" }: RadioProps) => {
-  const sizeStyle = useSize(size);
+  let sizeStyle = "";
+
+  switch (size) {
+    case "small":
+      sizeStyle = "h-16 w-24";
+      break;
+    case "medium":
+      sizeStyle = "h-20 w-32";
+      break;
+    case "large":
+      sizeStyle = "h-28 w-44";
+      break;
+    default:
+      sizeStyle = "";
+  }
 
   return (
     <div className="flex flex-wrap gap-4 justify-center content-start">

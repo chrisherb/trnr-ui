@@ -15,7 +15,7 @@ function Showcase() {
         label={`${packageJson.name} System ${packageJson.version}`}
         tabs={["Tab 1", "Tab 2"]}
       >
-        <Grid rows={2} columns={4}>
+        <Grid rows={3} columns={4}>
           <GridCell header="Dial">
             <Dial value={value} defaultValue={0.5} onChange={setValue} />
           </GridCell>
@@ -32,6 +32,7 @@ function Showcase() {
               options={["Option 1", "Option 2", "Option 3", "Option 4"]}
               onChange={setSelected}
               value={selected}
+              size="none"
             />
           </GridCell>
         </Grid>
