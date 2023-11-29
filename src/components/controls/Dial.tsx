@@ -88,15 +88,20 @@ const Line = (props: {
   innerRadius: number;
   outerRadius: number;
 }) => {
-  const [x1, y1] = getPointCoordinates(props.degree, props.innerRadius);
-  const [x2, y2] = getPointCoordinates(props.degree, props.outerRadius);
+  const [point1, setPoint1] = useState([0, 0]);
+  const [point2, setPoint2] = useState([0, 0]);
+
+  useEffect(() => {
+    setPoint1(getPointCoordinates(props.degree, props.innerRadius));
+    setPoint2(getPointCoordinates(props.degree, props.outerRadius));
+  }, [props.degree, props.innerRadius, props.outerRadius]);
 
   return (
     <line
-      x1={x1}
-      y1={y1}
-      x2={x2}
-      y2={y2}
+      x1={point1[0]}
+      y1={point1[1]}
+      x2={point2[0]}
+      y2={point2[1]}
       vectorEffect={"non-scaling-stroke"}
       className="stroke-secondary stroke-global"
       strokeLinecap="round"
