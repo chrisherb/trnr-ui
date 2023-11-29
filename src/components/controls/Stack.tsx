@@ -18,7 +18,7 @@ const VerticalStack = ({ header, children }: StackProps) => {
       <div className="h-10 shrink-0 uppercase text-center select-none truncate">
         {header}
       </div>
-      <div className="grid grow justify-center ">{children}</div>
+      <div className="grow grid justify-items-center">{children}</div>
     </div>
   );
 };
