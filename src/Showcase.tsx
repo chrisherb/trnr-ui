@@ -4,9 +4,10 @@ import { Container, Grid, GridCell, Trnr } from "./components";
 import Digital from "./components/controls/Digital";
 import Dial from "./components/controls/Dial";
 import Radio from "./components/controls/Radio";
+import { useParameter } from "./components/hooks/useParameter";
 
 function Showcase() {
-  const [value, setValue] = useState(0);
+  const parameter = useParameter(0.5);
   const [selected, setSelected] = useState("Option 1");
 
   return (
@@ -17,13 +18,17 @@ function Showcase() {
       >
         <Grid rows={3} columns={4}>
           <GridCell header="Dial">
-            <Dial value={value} defaultValue={0.5} onChange={setValue} />
+            <Dial
+              value={parameter.value}
+              defaultValue={parameter.defaultValue}
+              onChange={parameter.setValue}
+            />
           </GridCell>
           <GridCell header="Digital">
             <Digital
-              value={value}
-              onChange={setValue}
-              defaultValue={0.5}
+              value={parameter.value}
+              onChange={parameter.setValue}
+              defaultValue={parameter.defaultValue}
               polarity="uni"
             />
           </GridCell>
@@ -32,7 +37,6 @@ function Showcase() {
               options={["Option 1", "Option 2", "Option 3", "Option 4"]}
               onChange={setSelected}
               value={selected}
-              size="none"
             />
           </GridCell>
         </Grid>
