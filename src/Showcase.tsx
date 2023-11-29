@@ -3,10 +3,11 @@ import packageJson from "../package.json";
 import { Container, Grid, GridCell, Trnr } from "./components";
 import Digital from "./components/controls/Digital";
 import Dial from "./components/controls/Dial";
+import Radio from "./components/controls/Radio";
 
 function Showcase() {
   const [value, setValue] = useState(0);
-  const [checked, setChecked] = useState(false);
+  const [selected, setSelected] = useState("");
 
   return (
     <Trnr theme={{ thickness: 0.15, roundness: 1, effects: ["honeycomb"] }}>
@@ -24,6 +25,13 @@ function Showcase() {
               onChange={setValue}
               defaultValue={0.5}
               polarity="uni"
+            />
+          </GridCell>
+          <GridCell header="Radio">
+            <Radio
+              options={["Option 1", "Option 2", "Option 3", "Option 4"]}
+              onChange={setSelected}
+              value={selected}
             />
           </GridCell>
         </Grid>

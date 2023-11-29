@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 
-export const useSize = (size: "small" | "medium" | "large") => {
+export const useSize = (size: "none" | "small" | "medium" | "large") => {
   const [sizeStyle, setSizeStyle] = useState("");
 
   useEffect(() => {
     switch (size) {
+      case "none":
+        setSizeStyle("");
+        break;
       case "small":
         setSizeStyle("h-16 w-24");
         break;
