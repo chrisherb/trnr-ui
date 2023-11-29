@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 import { TrnrContext } from "../layout/Trnr";
 
@@ -17,20 +17,13 @@ const Dial = ({
   ...props
 }: DialProps) => {
   const context = useContext(TrnrContext);
-  const [innerRadius, setInnerRadius] = useState(0);
-  const [middleRadius, setMiddleRadius] = useState(0);
-  const [outerRadius, setOuterRadius] = useState(0);
-  const [labelRadius, setLabelRadius] = useState(0);
-
-  useEffect(() => {
-    const strokeWidth = context.thickness || 0;
-    const radius = SVG_SIZE / 2 - strokeWidth;
-    const outer = radius - strokeWidth * 2;
-    setLabelRadius(outer * 0.9);
-    setOuterRadius(outer * 0.85);
-    setMiddleRadius(outer * 0.8);
-    setInnerRadius(outer * 0.45);
-  }, [context.thickness, outerRadius]);
+  const strokeWidth = context.thickness || 0;
+  const radius = SVG_SIZE / 2 - strokeWidth;
+  const outer = radius - strokeWidth * 2;
+  const labelRadius = outer * 0.9;
+  const outerRadius = outer * 0.85;
+  const middleRadius = outer * 0.8;
+  const innerRadius = outer * 0.45;
 
   return (
     <ControlBase
@@ -127,16 +120,12 @@ const Label = (props: {
   radius: number;
   textAnchor: string;
 }) => {
-  const [point, setPoint] = useState([0, 0]);
-
-  useEffect(() => {
-    setPoint(getPointCoordinates(props.value, props.radius));
-  }, [props.value, props.radius]);
+  const [x, y] = getPointCoordinates(props.value, props.radius);
 
   return (
     <text
-      x={point[0]}
-      y={point[1]}
+      x={x}
+      y={y}
       fontSize={6}
       textAnchor={props.textAnchor}
       className="fill-secondary"
@@ -151,20 +140,17 @@ const Line = (props: {
   innerRadius: number;
   outerRadius: number;
 }) => {
-  const [point1, setPoint1] = useState([0, 0]);
-  const [point2, setPoint2] = useState([0, 0]);
+  const [x1, y1] = getPointCoordinates(props.degree, props.innerRadius);
+  const [x2, y2] = getPointCoordinates(props.degree, props.outerRadius);
 
-  useEffect(() => {
-    setPoint1(getPointCoordinates(props.degree, props.innerRadius));
-    setPoint2(getPointCoordinates(props.degree, props.outerRadius));
-  }, [props.degree, props.innerRadius, props.outerRadius]);
+  useEffect(() => {}, [props.degree, props.innerRadius, props.outerRadius]);
 
   return (
     <line
-      x1={point1[0]}
-      y1={point1[1]}
-      x2={point2[0]}
-      y2={point2[1]}
+      x1={x1}
+      y1={y1}
+      x2={x2}
+      y2={y2}
       vectorEffect={"non-scaling-stroke"}
       className="stroke-secondary stroke-global"
       strokeLinecap="round"
@@ -220,35 +206,19 @@ const SegmentPolygon = (props: {
   opacity: number;
 }) => {
   const context = useContext(TrnrContext);
-  const [innerPoints1, setInnerPoints1] = useState([0, 0]);
-  const [outerPoints1, setOuterPoints1] = useState([0, 0]);
-  const [innerPoints2, setInnerPoints2] = useState([0, 0]);
-  const [outerPoints2, setOuterPoints2] = useState([0, 0]);
+  const outerRadius = props.outerRadius - context.thickness! * 12;
+  const innerRadius = props.innerRadius + context.thickness! * 12;
 
-  useEffect(() => {
-    const from = props.from;
-    const to = props.to;
-
-    const outerRadius = props.outerRadius - context.thickness! * 12;
-    const innerRadius = props.innerRadius + context.thickness! * 12;
-
-    setInnerPoints1(getPointCoordinates(from, innerRadius));
-    setOuterPoints1(getPointCoordinates(from, outerRadius));
-    setInnerPoints2(getPointCoordinates(to, innerRadius));
-    setOuterPoints2(getPointCoordinates(to, outerRadius));
-  }, [
-    context.thickness,
-    props.from,
-    props.to,
-    props.innerRadius,
-    props.outerRadius,
-  ]);
+  const [x1, y1] = getPointCoordinates(props.from, innerRadius);
+  const [x2, y2] = getPointCoordinates(props.from, outerRadius);
+  const [x3, y3] = getPointCoordinates(props.to, outerRadius);
+  const [x4, y4] = getPointCoordinates(props.to, innerRadius);
 
   return (
     <polygon
       className={`fill-secondary`}
       style={{ opacity: props.opacity }}
-      points={`${innerPoints1[0]},${innerPoints1[1]} ${outerPoints1[0]},${outerPoints1[1]} ${outerPoints2[0]},${outerPoints2[1]} ${innerPoints2[0]},${innerPoints2[1]}`}
+      points={`${x1},${y1} ${x2},${y2} ${x3},${y3} ${x4},${y4}`}
     />
   );
 };
