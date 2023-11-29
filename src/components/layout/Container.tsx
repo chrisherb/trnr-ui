@@ -11,7 +11,7 @@ const Container = ({ label, tabs, children }: TabProps) => {
     <Tab.Group>
       <div className="flex flex-col h-full w-full px-8 pt-3 pb-8">
         <Tab.List className={"h-10 flex gap-9 px-roundness"}>
-          <div className="grow uppercase grid content-center select-none">
+          <div className="grow uppercase grid content-center select-none truncate">
             {label}
           </div>
           {tabs &&
@@ -20,8 +20,8 @@ const Container = ({ label, tabs, children }: TabProps) => {
                 key={index}
                 className={({ selected }) => {
                   return selected
-                    ? "uppercase text-secondary"
-                    : "uppercase text-secondary opacity-50";
+                    ? "uppercase truncate text-secondary"
+                    : "uppercase truncate text-secondary opacity-50";
                 }}
               >
                 {tab}
@@ -30,7 +30,7 @@ const Container = ({ label, tabs, children }: TabProps) => {
         </Tab.List>
         <Tab.Panels className="flex grow rounded-1 border border-1 border-secondary p-4 overflow-hidden">
           {Children.map(children, (child) => (
-            <Tab.Panel className="grow">{child}</Tab.Panel>
+            <Tab.Panel className="grow flex">{child}</Tab.Panel>
           ))}
         </Tab.Panels>
       </div>
