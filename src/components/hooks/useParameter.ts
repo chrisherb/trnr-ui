@@ -1,22 +1,38 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
-type Parameter<T> = {
-  value: T;
-  defaultValue: T;
+type Parameter = {
+  value: number;
+  defaultValue: number;
+  normalizedValue: number;
+  rangeMin: number;
+  rangeMax: number;
   name: string;
-  setValue: Dispatch<SetStateAction<T>>;
+  setNormalizedValue: Dispatch<SetStateAction<number>>;
 };
 
-export function useParameter<T = number>(
-  defaultValue: T,
+export function useParameter(
+  rangeMin: number,
+  rangeMax: number,
+  defaultValue: number,
   name: string = ""
-): Parameter<T> {
-  const [value, setValue] = useState(defaultValue);
+): Parameter {
+  const normalize = (value: number) => {
+    return (value - rangeMin) / (rangeMax - rangeMin);
+  };
+
+  const denormalize = (value: number) => {
+    return value * (rangeMax - rangeMin) + rangeMin;
+  };
+
+  const [normalized, setNormalized] = useState(normalize(defaultValue));
 
   return {
-    value: value,
+    value: denormalize(normalized),
+    normalizedValue: normalized,
+    setNormalizedValue: setNormalized,
     defaultValue: defaultValue,
     name: name,
-    setValue,
+    rangeMin: rangeMin,
+    rangeMax: rangeMax,
   };
 }

@@ -7,7 +7,7 @@ import Radio from "./components/controls/Radio";
 import { useParameter } from "./components/hooks/useParameter";
 
 function Showcase() {
-  const parameter = useParameter(0.5);
+  const parameter = useParameter(0, 100, 50);
   const [selected, setSelected] = useState("Option 1");
 
   return (
@@ -19,15 +19,15 @@ function Showcase() {
         <Grid rows={3} columns={4}>
           <GridCell header="Dial">
             <Dial
-              value={parameter.value}
+              value={parameter.normalizedValue}
               defaultValue={parameter.defaultValue}
-              onChange={parameter.setValue}
+              onChange={parameter.setNormalizedValue}
             />
           </GridCell>
           <GridCell header="Digital">
             <Digital
-              value={parameter.value}
-              onChange={parameter.setValue}
+              value={parameter.normalizedValue}
+              onChange={parameter.setNormalizedValue}
               defaultValue={parameter.defaultValue}
               polarity="uni"
             />
