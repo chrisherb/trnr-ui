@@ -47,7 +47,7 @@ const Digital = ({
   return (
     <ControlBase value={value} polarity={polarity} {...props}>
       <div
-        className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle}`}
+        className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle} cursor-pointer`}
       >
         <DigitalNumber value={values[0]} />
         <DigitalNumber value={values[1]} />
