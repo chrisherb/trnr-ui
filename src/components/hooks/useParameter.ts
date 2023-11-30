@@ -1,13 +1,14 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
+import { clamp } from "../util/Math";
 
-type Parameter = {
+export type Parameter = {
   value: number;
-  defaultValue: number;
   normalizedValue: number;
   rangeMin: number;
   rangeMax: number;
   name: string;
-  setNormalizedValue: Dispatch<SetStateAction<number>>;
+  setNormalizedValue: (value: number) => void;
+  reset: () => void;
 };
 
 export function useParameter(
@@ -26,11 +27,19 @@ export function useParameter(
 
   const [normalized, setNormalized] = useState(normalize(defaultValue));
 
+  const setNormalizedValue = (value: number) => {
+    setNormalized(clamp(value));
+  };
+
+  const resetToDefault = () => {
+    setNormalized(normalize(defaultValue));
+  };
+
   return {
     value: denormalize(normalized),
     normalizedValue: normalized,
-    setNormalizedValue: setNormalized,
-    defaultValue: defaultValue,
+    setNormalizedValue: setNormalizedValue,
+    reset: resetToDefault,
     name: name,
     rangeMin: rangeMin,
     rangeMax: rangeMax,

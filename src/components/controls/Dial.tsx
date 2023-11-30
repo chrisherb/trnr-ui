@@ -1,21 +1,17 @@
 import { useContext, useEffect } from "react";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 import { TrnrContext } from "../layout/Trnr";
+import { Parameter } from "../hooks/useParameter";
 
 const SVG_SIZE = 100;
 const SVG_OFFSET = 5;
 
 interface DialProps extends ExternalControlBaseProps {
+  parameter: Parameter;
   segments?: number;
 }
 
-const Dial = ({
-  onChange,
-  defaultValue,
-  value,
-  segments = 48,
-  ...props
-}: DialProps) => {
+const Dial = ({ parameter, segments = 48, ...props }: DialProps) => {
   const context = useContext(TrnrContext);
   const strokeWidth = context.thickness || 0;
   const radius = SVG_SIZE / 2 - strokeWidth;
@@ -26,13 +22,7 @@ const Dial = ({
   const innerRadius = outer * 0.45;
 
   return (
-    <ControlBase
-      value={value}
-      defaultValue={defaultValue}
-      onChange={onChange}
-      polarity="uni"
-      {...props}
-    >
+    <ControlBase parameter={parameter} polarity="uni" {...props}>
       <svg
         className="w-full h-full select-none"
         xmlns="<http://www.w3.org/2000/svg>"
@@ -43,7 +33,7 @@ const Dial = ({
         <ArcPath x={SVG_SIZE / 2} y={SVG_SIZE / 2} radius={middleRadius} />
         <ArcPath x={SVG_SIZE / 2} y={SVG_SIZE / 2} radius={innerRadius} />
         <Segments
-          value={value}
+          value={parameter.normalizedValue}
           segments={segments}
           innerRadius={innerRadius}
           outerRadius={middleRadius}
@@ -65,7 +55,7 @@ const Dial = ({
           outerRadius={outerRadius}
         />
         <Line degree={1} innerRadius={middleRadius} outerRadius={outerRadius} />
-        <Labels radius={labelRadius} />
+        <Labels parameter={parameter} radius={labelRadius} />
       </svg>
     </ControlBase>
   );
@@ -82,21 +72,32 @@ const getPointCoordinates = (value: number, radius: number) => {
   return [x, y];
 };
 
-const Labels = ({ radius }: { radius: number }) => {
+const Labels = ({
+  parameter,
+  radius,
+}: {
+  parameter: Parameter;
+  radius: number;
+}) => {
   const numLabels = 5;
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
-    labels.push(i / (numLabels - 1));
+    labels.push({
+      index: i / (numLabels - 1),
+      label:
+        (i / (numLabels - 1)) * (parameter.rangeMax - parameter.rangeMin) +
+        parameter.rangeMin,
+    });
   }
 
   return (
     <>
-      {labels.map((label) => {
+      {labels.map(({ index, label }) => {
         let textAnchor = "middle";
 
-        if (label < 0.5) {
+        if (index < 0.5) {
           textAnchor = "end";
-        } else if (label > 0.5) {
+        } else if (index > 0.5) {
           textAnchor = "start";
         }
 
@@ -104,7 +105,7 @@ const Labels = ({ radius }: { radius: number }) => {
           <Label
             key={label}
             text={label.toString()}
-            value={label}
+            value={index}
             radius={radius}
             textAnchor={textAnchor}
           />

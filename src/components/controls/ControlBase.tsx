@@ -9,13 +9,12 @@ import {
 } from "react";
 import { useMouse } from "../hooks/useMouse";
 import { clamp } from "../util/Math";
+import { Parameter } from "../hooks/useParameter";
 
 export interface ExternalControlBaseProps {
-  defaultValue: number;
+  parameter: Parameter;
   gear?: number;
-  onChange: (value: number) => void;
   onMouseDown?: (mouseDown: boolean) => void;
-  value: number;
 }
 
 interface InternalControlBaseProps
@@ -26,14 +25,12 @@ interface InternalControlBaseProps
 }
 
 const ControlBase = ({
-  defaultValue,
+  parameter,
   orientation = "vertical",
   polarity = "bi",
   children,
   gear = 200,
-  onChange,
   onMouseDown,
-  value,
 }: InternalControlBaseProps) => {
   const [origin, setOrigin] = useState(0);
   const [tempVal, setTempVal] = useState(0);
@@ -43,7 +40,7 @@ const ControlBase = ({
     setDragging(true);
     if (onMouseDown) onMouseDown(true);
     setOrigin(orientation == "vertical" ? ev.clientY : ev.clientX);
-    setTempVal(value);
+    setTempVal(parameter.normalizedValue);
   };
 
   const handleMouseUp = useCallback(() => {
@@ -60,22 +57,22 @@ const ControlBase = ({
       if (orientation == "vertical") relativeDrag = (clientPos - origin) / gear;
       else relativeDrag = (origin - clientPos) / gear;
       const calulatedValue = clamp(tempVal - relativeDrag, polarity);
-      onChange(calulatedValue);
+      parameter.setNormalizedValue(calulatedValue);
     }
   }, [
     dragging,
-    orientation,
-    mouseY,
-    mouseX,
-    origin,
     gear,
-    tempVal,
-    onChange,
+    mouseX,
+    mouseY,
+    orientation,
+    origin,
+    parameter,
     polarity,
+    tempVal,
   ]);
 
   const handleDoubleClick = () => {
-    onChange(defaultValue);
+    parameter.reset();
   };
 
   return (

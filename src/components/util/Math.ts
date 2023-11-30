@@ -1,4 +1,4 @@
-export const clamp = (val: number, polarity: "bi" | "uni") => {
+export const clamp = (val: number, polarity: "bi" | "uni" = "uni") => {
   if (polarity === "uni") {
     return clampUni(val);
   } else {
