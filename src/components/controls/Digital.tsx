@@ -29,13 +29,10 @@ const Digital = ({ parameter, size = "medium", ...props }: DigitalProps) => {
   const digits = combined.split("");
 
   return (
-    <ControlBase parameter={parameter} {...props}>
+    <ControlBase parameter={parameter} {...props} header={parameter.name}>
       <div
         className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle} cursor-pointer`}
       >
-        {/* <DigitalNumber value={values[0]} />
-        <DigitalNumber value={values[1]} />
-        <DigitalNumber value={values[2]} /> */}
         {digits.map((value) => (
           <DigitalNumber value={value} />
         ))}

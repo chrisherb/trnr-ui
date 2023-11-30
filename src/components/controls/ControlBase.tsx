@@ -10,8 +10,9 @@ import {
 import { useMouse } from "../hooks/useMouse";
 import { clamp } from "../util/Math";
 import { Parameter } from "../hooks/useParameter";
+import Stack, { StackProps } from "./Stack";
 
-export interface ExternalControlBaseProps {
+export interface ExternalControlBaseProps extends StackProps {
   parameter: Parameter;
   gear?: number;
   onMouseDown?: (mouseDown: boolean) => void;
@@ -31,6 +32,7 @@ const ControlBase = ({
   children,
   gear = 200,
   onMouseDown,
+  ...props
 }: InternalControlBaseProps) => {
   const [origin, setOrigin] = useState(0);
   const [tempVal, setTempVal] = useState(0);
@@ -76,14 +78,14 @@ const ControlBase = ({
   };
 
   return (
-    <>
+    <Stack {...props}>
       {Children.map(children, (child) => {
         return cloneElement(child as ReactElement, {
           onMouseDown: handleMouseDown,
           onDoubleClick: handleDoubleClick,
         });
       })}
-    </>
+    </Stack>
   );
 };
 

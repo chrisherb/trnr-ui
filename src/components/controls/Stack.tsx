@@ -3,7 +3,6 @@ import { PropsWithChildren, ReactNode } from "react";
 export interface StackProps extends PropsWithChildren {
   style?: "default" | "header-only";
   header?: ReactNode;
-  footer?: ReactNode;
   orientation?: "horizontal" | "vertical";
 }
 

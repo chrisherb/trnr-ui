@@ -9,13 +9,15 @@ export type Parameter = {
   name: string;
   setNormalizedValue: (value: number) => void;
   reset: () => void;
+  suffix: string;
 };
 
 export function useParameter(
   rangeMin: number,
   rangeMax: number,
   defaultValue: number,
-  name: string = ""
+  name: string = "",
+  suffix: string = ""
 ): Parameter {
   const normalize = (value: number) => {
     return (value - rangeMin) / (rangeMax - rangeMin);
@@ -43,5 +45,6 @@ export function useParameter(
     name: name,
     rangeMin: rangeMin,
     rangeMax: rangeMax,
+    suffix: suffix,
   };
 }

@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-import Stack, { StackProps } from "../controls/Stack";
 
 interface Spannable {
   colSpan?: 1 | 2 | 3 | 4 | 5 | 6;
@@ -34,19 +33,14 @@ export const Grid = ({
   );
 };
 
-interface GridCellProps extends Spannable, StackProps {}
+interface GridCellProps extends Spannable, PropsWithChildren {}
 
 export const GridCell = ({
   children,
   colSpan = 1,
   rowSpan = 1,
-  ...props
 }: GridCellProps) => {
-  return (
-    <div className={getSpans(colSpan, rowSpan)}>
-      <Stack {...props}>{children}</Stack>
-    </div>
-  );
+  return <div className={getSpans(colSpan, rowSpan)}>{children}</div>;
 };
 
 const getColStyle = (cols: number): string => {
