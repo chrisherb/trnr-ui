@@ -9,9 +9,15 @@ const SVG_OFFSET = 5;
 interface DialProps extends ExternalControlBaseProps {
   parameter: Parameter;
   segments?: number;
+  labels?: number;
 }
 
-const Dial = ({ parameter, segments = 48, ...props }: DialProps) => {
+const Dial = ({
+  parameter,
+  labels = 5,
+  segments = 48,
+  ...props
+}: DialProps) => {
   const context = useContext(TrnrContext);
   const strokeWidth = context.thickness || 0;
   const radius = SVG_SIZE / 2 - strokeWidth;
@@ -38,24 +44,12 @@ const Dial = ({ parameter, segments = 48, ...props }: DialProps) => {
           innerRadius={innerRadius}
           outerRadius={middleRadius}
         />
-        <Line degree={0} innerRadius={middleRadius} outerRadius={outerRadius} />
-        <Line
-          degree={0.25}
+        <Lines
+          numLines={labels}
           innerRadius={middleRadius}
           outerRadius={outerRadius}
         />
-        <Line
-          degree={0.5}
-          innerRadius={middleRadius}
-          outerRadius={outerRadius}
-        />
-        <Line
-          degree={0.75}
-          innerRadius={middleRadius}
-          outerRadius={outerRadius}
-        />
-        <Line degree={1} innerRadius={middleRadius} outerRadius={outerRadius} />
-        <Labels parameter={parameter} radius={labelRadius} />
+        <Labels numLabels={labels} parameter={parameter} radius={labelRadius} />
       </svg>
     </ControlBase>
   );
@@ -73,13 +67,14 @@ const getPointCoordinates = (value: number, radius: number) => {
 };
 
 const Labels = ({
+  numLabels,
   parameter,
   radius,
 }: {
   parameter: Parameter;
   radius: number;
+  numLabels: number;
 }) => {
-  const numLabels = 5;
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
     labels.push({
@@ -134,6 +129,26 @@ const Label = (props: {
       {props.text}
     </text>
   );
+};
+
+const Lines = (props: {
+  numLines: number;
+  innerRadius: number;
+  outerRadius: number;
+}) => {
+  const lines = [];
+  for (let i = 0; i < props.numLines; i++) {
+    lines.push(i / (props.numLines - 1));
+  }
+
+  return lines.map((value) => (
+    <Line
+      key={value}
+      degree={value}
+      innerRadius={props.innerRadius}
+      outerRadius={props.outerRadius}
+    />
+  ));
 };
 
 const Line = (props: {
