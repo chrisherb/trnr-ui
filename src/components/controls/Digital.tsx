@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react";
-import { clamp } from "../util/Math";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 
 interface DigitalProps extends ExternalControlBaseProps {
-  value: number;
-  polarity?: "bi" | "uni";
   size?: "small" | "medium" | "large";
 }
 
-const Digital = ({
-  value,
-  size = "medium",
-  polarity = "uni",
-  ...props
-}: DigitalProps) => {
-  const [values, setValues] = useState(["", "", "", ""]);
+const Digital = ({ parameter, size = "medium", ...props }: DigitalProps) => {
   let sizeStyle = "";
 
   switch (size) {
@@ -31,27 +21,24 @@ const Digital = ({
       sizeStyle = "";
   }
 
-  useEffect(() => {
-    const clampedValue = clamp(value, polarity);
-    const adjustedValue = Math.floor(
-      polarity === "uni" ? clampedValue * 127 : clampedValue * 99
-    );
-    const length = polarity === "uni" ? 3 : 2;
-    const lead = polarity === "uni" ? "" : adjustedValue < 0 ? "-" : " ";
-    const combined =
-      lead + Math.abs(adjustedValue).toString().padStart(length, " ");
-    const digits = combined.split("");
-    setValues([digits[0], digits[1], digits[2]]);
-  }, [value, polarity]);
+  const length = parameter.rangeMax.toString().length;
+  const lead = parameter.rangeMin >= 0 ? "" : parameter.value < 0 ? "-" : " ";
+  const combined =
+    lead +
+    Math.abs(Math.round(parameter.value)).toString().padStart(length, " ");
+  const digits = combined.split("");
 
   return (
-    <ControlBase value={value} polarity={polarity} {...props}>
+    <ControlBase parameter={parameter} {...props}>
       <div
         className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle} cursor-pointer`}
       >
-        <DigitalNumber value={values[0]} />
+        {/* <DigitalNumber value={values[0]} />
         <DigitalNumber value={values[1]} />
-        <DigitalNumber value={values[2]} />
+        <DigitalNumber value={values[2]} /> */}
+        {digits.map((value) => (
+          <DigitalNumber value={value} />
+        ))}
       </div>
     </ControlBase>
   );
