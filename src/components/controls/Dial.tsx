@@ -30,12 +30,7 @@ const Dial = ({
   const innerRadius = outer * 0.45;
 
   return (
-    <ControlBase
-      parameter={parameter}
-      polarity="uni"
-      header={parameter.name}
-      {...props}
-    >
+    <ControlBase parameter={parameter} header={parameter.name} {...props}>
       <svg
         className="w-full h-full select-none"
         xmlns="<http://www.w3.org/2000/svg>"
