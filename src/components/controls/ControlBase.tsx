@@ -22,13 +22,11 @@ interface InternalControlBaseProps
   extends ExternalControlBaseProps,
     PropsWithChildren {
   orientation?: "horizontal" | "vertical";
-  polarity?: "bi" | "uni";
 }
 
 const ControlBase = ({
   parameter,
   orientation = "vertical",
-  polarity = "bi",
   children,
   gear = 200,
   onMouseDown,
@@ -58,31 +56,17 @@ const ControlBase = ({
       let relativeDrag = 0;
       if (orientation == "vertical") relativeDrag = (clientPos - origin) / gear;
       else relativeDrag = (origin - clientPos) / gear;
-      const calulatedValue = clamp(tempVal - relativeDrag, polarity);
-      parameter.setNormalizedValue(calulatedValue);
+      const calculatedValue = clamp(tempVal - relativeDrag);
+      parameter.setNormalizedValue(calculatedValue);
     }
-  }, [
-    dragging,
-    gear,
-    mouseX,
-    mouseY,
-    orientation,
-    origin,
-    parameter,
-    polarity,
-    tempVal,
-  ]);
-
-  const handleDoubleClick = () => {
-    parameter.reset();
-  };
+  }, [dragging, gear, mouseX, mouseY, orientation, origin, parameter, tempVal]);
 
   return (
     <Stack {...props}>
       {Children.map(children, (child) => {
         return cloneElement(child as ReactElement, {
           onMouseDown: handleMouseDown,
-          onDoubleClick: handleDoubleClick,
+          onDoubleClick: () => parameter.reset(),
         });
       })}
     </Stack>

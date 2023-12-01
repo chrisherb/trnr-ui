@@ -8,6 +8,7 @@ export interface Parameter {
   rangeMax: number;
   name: string;
   setValue: (value: number) => void;
+  getDenormalizedValue: (value: number) => number;
   setNormalizedValue: (value: number) => void;
   reset: () => void;
   suffix: string;
@@ -18,10 +19,11 @@ export function useParameter(
   rangeMax: number,
   defaultValue: number,
   name: string = "",
-  suffix: string = ""
+  suffix: string = "",
+  exponent: number = 1
 ): Parameter {
   const normalize = (value: number) => {
-    return (value - rangeMin) / (rangeMax - rangeMin);
+    return (Math.pow(value, exponent) - rangeMin) / (rangeMax - rangeMin);
   };
 
   const denormalize = (value: number) => {
@@ -34,6 +36,7 @@ export function useParameter(
     value: denormalize(normalized),
     normalizedValue: normalized,
     setValue: (value: number) => setNormalized(clamp(normalize(value))),
+    getDenormalizedValue: (value: number) => denormalize(value),
     setNormalizedValue: (value: number) => setNormalized(clamp(value)),
     reset: () => setNormalized(normalize(defaultValue)),
     name: name,

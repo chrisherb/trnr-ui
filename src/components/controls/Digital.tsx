@@ -63,8 +63,8 @@ const Digital = ({
         <div
           className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle} cursor-pointer`}
         >
-          {digits.map((value) => (
-            <DigitalNumber value={value} />
+          {digits.map((value, index) => (
+            <DigitalNumber key={index} value={value} />
           ))}
         </div>
         <div className="flex flex-col justify-center select-none w-4">

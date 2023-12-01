@@ -91,12 +91,10 @@ const Labels = ({
 }) => {
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
+    const value = i / (numLabels - 1);
     const label = {
-      index: i / (numLabels - 1),
-      name: (
-        (i / (numLabels - 1)) * (parameter.rangeMax - parameter.rangeMin) +
-        parameter.rangeMin
-      ).toString(),
+      index: value,
+      name: Math.round(parameter.getDenormalizedValue(value)).toString(),
     };
     if (showSuffix && i === numLabels - 1) {
       label.name += " " + parameter.suffix;
