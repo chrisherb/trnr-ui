@@ -34,8 +34,6 @@ export function useParameter(
     Math.pow(normalize(defaultValue), 1 / exponent)
   );
 
-  console.log(denormalize(normalized));
-
   return {
     value: denormalize(normalized),
     normalizedValue: normalized,
