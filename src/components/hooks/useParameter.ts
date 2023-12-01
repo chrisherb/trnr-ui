@@ -30,7 +30,11 @@ export function useParameter(
     return Math.pow(value, exponent) * (rangeMax - rangeMin) + rangeMin;
   };
 
-  const [normalized, setNormalized] = useState(normalize(defaultValue));
+  const [normalized, setNormalized] = useState(
+    Math.pow(normalize(defaultValue), 1 / exponent)
+  );
+
+  console.log(denormalize(normalized));
 
   return {
     value: denormalize(normalized),
@@ -38,7 +42,7 @@ export function useParameter(
     setValue: (value: number) => setNormalized(clamp(normalize(value))),
     getDenormalizedValue: (value: number) => denormalize(value),
     setNormalizedValue: (value: number) => setNormalized(clamp(value)),
-    reset: () => setNormalized(normalize(defaultValue)),
+    reset: () => setNormalized(Math.pow(normalize(defaultValue), 1 / exponent)),
     name: name,
     rangeMin: rangeMin,
     rangeMax: rangeMax,
