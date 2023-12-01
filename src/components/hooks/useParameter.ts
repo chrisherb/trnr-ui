@@ -23,11 +23,11 @@ export function useParameter(
   exponent: number = 1
 ): Parameter {
   const normalize = (value: number) => {
-    return (Math.pow(value, exponent) - rangeMin) / (rangeMax - rangeMin);
+    return (value - rangeMin) / (rangeMax - rangeMin);
   };
 
   const denormalize = (value: number) => {
-    return value * (rangeMax - rangeMin) + rangeMin;
+    return Math.pow(value, exponent) * (rangeMax - rangeMin) + rangeMin;
   };
 
   const [normalized, setNormalized] = useState(normalize(defaultValue));
