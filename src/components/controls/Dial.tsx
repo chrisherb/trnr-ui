@@ -10,12 +10,14 @@ interface DialProps extends ExternalControlBaseProps {
   parameter: Parameter;
   segments?: number;
   labels?: number;
+  showSuffix?: boolean;
 }
 
 const Dial = ({
   parameter,
   labels = 5,
   segments = 48,
+  showSuffix = true,
   ...props
 }: DialProps) => {
   const context = useContext(TrnrContext);
@@ -54,7 +56,12 @@ const Dial = ({
           innerRadius={middleRadius}
           outerRadius={outerRadius}
         />
-        <Labels numLabels={labels} parameter={parameter} radius={labelRadius} />
+        <Labels
+          numLabels={labels}
+          parameter={parameter}
+          radius={labelRadius}
+          showSuffix={showSuffix}
+        />
       </svg>
     </ControlBase>
   );
@@ -75,24 +82,31 @@ const Labels = ({
   numLabels,
   parameter,
   radius,
+  showSuffix,
 }: {
   parameter: Parameter;
   radius: number;
   numLabels: number;
+  showSuffix: boolean;
 }) => {
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
-    labels.push({
+    const label = {
       index: i / (numLabels - 1),
-      label:
+      name: (
         (i / (numLabels - 1)) * (parameter.rangeMax - parameter.rangeMin) +
-        parameter.rangeMin,
-    });
+        parameter.rangeMin
+      ).toString(),
+    };
+    if (showSuffix && i === numLabels - 1) {
+      label.name += " " + parameter.suffix;
+    }
+    labels.push(label);
   }
 
   return (
     <>
-      {labels.map(({ index, label }) => {
+      {labels.map(({ index, name }) => {
         let textAnchor = "middle";
 
         if (index < 0.5) {
@@ -103,8 +117,8 @@ const Labels = ({
 
         return (
           <Label
-            key={label}
-            text={label.toString()}
+            key={name}
+            text={name.toString()}
             value={index}
             radius={radius}
             textAnchor={textAnchor}
