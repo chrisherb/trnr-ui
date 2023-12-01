@@ -15,13 +15,13 @@ const Digital = ({
 
   switch (size) {
     case "small":
-      sizeStyle = "h-16 w-24";
+      sizeStyle = "h-16";
       break;
     case "medium":
-      sizeStyle = "h-20 w-32";
+      sizeStyle = "h-20";
       break;
     case "large":
-      sizeStyle = "h-28 w-44";
+      sizeStyle = "h-28";
       break;
     default:
       sizeStyle = "";
@@ -38,24 +38,26 @@ const Digital = ({
   return (
     <ControlBase parameter={parameter} {...props} header={parameter.name}>
       <div className="flex gap-2">
-        {bipolar && (
-          <div className="flex flex-col gap-2 justify-center text-3xl select-none w-4">
-            <span
-              className={`h-5 leading-4 -m-[1px] ${
-                parameter.value > 0 ? "" : "opacity-30"
-              }`}
-            >
-              +
-            </span>
-            <span
-              className={`h-5 leading-4 ${
-                parameter.value < 0 ? "" : "opacity-40"
-              }`}
-            >
-              -
-            </span>
-          </div>
-        )}
+        <div className="flex flex-col gap-2 justify-center text-3xl select-none w-4">
+          {bipolar && (
+            <>
+              <span
+                className={`h-5 leading-4 -m-[1px] ${
+                  parameter.value > 0 ? "" : "opacity-30"
+                }`}
+              >
+                +
+              </span>
+              <span
+                className={`h-5 leading-4 ${
+                  parameter.value < 0 ? "" : "opacity-40"
+                }`}
+              >
+                -
+              </span>
+            </>
+          )}
+        </div>
         <div
           className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle} cursor-pointer`}
         >
@@ -113,7 +115,11 @@ const DigitalNumber = (props: { value: string }) => {
   };
 
   return (
-    <svg viewBox="0 0 26.458333 47.625" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 26.458333 47.625"
+      className="w-full h-full"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M 22.754166,2.6458333 20.902083,0.79375033 H 5.5562497 l -1.852083,1.85208297 1.852083,1.852083 H 20.902083 Z"
         id="A"
