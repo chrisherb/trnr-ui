@@ -4,7 +4,7 @@ import { TrnrContext } from "../layout/Trnr";
 import { Parameter } from "../hooks/useParameter";
 
 const SVG_SIZE = 100;
-const SVG_OFFSET = 5;
+const SVG_OFFSET = 10;
 
 interface DialProps extends ExternalControlBaseProps {
   parameter: Parameter;
