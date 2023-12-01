@@ -193,7 +193,7 @@ const Segments = (props: {
   outerRadius: number;
 }) => {
   const getSegments = (parts: number, span: number) => {
-    const internalParts = parts * 3;
+    const internalParts = parts * 3 - 1;
     const getSegment = (index: number, parts: number) => {
       return (1 / parts) * index;
     };
