@@ -45,14 +45,14 @@ const Digital = ({
             <>
               <span
                 className={`h-5 leading-4 -m-[1px] ${
-                  parameter.value > 0 ? "" : "opacity-30"
+                  parameter.value > 0 ? "" : "opacity-20"
                 }`}
               >
                 +
               </span>
               <span
                 className={`h-5 leading-4 ${
-                  parameter.value < 0 ? "" : "opacity-40"
+                  parameter.value < 0 ? "" : "opacity-20"
                 }`}
               >
                 -
