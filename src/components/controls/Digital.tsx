@@ -2,9 +2,15 @@ import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 
 interface DigitalProps extends ExternalControlBaseProps {
   size?: "small" | "medium" | "large";
+  showSuffix?: boolean;
 }
 
-const Digital = ({ parameter, size = "medium", ...props }: DigitalProps) => {
+const Digital = ({
+  parameter,
+  size = "medium",
+  showSuffix = true,
+  ...props
+}: DigitalProps) => {
   let sizeStyle = "";
 
   switch (size) {
@@ -22,20 +28,46 @@ const Digital = ({ parameter, size = "medium", ...props }: DigitalProps) => {
   }
 
   const length = parameter.rangeMax.toString().length;
-  const lead = parameter.rangeMin >= 0 ? "" : parameter.value < 0 ? "-" : " ";
-  const combined =
-    lead +
-    Math.abs(Math.round(parameter.value)).toString().padStart(length, " ");
-  const digits = combined.split("");
+  const padded = Math.abs(Math.round(parameter.value))
+    .toString()
+    .padStart(length, " ");
+  const digits = padded.split("");
+
+  const bipolar = parameter.rangeMax < 0 || parameter.rangeMin < 0;
 
   return (
     <ControlBase parameter={parameter} {...props} header={parameter.name}>
-      <div
-        className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle} cursor-pointer`}
-      >
-        {digits.map((value) => (
-          <DigitalNumber value={value} />
-        ))}
+      <div className="flex gap-2">
+        {bipolar && (
+          <div className="flex flex-col gap-2 justify-center text-3xl select-none w-4">
+            <span
+              className={`h-5 leading-4 -m-[1px] ${
+                parameter.value > 0 ? "" : "opacity-30"
+              }`}
+            >
+              +
+            </span>
+            <span
+              className={`h-5 leading-4 ${
+                parameter.value < 0 ? "" : "opacity-40"
+              }`}
+            >
+              -
+            </span>
+          </div>
+        )}
+        <div
+          className={`flex fill-secondary justify-center gap-1 rounded-1 border border-1 border-secondary p-2 ${sizeStyle} cursor-pointer`}
+        >
+          {digits.map((value) => (
+            <DigitalNumber value={value} />
+          ))}
+        </div>
+        <div className="flex flex-col justify-center select-none w-4">
+          {showSuffix && (
+            <span className="h-5 leading-none">{parameter.suffix}</span>
+          )}
+        </div>
       </div>
     </ControlBase>
   );

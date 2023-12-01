@@ -12,7 +12,7 @@ const Stack = ({ orientation = "vertical", ...props }: StackProps) => {
 
 const VerticalStack = ({ header, children }: StackProps) => {
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex flex-col">
       <div className="h-10 shrink-0 uppercase text-center select-none truncate">
         {header}
       </div>
@@ -24,7 +24,7 @@ const VerticalStack = ({ header, children }: StackProps) => {
 const HorizontalStack = ({ header, children }: StackProps) => {
   return (
     <>
-      <div className="flex flex-row h-full w-full gap-x-2">
+      <div className="flex flex-row gap-x-2">
         <div className="w-1/2 uppercase grid content-center truncate select-none">
           {header}
         </div>
