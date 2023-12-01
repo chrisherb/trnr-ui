@@ -9,7 +9,7 @@ import {
 } from "./components/hooks/useParameter";
 
 function Showcase() {
-  const parameter = useParameter(-100, 100, 0, "Parameter", "%");
+  const parameter = useParameter(-70, 12, 0, "Parameter", "dB");
   const optionParameter = useOptionParameter(
     ["Option 1", "Option 2", "Option 3"],
     0,

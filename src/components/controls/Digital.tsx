@@ -27,7 +27,9 @@ const Digital = ({
       sizeStyle = "";
   }
 
-  const length = parameter.rangeMax.toString().length;
+  const rangeMaxLength = Math.abs(parameter.rangeMax).toString().length;
+  const rangeMinLength = Math.abs(parameter.rangeMin).toString().length;
+  const length = Math.max(rangeMaxLength, rangeMinLength);
   const padded = Math.abs(Math.round(parameter.value))
     .toString()
     .padStart(length, " ");
