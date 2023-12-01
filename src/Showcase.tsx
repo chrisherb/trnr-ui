@@ -24,7 +24,7 @@ function Showcase() {
       >
         <Grid rows={3} columns={4}>
           <GridCell>
-            <Dial parameter={parameter} />
+            <Dial parameter={parameter} segments={48} />
           </GridCell>
           <GridCell>
             <Digital parameter={parameter} />
