@@ -1,13 +1,12 @@
+import { OptionParameter } from "../hooks/useParameter";
 import Stack from "./Stack";
 
 interface RadioProps {
-  value: string;
-  options: string[];
-  onChange: (value: string) => void;
+  parameter: OptionParameter;
   size?: "none" | "small" | "medium" | "large";
 }
 
-const Radio = ({ value, onChange, options, size = "medium" }: RadioProps) => {
+const Radio = ({ parameter, size = "medium" }: RadioProps) => {
   let sizeStyle = "";
 
   switch (size) {
@@ -25,23 +24,25 @@ const Radio = ({ value, onChange, options, size = "medium" }: RadioProps) => {
   }
 
   return (
-    <Stack>
+    <Stack header={parameter.name}>
       <div className="flex flex-wrap gap-4 justify-center content-start">
-        {options.map((option: string, index: number) => (
+        {parameter.options.map((option: string, index: number) => (
           <div
             key={index}
             className={`grid shrink-0 justify-center rounded-1 border border-1 border-secondary px-2 uppercase cursor-pointer truncate ${sizeStyle} ${
-              value === option ? "opacity-100" : "opacity-30"
+              parameter.options[parameter.value] === option
+                ? "opacity-100"
+                : "opacity-30"
             }`}
-            onClick={() => onChange(option)}
+            onClick={() => parameter.setValue(index)}
           >
             <input
               type="radio"
               name="radio"
               className="appearance-none"
               value={option}
-              checked={value === option}
-              onChange={() => onChange(option)}
+              checked={parameter.options[parameter.value] === option}
+              onChange={() => parameter.setValue(index)}
             />
             {option}
           </div>

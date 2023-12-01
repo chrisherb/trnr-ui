@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { clamp } from "../util/Math";
 
-export type Parameter = {
+export interface Parameter {
   value: number;
   normalizedValue: number;
   rangeMin: number;
   rangeMax: number;
   name: string;
+  setValue: (value: number) => void;
   setNormalizedValue: (value: number) => void;
   reset: () => void;
   suffix: string;
-};
+}
 
 export function useParameter(
   rangeMin: number,
@@ -29,22 +30,30 @@ export function useParameter(
 
   const [normalized, setNormalized] = useState(normalize(defaultValue));
 
-  const setNormalizedValue = (value: number) => {
-    setNormalized(clamp(value));
-  };
-
-  const resetToDefault = () => {
-    setNormalized(normalize(defaultValue));
-  };
-
   return {
     value: denormalize(normalized),
     normalizedValue: normalized,
-    setNormalizedValue: setNormalizedValue,
-    reset: resetToDefault,
+    setValue: (value: number) => setNormalized(clamp(normalize(value))),
+    setNormalizedValue: (value: number) => setNormalized(clamp(value)),
+    reset: () => setNormalized(normalize(defaultValue)),
     name: name,
     rangeMin: rangeMin,
     rangeMax: rangeMax,
     suffix: suffix,
+  };
+}
+
+export interface OptionParameter extends Parameter {
+  options: string[];
+}
+
+export function useOptionParameter(
+  options: string[],
+  defaultValue: number,
+  name: string = ""
+): OptionParameter {
+  return {
+    options,
+    ...useParameter(0, options.length - 1, defaultValue, name),
   };
 }
