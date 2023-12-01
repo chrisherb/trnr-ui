@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react";
 
 export interface StackProps extends PropsWithChildren {
-  style?: "default" | "header-only";
   header?: ReactNode;
   orientation?: "horizontal" | "vertical";
 }

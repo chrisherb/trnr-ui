@@ -1,3 +1,4 @@
+import { Parameter } from "../hooks/useParameter";
 import ControlBase, { ExternalControlBaseProps } from "./ControlBase";
 
 interface InternalSliderBaseProps extends ExternalControlBaseProps {
@@ -7,56 +8,50 @@ interface InternalSliderBaseProps extends ExternalControlBaseProps {
 }
 
 const Slider = ({
-  value,
-  onChange,
-  polarity = "uni",
+  parameter,
   style = "bar",
   orientation = "vertical",
   gear = 400,
-  defaultValue,
   ...props
 }: InternalSliderBaseProps) => {
-  const handleOnChange = (v: number) => {
-    onChange(v);
-  };
-
   return (
     <ControlBase
-      value={value}
-      onChange={handleOnChange}
+      parameter={parameter}
       gear={gear}
       orientation={orientation}
-      defaultValue={defaultValue}
       {...props}
     >
-      <div
-        className={`rounded-1 ring ring-1 ring-primary ring-offset-1 ring-offset-background m-2 grow`}
-      >
+      <div className={`rounded-1 m-2 grow`}>
         {orientation === "horizontal" && (
-          <HorizontalSlider value={value} segments={100} />
+          <HorizontalSlider parameter={parameter} segments={100} />
         )}
         {orientation === "vertical" && (
-          <VerticalSlider value={value} segments={33} />
+          <VerticalSlider parameter={parameter} segments={33} />
         )}
       </div>
     </ControlBase>
   );
 };
 
-const HorizontalSlider = (props: { value: number; segments: number }) => {
+const HorizontalSlider = (props: {
+  parameter: Parameter;
+  segments: number;
+}) => {
   return (
     <div
       className={`bg-secondary h-full rounded-1`}
-      style={{ width: `${props.value * 100}%` }}
+      style={{ width: `${props.parameter.normalizedValue * 100}%` }}
     ></div>
   );
 };
 
-const VerticalSlider = (props: { value: number; segments: number }) => {
+const VerticalSlider = (props: { parameter: Parameter; segments: number }) => {
   return (
     <div className="flex flex-col-reverse w-full h-full gap-1 select-none">
       {[...Array(props.segments)].map((_, i) => {
-        const bla = Math.floor(props.segments * props.value);
+        const bla = Math.floor(
+          props.segments * props.parameter.normalizedValue
+        );
         const opacity = i > bla ? 0.5 : 1;
 
         return (
