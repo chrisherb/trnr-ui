@@ -39,7 +39,7 @@ const Radio = ({ parameter, size = "medium" }: RadioProps) => {
             <input
               type="radio"
               name="radio"
-              className="appearance-none"
+              className="appearance-none -z-10"
               value={option}
               checked={parameter.options[parameter.value] === option}
               onChange={() => parameter.setValue(index)}
