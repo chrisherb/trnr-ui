@@ -32,7 +32,7 @@ const Dial = ({
   return (
     <ControlBase parameter={parameter} header={parameter.name} {...props}>
       <svg
-        className="w-full h-full select-none"
+        className="w-full h-full select-none cursor-pointer"
         xmlns="<http://www.w3.org/2000/svg>"
         viewBox={`${SVG_OFFSET * -1} 0 ${
           SVG_SIZE + SVG_OFFSET * 2
