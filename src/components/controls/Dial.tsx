@@ -193,7 +193,7 @@ const Segments = (props: {
   outerRadius: number;
 }) => {
   const getSegments = (parts: number, span: number) => {
-    const internalParts = parts * 3 - 1;
+    const internalParts = parts * span - 1;
     const getSegment = (index: number, parts: number) => {
       return (1 / parts) * index;
     };
@@ -206,7 +206,7 @@ const Segments = (props: {
     return segments;
   };
 
-  const adjustedValue = props.value * 0.75 * props.segments;
+  const adjustedValue = props.value * props.segments;
   const value = Math.floor(adjustedValue);
   const decimals = (adjustedValue - value) * 0.9 + 0.1;
 
