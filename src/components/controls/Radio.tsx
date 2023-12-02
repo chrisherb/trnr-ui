@@ -29,7 +29,7 @@ const Radio = ({ parameter, size = "medium" }: RadioProps) => {
         {parameter.options.map((option: string, index: number) => (
           <div
             key={index}
-            className={`grid shrink-0 justify-center rounded-1 border border-1 border-secondary px-2 uppercase cursor-pointer truncate ${sizeStyle} ${
+            className={`grid shrink-0 justify-center rounded-1 border border-1 border-secondary px-2 uppercase select-none cursor-pointer truncate ${sizeStyle} ${
               parameter.options[parameter.value] === option
                 ? "opacity-100"
                 : "opacity-30"
