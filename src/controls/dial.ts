@@ -1,22 +1,26 @@
 import { LitElement, html, svg } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 
 @customElement("trnr-dial")
 export class TrnrDial extends LitElement {
+
+  @property({ type: Number })
+  diameter: number = 200;
+
+  @property({ type: String })
+  color: string = "white";
+
   render() {
-
-    const diameter = 200;
-
-    const radius = diameter / 2;
+    const radius = this.diameter / 2;
     const labelRadius = radius * 0.9;
     const outerRadius = radius * 0.85;
     const middleRadius = radius * 0.8;
     const innerRadius = radius * 0.45;
 
     return html`
-      <svg width=${diameter} height=${diameter}>
-        ${this.drawArc(diameter / 2, diameter / 2, middleRadius)}
-        ${this.drawArc(diameter / 2, diameter / 2, innerRadius)}
+      <svg width=${this.diameter} height=${this.diameter}>
+        ${this.drawArc(this.diameter / 2, this.diameter / 2, middleRadius)}
+        ${this.drawArc(this.diameter / 2, this.diameter / 2, innerRadius)}
         ${this.drawLines(5, middleRadius, outerRadius)}
       <path />
     </svg>
@@ -33,7 +37,7 @@ export class TrnrDial extends LitElement {
         d="M ${start.x} ${start.y} A ${radius} ${radius} 0 1 0 ${end.x} ${end.y}"
         vectorEffect="non-scaling-stroke"
         fill="none"
-        stroke="white"
+        stroke="${this.color}"
       />`;
   }
 
@@ -81,7 +85,7 @@ export class TrnrDial extends LitElement {
         y2="${y2}"
         vectorEffect="non-scaling-stroke"
         strokeLinecap="round"
-        stroke="white"
+        stroke="${this.color}"
       />`;
   };
 
@@ -89,8 +93,8 @@ export class TrnrDial extends LitElement {
     const gap = 0.255;
     const adjustedValue = value * (1 - gap);
     const theta = 2 * Math.PI * (adjustedValue + 0.25 + gap / 2);
-    const x = 100 + radius * Math.cos(theta);
-    const y = 100 + radius * Math.sin(theta);
+    const x = this.diameter / 2 + radius * Math.cos(theta);
+    const y = this.diameter / 2 + radius * Math.sin(theta);
     return [x, y];
   };
 }
