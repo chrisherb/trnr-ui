@@ -4,11 +4,8 @@ import { customElement, property } from "lit/decorators.js";
 @customElement("trnr-dial")
 export class TrnrDial extends LitElement {
 
-  @property({ type: Number })
-  diameter: number = 200;
-
-  @property({ type: String })
-  color: string = "white";
+  @property() diameter: number = 200;
+  @property() color: string = "white";
 
   render() {
     const radius = this.diameter / 2;
