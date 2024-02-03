@@ -22,6 +22,7 @@ export class TrnrDial extends LitElement {
         ${this.drawArc(this.diameter / 2, this.diameter / 2, middleRadius)}
         ${this.drawArc(this.diameter / 2, this.diameter / 2, innerRadius)}
         ${this.drawLines(5, middleRadius, outerRadius)}
+        ${this.drawSegments(0.5, 33, innerRadius, middleRadius)}
       <path />
     </svg>
     `;
@@ -97,4 +98,63 @@ export class TrnrDial extends LitElement {
     const y = this.diameter / 2 + radius * Math.sin(theta);
     return [x, y];
   };
+
+  private drawSegments(
+    value: number,
+    segments: number,
+    innerRadius: number,
+    outerRadius: number,
+  ) {
+    const getSegments = (parts: number, span: number) => {
+      const internalParts = parts * span - 1;
+      const getSegment = (index: number, parts: number) => {
+        return (1 / parts) * index;
+      };
+      const segments = [];
+      for (let i = 0; i < internalParts; i += span) {
+        const from = getSegment(i, internalParts);
+        const to = getSegment(i + (span - 1), internalParts);
+        segments.push({ from, to });
+      }
+      return segments;
+    };
+
+    const adjustedValue = value * segments;
+    const _value = Math.floor(adjustedValue);
+    const decimals = (adjustedValue - _value) * 0.9 + 0.1;
+
+    return svg`
+      ${getSegments(segments, 4).map((segment, index) => (
+      this.drawSegmentPolygon(
+        segment.from,
+        segment.to,
+        outerRadius,
+        innerRadius,
+        index < _value ? 1 : index > _value ? 0.1 : decimals
+      )
+    ))}`;
+  };
+
+  private drawSegmentPolygon(
+    from: number,
+    to: number,
+    outerRadius: number,
+    innerRadius: number,
+    opacity: number,
+  ) {
+    const _outerRadius = outerRadius - 4;
+    const _innerRadius = innerRadius + 4;
+
+    const [x1, y1] = this.getPointCoordinates(from, _innerRadius);
+    const [x2, y2] = this.getPointCoordinates(from, _outerRadius);
+    const [x3, y3] = this.getPointCoordinates(to, _outerRadius);
+    const [x4, y4] = this.getPointCoordinates(to, _innerRadius);
+
+    return svg`
+      <polygon
+        points="${x1},${y1} ${x2},${y2} ${x3},${y3} ${x4},${y4}"
+        fill="${this.color}"
+        opacity="${opacity}"
+      />`;
+  }
 }
