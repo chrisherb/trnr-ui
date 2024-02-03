@@ -6,6 +6,7 @@ export class TrnrDial extends LitElement {
 
   @property() diameter: number = 200;
   @property() color: string = "white";
+  @property() segments = 40;
 
   render() {
     const radius = this.diameter / 2;
@@ -19,7 +20,7 @@ export class TrnrDial extends LitElement {
         ${this.drawArc(this.diameter / 2, this.diameter / 2, middleRadius)}
         ${this.drawArc(this.diameter / 2, this.diameter / 2, innerRadius)}
         ${this.drawLines(5, middleRadius, outerRadius)}
-        ${this.drawSegments(0.5, 33, innerRadius, middleRadius)}
+        ${this.drawSegments(0.5, this.segments, innerRadius, middleRadius)}
       <path />
     </svg>
     `;
@@ -33,9 +34,10 @@ export class TrnrDial extends LitElement {
 
     return svg`<path
         d="M ${start.x} ${start.y} A ${radius} ${radius} 0 1 0 ${end.x} ${end.y}"
-        vectorEffect="non-scaling-stroke"
+        vector-effect="non-scaling-stroke"
         fill="none"
         stroke="${this.color}"
+        stroke-width="2"
       />`;
   }
 
@@ -81,9 +83,10 @@ export class TrnrDial extends LitElement {
         y1="${y1}"
         x2="${x2}"
         y2="${y2}"
-        vectorEffect="non-scaling-stroke"
-        strokeLinecap="round"
+        vector-effect="non-scaling-stroke"
+        stroke-linecap="round"
         stroke="${this.color}"
+        stroke-width="2"
       />`;
   };
 
