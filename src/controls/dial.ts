@@ -27,7 +27,7 @@ export class TrnrDial extends LitElement {
     `;
   }
 
-  drawArc(x: number, y: number, radius: number) {
+  private drawArc(x: number, y: number, radius: number) {
     const startAngle = 226;
     const endAngle = 134;
     const start = this.polarToCartesian(x, y, radius, endAngle);
@@ -41,7 +41,7 @@ export class TrnrDial extends LitElement {
       />`;
   }
 
-  polarToCartesian(
+  private polarToCartesian(
     centerX: number,
     centerY: number,
     radius: number,
@@ -55,7 +55,7 @@ export class TrnrDial extends LitElement {
   }
 
 
-  drawLines(numLines: number, innerRadius: number, outerRadius: number) {
+  private drawLines(numLines: number, innerRadius: number, outerRadius: number) {
     const lines = [];
     for (let i = 0; i < numLines; i++) {
       lines.push(i / (numLines - 1));
@@ -70,7 +70,7 @@ export class TrnrDial extends LitElement {
     ))}`;
   }
 
-  drawLine(
+  private drawLine(
     degree: number,
     innerRadius: number,
     outerRadius: number,
@@ -89,7 +89,7 @@ export class TrnrDial extends LitElement {
       />`;
   };
 
-  getPointCoordinates(value: number, radius: number) {
+  private getPointCoordinates(value: number, radius: number) {
     const gap = 0.255;
     const adjustedValue = value * (1 - gap);
     const theta = 2 * Math.PI * (adjustedValue + 0.25 + gap / 2);
