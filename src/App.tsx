@@ -14,7 +14,9 @@ function App() {
         <Navbar />
       </div>
       <div className="flex-auto">
-        <SettingsButton onClick={() => setSettingsOpen(true)} />
+        <button onClick={() => setSettingsOpen(true)} className="btn btn-xs btn-circle fixed right-0 m-4">
+          <CogIcon />
+        </button>
       </div>
       <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
         <div>
@@ -22,14 +24,6 @@ function App() {
         </div>
       </Dialog>
     </div>
-  );
-}
-
-function SettingsButton(props: { onClick: () => void }) {
-  return (
-    <button onClick={props.onClick} className="btn btn-xs btn-circle fixed right-0 m-4">
-      <CogIcon />
-    </button>
   );
 }
 
