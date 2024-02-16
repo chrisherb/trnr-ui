@@ -40,12 +40,16 @@ function Controls(props: { items: string[] }) {
   const [active, setActive] = useState("");
   return (
     <ul className="menu">
-      <li className="menu-title">
+      <li className="menu-title ">
         <div className="flex justify-between">
           <span>Controls</span>
-          <button className="btn btn-xs btn-circle">
-            <PlusIcon />
-          </button>
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-xs btn-circle"><PlusIcon /></div>
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a>Item 1</a></li>
+              <li><a>Item 2</a></li>
+            </ul>
+          </div>
         </div>
       </li>
       {props.items.map((item, index) =>
