@@ -8,8 +8,8 @@ function App() {
 
   return (
     <div className="h-screen flex">
-      <div className="w-96 border-r border-neutral">
-        <Controls items={["Item 1", "Item 2", "Item 3", "Item 4"]} />
+      <div className="w-96 border-r border-neutral flex flex-col">
+        <div className="grow"><Controls items={["Item 1", "Item 2", "Item 3", "Item 4"]} /></div>
         <Details />
         <Navbar />
       </div>
