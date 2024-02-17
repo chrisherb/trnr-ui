@@ -56,6 +56,7 @@ function Controls(props: {
   onItemsChange: (items: Control[]) => void;
 }) {
   const [active, setActive] = useState(-1);
+  const [mouseOver, setMouseOver] = useState(-1);
   return (
     <ul className="menu">
       <li className="menu-title ">
@@ -100,9 +101,11 @@ function Controls(props: {
               index === active ? "active" : ""
             } w-full flex justify-between`}
             onClick={() => setActive(index)}
+            onMouseEnter={() => setMouseOver(index)}
+            onMouseLeave={() => setMouseOver(-1)}
           >
             <span>{item.name}</span>
-            {index === active && (
+            {index === mouseOver && (
               <button
                 onClick={() =>
                   props.onItemsChange(props.items.filter((_, i) => i !== index))
