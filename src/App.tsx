@@ -69,8 +69,8 @@ function Controls(props: {
               tabIndex={0}
               className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {CONTROL_TYPES.map((controlType) => (
-                <li>
+              {CONTROL_TYPES.map((controlType, index) => (
+                <li key={index}>
                   <a
                     onClick={() =>
                       props.onItemsChange([
