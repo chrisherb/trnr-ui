@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dialog } from "./components/Dialog";
-import { CogIcon, PlusIcon } from "./components/Icons";
+import { CogIcon, DeleteIcon, PlusIcon } from "./components/Icons";
 
 const CONTROL_TYPES = ["Panel", "Dial"];
 type ControlType = (typeof CONTROL_TYPES)[number];
@@ -96,10 +96,21 @@ function Controls(props: {
       {props.items.map((item, index) => (
         <li key={index}>
           <a
-            className={index === active ? "active" : ""}
+            className={`${
+              index === active ? "active" : ""
+            } w-full flex justify-between`}
             onClick={() => setActive(index)}
           >
-            {item.name}
+            <span>{item.name}</span>
+            {index === active && (
+              <button
+                onClick={() =>
+                  props.onItemsChange(props.items.filter((_, i) => i !== index))
+                }
+              >
+                <DeleteIcon />
+              </button>
+            )}
           </a>
         </li>
       ))}
