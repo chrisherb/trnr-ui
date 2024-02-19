@@ -72,7 +72,7 @@ function Controls(props: {
             >
               {CONTROL_TYPES.map((controlType, index) => (
                 <li key={index}>
-                  <a
+                  <div
                     onClick={() =>
                       props.onItemsChange([
                         ...props.items,
@@ -85,9 +85,11 @@ function Controls(props: {
                         },
                       ])
                     }
+                    className="flex justify-between text-base-content"
                   >
-                    {controlType}
-                  </a>
+                    <a>{controlType}</a>
+                    <PlusIcon />
+                  </div>
                 </li>
               ))}
             </ul>
@@ -107,6 +109,7 @@ function Controls(props: {
             <span>{item.name}</span>
             {index === mouseOver && (
               <button
+                className="h-5"
                 onClick={() =>
                   props.onItemsChange(props.items.filter((_, i) => i !== index))
                 }
