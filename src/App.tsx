@@ -1,17 +1,7 @@
 import { useState } from "react";
 import { Dialog } from "./components/Dialog";
 import { CogIcon, DeleteIcon, PlusIcon } from "./components/Icons";
-
-const CONTROL_TYPES = ["Panel", "Dial"];
-type ControlType = (typeof CONTROL_TYPES)[number];
-
-interface Control {
-  name: ControlType;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
+import { Control, CONTROL_TYPES } from "./ControlModel";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
