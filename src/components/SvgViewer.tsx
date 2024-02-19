@@ -1,4 +1,4 @@
-import { UIConfig } from "../ControlModel";
+import { UIConfig, isPanel } from "../ControlModel";
 
 export function SvgViewer(props: { conf: UIConfig }) {
   return (
@@ -6,7 +6,7 @@ export function SvgViewer(props: { conf: UIConfig }) {
       <svg width={props.conf.width} height={props.conf.height}>
         <rect width="100%" height="100%" fill="black" />
         {props.conf.controls.map((control) => {
-          if (control.name === "Panel") {
+          if (isPanel(control)) {
             return (
               <rect
                 x={control.x}

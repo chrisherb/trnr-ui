@@ -29,44 +29,73 @@ export function ControlDetails(props: {
         {props.control && (
           <table className="table">
             <tbody>
-              <tr>
-                <th>X</th>
-                <td>
-                  <input
-                    type="number"
-                    className="input input-sm w-full max-w-xs"
-                    value={props.control && props.control.x}
-                    onChange={(e) =>
-                      props.control &&
-                      props.onControlChange({
-                        ...props.control,
-                        x: parseInt(e.target.value),
-                      })
-                    }
-                  />
-                </td>
-              </tr>
-              <tr>
-                <th>Y</th>
-                <td>
-                  <input
-                    type="number"
-                    className="input input-sm w-full max-w-xs"
-                    value={props.control && props.control.y}
-                    onChange={(e) =>
-                      props.control &&
-                      props.onControlChange({
-                        ...props.control,
-                        y: parseInt(e.target.value),
-                      })
-                    }
-                  />
-                </td>
-              </tr>
+              <CommonFieldRows
+                control={props.control}
+                onControlChange={props.onControlChange}
+              />
             </tbody>
           </table>
         )}
       </div>
     </div>
+  );
+}
+
+function CommonFieldRows(props: {
+  control: Control;
+  onControlChange: (control: Control) => void;
+}) {
+  return (
+    <>
+      <tr>
+        <th>Name</th>
+        <td>
+          <input
+            type="text"
+            className="input input-sm w-full max-w-xs"
+            value={props.control.name}
+            onChange={(e) =>
+              props.control &&
+              props.onControlChange({
+                ...props.control,
+                name: e.target.value,
+              })
+            }
+          />
+        </td>
+      </tr>
+      <tr>
+        <th>X</th>
+        <td>
+          <input
+            type="number"
+            className="input input-sm w-full max-w-xs"
+            value={props.control.x}
+            onChange={(e) =>
+              props.onControlChange({
+                ...props.control,
+                x: parseInt(e.target.value),
+              })
+            }
+          />
+        </td>
+      </tr>
+      <tr>
+        <th>Y</th>
+        <td>
+          <input
+            type="number"
+            className="input input-sm w-full max-w-xs"
+            value={props.control.y}
+            onChange={(e) =>
+              props.onControlChange({
+                ...props.control,
+                y: parseInt(e.target.value),
+              })
+            }
+          />
+        </td>
+      </tr>
+    </>
   );
 }

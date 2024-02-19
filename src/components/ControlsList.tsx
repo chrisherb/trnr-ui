@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CONTROL_TYPES, Control } from "../ControlModel";
+import { CONTROL_TYPES, Control, ControlType, Panel } from "../ControlModel";
 import { DeleteIcon, PlusIcon } from "./Icons";
 
 export function ControlsList(props: {
@@ -29,13 +29,7 @@ export function ControlsList(props: {
                     onClick={() =>
                       props.onControlsChange([
                         ...props.controls,
-                        {
-                          name: controlType,
-                          x: 0,
-                          y: 0,
-                          width: 100,
-                          height: 100,
-                        },
+                        createControl(controlType),
                       ])
                     }
                     className="flex justify-between text-base-content"
@@ -80,4 +74,18 @@ export function ControlsList(props: {
       ))}
     </ul>
   );
+}
+
+function createControl(type: ControlType): Control {
+  switch (type) {
+    case "Panel":
+      return new Panel();
+    default:
+      return {
+        type,
+        name: type,
+        x: 0,
+        y: 0,
+      };
+  }
 }
