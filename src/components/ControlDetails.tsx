@@ -22,11 +22,11 @@ export function ControlDetails(props: {
           className={`tab ${activeTab === 1 && "tab-active"}`}
           onClick={() => setActiveTab(1)}
         >
-          Stuff
+          Style
         </a>
       </div>
       <div className="flex-grow overflow-y-auto">
-        {props.control && (
+        {activeTab === 0 && props.control && (
           <table className="table">
             <tbody>
               <CommonFieldRows
@@ -40,6 +40,11 @@ export function ControlDetails(props: {
                 />
               )}
             </tbody>
+          </table>
+        )}
+        {activeTab === 1 && props.control && (
+          <table className="table">
+            <tbody></tbody>
           </table>
         )}
       </div>
