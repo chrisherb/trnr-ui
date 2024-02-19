@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Control } from "../ControlModel";
+import { Control, Panel, isPanel } from "../ControlModel";
 
 export function ControlDetails(props: {
   control: Control | undefined;
@@ -33,6 +33,12 @@ export function ControlDetails(props: {
                 control={props.control}
                 onControlChange={props.onControlChange}
               />
+              {isPanel(props.control) && (
+                <SizeFieldRows
+                  control={props.control}
+                  onControlChange={props.onControlChange}
+                />
+              )}
             </tbody>
           </table>
         )}
@@ -91,6 +97,48 @@ function CommonFieldRows(props: {
               props.onControlChange({
                 ...props.control,
                 y: parseInt(e.target.value),
+              })
+            }
+          />
+        </td>
+      </tr>
+    </>
+  );
+}
+
+function SizeFieldRows(props: {
+  control: Panel;
+  onControlChange: (control: Panel) => void;
+}) {
+  return (
+    <>
+      <tr>
+        <th>Width</th>
+        <td>
+          <input
+            type="number"
+            className="input input-sm w-full max-w-xs"
+            value={props.control.width}
+            onChange={(e) =>
+              props.onControlChange({
+                ...props.control,
+                width: parseInt(e.target.value),
+              })
+            }
+          />
+        </td>
+      </tr>
+      <tr>
+        <th>Height</th>
+        <td>
+          <input
+            type="number"
+            className="input input-sm w-full max-w-xs"
+            value={props.control.height}
+            onChange={(e) =>
+              props.onControlChange({
+                ...props.control,
+                height: parseInt(e.target.value),
               })
             }
           />
