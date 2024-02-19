@@ -3,6 +3,7 @@ import { Dialog } from "./components/Dialog";
 import { CogIcon } from "./components/Icons";
 import { Control } from "./ControlModel";
 import { ControlsList } from "./components/ControlsList";
+import { ControlDetails } from "./components/ControlDetails";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -15,7 +16,7 @@ function App() {
           <ControlsList items={controls} onItemsChange={setControls} />
         </div>
         <div className="h-96">
-          <Details />
+          <ControlDetails />
         </div>
         <Navbar />
       </div>
@@ -40,19 +41,6 @@ function Navbar() {
       <button className="btn btn-neutral">Load</button>
       <button className="btn btn-neutral">Save</button>
       <button className="btn btn-neutral">Export</button>
-    </div>
-  );
-}
-
-function Details() {
-  return (
-    <div role="tablist" className="tabs tabs-bordered">
-      <a role="tab" className="tab">
-        Common
-      </a>
-      <a role="tab" className="tab tab-active">
-        Stuff
-      </a>
     </div>
   );
 }
