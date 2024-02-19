@@ -4,7 +4,7 @@ import { CogIcon } from "./components/Icons";
 import { UIConfig } from "./ControlModel";
 import { ControlsList } from "./components/ControlsList";
 import { ControlDetails } from "./components/ControlDetails";
-import { SvgViewer } from "./components/SvgViewer";
+import { SvgViewer } from "./components/svg/SvgViewer";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);

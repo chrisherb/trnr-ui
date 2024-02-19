@@ -1,4 +1,4 @@
-import { UIConfig, isPanel } from "../ControlModel";
+import { UIConfig, isPanel } from "../../ControlModel";
 
 export function SvgViewer(props: { conf: UIConfig }) {
   return (
