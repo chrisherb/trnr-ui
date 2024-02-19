@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { Control } from "../ControlModel";
 
-export function ControlDetails() {
+export function ControlDetails(props: {
+  control: Control | undefined;
+  onControlChange: (control: Control) => void;
+}) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -21,7 +25,48 @@ export function ControlDetails() {
           Stuff
         </a>
       </div>
-      <div className="flex-grow"></div>
+      <div className="flex-grow overflow-y-auto">
+        {props.control && (
+          <table className="table">
+            <tbody>
+              <tr>
+                <th>X</th>
+                <td>
+                  <input
+                    type="number"
+                    className="input input-sm w-full max-w-xs"
+                    value={props.control && props.control.x}
+                    onChange={(e) =>
+                      props.control &&
+                      props.onControlChange({
+                        ...props.control,
+                        x: parseInt(e.target.value),
+                      })
+                    }
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th>Y</th>
+                <td>
+                  <input
+                    type="number"
+                    className="input input-sm w-full max-w-xs"
+                    value={props.control && props.control.y}
+                    onChange={(e) =>
+                      props.control &&
+                      props.onControlChange({
+                        ...props.control,
+                        y: parseInt(e.target.value),
+                      })
+                    }
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 }

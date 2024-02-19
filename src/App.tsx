@@ -8,14 +8,26 @@ import { ControlDetails } from "./components/ControlDetails";
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [controls, setControls] = useState<Control[]>([]);
+  const [selectedControlIndex, setSelectedControlIndex] = useState(-1);
 
   return (
     <div className="h-screen flex">
       <div className="w-96 border-r border-neutral flex flex-col">
         <div className="grow">
-          <ControlsList items={controls} onItemsChange={setControls} />
+          <ControlsList
+            controls={controls}
+            onControlsChange={setControls}
+            onControlSelect={(_, index) => setSelectedControlIndex(index)}
+          />
         </div>
-        <ControlDetails />
+        <ControlDetails
+          control={controls[selectedControlIndex]}
+          onControlChange={(ctrl) =>
+            setControls(
+              controls.map((c, i) => (i === selectedControlIndex ? ctrl : c))
+            )
+          }
+        />
         <Navbar />
       </div>
       <div className="flex-auto">

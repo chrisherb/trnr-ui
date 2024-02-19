@@ -3,11 +3,13 @@ import { CONTROL_TYPES, Control } from "../ControlModel";
 import { DeleteIcon, PlusIcon } from "./Icons";
 
 export function ControlsList(props: {
-  items: Control[];
-  onItemsChange: (items: Control[]) => void;
+  controls: Control[];
+  onControlsChange: (items: Control[]) => void;
+  onControlSelect: (control: Control, index: number) => void;
 }) {
   const [active, setActive] = useState(-1);
   const [mouseOver, setMouseOver] = useState(-1);
+
   return (
     <ul className="menu">
       <li className="menu-title ">
@@ -25,8 +27,8 @@ export function ControlsList(props: {
                 <li key={index}>
                   <div
                     onClick={() =>
-                      props.onItemsChange([
-                        ...props.items,
+                      props.onControlsChange([
+                        ...props.controls,
                         {
                           name: controlType,
                           x: 0,
@@ -47,13 +49,16 @@ export function ControlsList(props: {
           </div>
         </div>
       </li>
-      {props.items.map((item, index) => (
+      {props.controls.map((item, index) => (
         <li key={index}>
           <a
             className={`${
               index === active ? "active" : ""
             } w-full flex justify-between`}
-            onClick={() => setActive(index)}
+            onClick={() => {
+              setActive(index);
+              props.onControlSelect(item, index);
+            }}
             onMouseEnter={() => setMouseOver(index)}
             onMouseLeave={() => setMouseOver(-1)}
           >
@@ -62,7 +67,9 @@ export function ControlsList(props: {
               <button
                 className="h-5"
                 onClick={() =>
-                  props.onItemsChange(props.items.filter((_, i) => i !== index))
+                  props.onControlsChange(
+                    props.controls.filter((_, i) => i !== index)
+                  )
                 }
               >
                 <DeleteIcon />
