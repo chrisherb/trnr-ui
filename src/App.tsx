@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Dialog } from "./components/Dialog";
-import { CogIcon, DeleteIcon, PlusIcon } from "./components/Icons";
-import { Control, CONTROL_TYPES } from "./ControlModel";
+import { CogIcon } from "./components/Icons";
+import { Control } from "./ControlModel";
+import { ControlsList } from "./ControlsList";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -11,7 +12,7 @@ function App() {
     <div className="h-screen flex">
       <div className="w-96 border-r border-neutral flex flex-col">
         <div className="grow">
-          <Controls items={controls} onItemsChange={setControls} />
+          <ControlsList items={controls} onItemsChange={setControls} />
         </div>
         <div className="h-96">
           <Details />
@@ -40,79 +41,6 @@ function Navbar() {
       <button className="btn btn-neutral">Save</button>
       <button className="btn btn-neutral">Export</button>
     </div>
-  );
-}
-
-function Controls(props: {
-  items: Control[];
-  onItemsChange: (items: Control[]) => void;
-}) {
-  const [active, setActive] = useState(-1);
-  const [mouseOver, setMouseOver] = useState(-1);
-  return (
-    <ul className="menu">
-      <li className="menu-title ">
-        <div className="flex justify-between">
-          <span>Controls</span>
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-xs btn-circle">
-              <PlusIcon />
-            </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              {CONTROL_TYPES.map((controlType, index) => (
-                <li key={index}>
-                  <div
-                    onClick={() =>
-                      props.onItemsChange([
-                        ...props.items,
-                        {
-                          name: controlType,
-                          x: 0,
-                          y: 0,
-                          width: 100,
-                          height: 100,
-                        },
-                      ])
-                    }
-                    className="flex justify-between text-base-content"
-                  >
-                    <a>{controlType}</a>
-                    <PlusIcon />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </li>
-      {props.items.map((item, index) => (
-        <li key={index}>
-          <a
-            className={`${
-              index === active ? "active" : ""
-            } w-full flex justify-between`}
-            onClick={() => setActive(index)}
-            onMouseEnter={() => setMouseOver(index)}
-            onMouseLeave={() => setMouseOver(-1)}
-          >
-            <span>{item.name}</span>
-            {index === mouseOver && (
-              <button
-                className="h-5"
-                onClick={() =>
-                  props.onItemsChange(props.items.filter((_, i) => i !== index))
-                }
-              >
-                <DeleteIcon />
-              </button>
-            )}
-          </a>
-        </li>
-      ))}
-    </ul>
   );
 }
 
