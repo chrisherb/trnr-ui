@@ -1,31 +1,41 @@
 import { useState } from "react";
 import { Dialog } from "./components/Dialog";
 import { CogIcon } from "./components/Icons";
-import { Control } from "./ControlModel";
+import { UIConfig } from "./ControlModel";
 import { ControlsList } from "./components/ControlsList";
 import { ControlDetails } from "./components/ControlDetails";
+import { SvgViewer } from "./components/SvgViewer";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [controls, setControls] = useState<Control[]>([]);
   const [selectedControlIndex, setSelectedControlIndex] = useState(-1);
+  const [uiConfig, setUiConfig] = useState<UIConfig>({
+    width: 800,
+    height: 600,
+    controls: [],
+  });
 
   return (
     <div className="h-screen flex">
       <div className="w-96 border-r border-neutral flex flex-col">
         <div className="grow">
           <ControlsList
-            controls={controls}
-            onControlsChange={setControls}
+            controls={uiConfig.controls}
+            onControlsChange={(controls) => {
+              setUiConfig({ ...uiConfig, controls });
+            }}
             onControlSelect={(_, index) => setSelectedControlIndex(index)}
           />
         </div>
         <ControlDetails
-          control={controls[selectedControlIndex]}
+          control={uiConfig.controls[selectedControlIndex]}
           onControlChange={(ctrl) =>
-            setControls(
-              controls.map((c, i) => (i === selectedControlIndex ? ctrl : c))
-            )
+            setUiConfig({
+              ...uiConfig,
+              controls: uiConfig.controls.map((c, i) =>
+                i === selectedControlIndex ? ctrl : c
+              ),
+            })
           }
         />
         <Navbar />
@@ -37,6 +47,7 @@ function App() {
         >
           <CogIcon />
         </button>
+        <SvgViewer conf={uiConfig} />
       </div>
       <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
         <div>Settings</div>
