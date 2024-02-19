@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { CONTROL_TYPES, Control } from "./ControlModel";
-import { DeleteIcon, PlusIcon } from "./components/Icons";
+import { CONTROL_TYPES, Control } from "../ControlModel";
+import { DeleteIcon, PlusIcon } from "./Icons";
 
 export function ControlsList(props: {
   items: Control[];

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog } from "./components/Dialog";
 import { CogIcon } from "./components/Icons";
 import { Control } from "./ControlModel";
-import { ControlsList } from "./ControlsList";
+import { ControlsList } from "./components/ControlsList";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
