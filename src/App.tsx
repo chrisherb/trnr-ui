@@ -37,10 +37,10 @@ function App() {
 
 function Navbar() {
   return (
-    <div className="ml-4 mt-6 mr-4 space-x-4">
-      <button className="btn btn-neutral">Load</button>
-      <button className="btn btn-neutral">Save</button>
-      <button className="btn btn-neutral">Export</button>
+    <div className="m-2 space-x-2 flex flex-row">
+      <button className="btn btn-sm btn-neutral">Load</button>
+      <button className="btn btn-sm btn-neutral">Save</button>
+      <button className="btn btn-sm btn-neutral">Export</button>
     </div>
   );
 }
