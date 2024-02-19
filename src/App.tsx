@@ -13,7 +13,9 @@ function App() {
         <div className="grow">
           <Controls items={controls} onItemsChange={setControls} />
         </div>
-        <Details />
+        <div className="h-96">
+          <Details />
+        </div>
         <Navbar />
       </div>
       <div className="flex-auto">
