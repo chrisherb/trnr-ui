@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Control, Panel, isPanel } from "../ControlModel";
+import { Control, Dial, Panel, isDial, isPanel } from "../ControlModel";
 
 export function ControlDetails(props: {
   control: Control | undefined;
@@ -35,6 +35,12 @@ export function ControlDetails(props: {
               />
               {isPanel(props.control) && (
                 <SizeFieldRows
+                  control={props.control}
+                  onControlChange={props.onControlChange}
+                />
+              )}
+              {isDial(props.control) && (
+                <DiameterFieldRows
                   control={props.control}
                   onControlChange={props.onControlChange}
                 />
@@ -144,6 +150,32 @@ function SizeFieldRows(props: {
               props.onControlChange({
                 ...props.control,
                 height: parseInt(e.target.value),
+              })
+            }
+          />
+        </td>
+      </tr>
+    </>
+  );
+}
+
+function DiameterFieldRows(props: {
+  control: Dial;
+  onControlChange: (control: Dial) => void;
+}) {
+  return (
+    <>
+      <tr>
+        <th>Diameter</th>
+        <td>
+          <input
+            type="number"
+            className="input input-sm w-full max-w-xs"
+            value={props.control.diameter}
+            onChange={(e) =>
+              props.onControlChange({
+                ...props.control,
+                diameter: parseInt(e.target.value),
               })
             }
           />

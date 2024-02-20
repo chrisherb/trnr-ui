@@ -8,14 +8,14 @@ export interface UIConfig {
 }
 
 export interface Control {
+  readonly type: ControlType;
   name: string;
-  type: ControlType;
   x: number;
   y: number;
 }
 
 export class Panel implements Control {
-  type: string = "Panel";
+  readonly type: string = "Panel";
   name: string = "Panel";
   x: number = 0;
   y: number = 0;
@@ -24,11 +24,14 @@ export class Panel implements Control {
 }
 
 export class Dial implements Control {
-  type: string = "Dial";
+  readonly type: string = "Dial";
   name: string = "Dial";
   x: number = 0;
   y: number = 0;
-  radius: number = 100;
+  diameter: number = 100;
+  segments: number = 48;
+  labels: number = 5;
+  showSuffix: boolean = false;
 }
 
 export function isPanel(obj: any): obj is Panel {

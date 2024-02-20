@@ -1,4 +1,5 @@
-import { UIConfig, isPanel } from "../../ControlModel";
+import { UIConfig, isDial, isPanel } from "../../ControlModel";
+import SvgDial from "./SvgDial";
 import { SvgPanel } from "./SvgPanel";
 
 export function SvgViewer(props: { conf: UIConfig }) {
@@ -9,6 +10,8 @@ export function SvgViewer(props: { conf: UIConfig }) {
         {props.conf.controls.map((control) => {
           if (isPanel(control)) {
             return <SvgPanel panel={control} />;
+          } else if (isDial(control)) {
+            return <SvgDial {...control} />;
           }
         })}
       </svg>
