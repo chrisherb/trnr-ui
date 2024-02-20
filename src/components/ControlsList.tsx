@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { CONTROL_TYPES, Control, ControlType, Panel } from "../ControlModel";
+import {
+  CONTROL_TYPES,
+  Control,
+  ControlType,
+  Dial,
+  Panel,
+} from "../ControlModel";
 import { DeleteIcon, PlusIcon } from "./Icons";
 
 export function ControlsList(props: {
@@ -80,12 +86,15 @@ function createControl(type: ControlType): Control {
   switch (type) {
     case "Panel":
       return new Panel();
+    case "Dial":
+      return new Dial();
     default:
       return {
         type,
         name: type,
         x: 0,
         y: 0,
+        color: "red",
       };
   }
 }
