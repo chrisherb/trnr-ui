@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Parameter, useParameter } from "../hooks/useParameter";
 import { Dial } from "../../ControlModel";
 
+const strokeWidth = 2;
+
 const SvgDial = ({
   x,
   y,
@@ -11,7 +13,6 @@ const SvgDial = ({
   showSuffix = true,
 }: Dial) => {
   const parameter = useParameter(0, 10, 5);
-  const strokeWidth = 2;
   const radius = diameter / 2 - strokeWidth;
   const outer = radius - strokeWidth * 2;
   const labelRadius = outer * 0.9;
@@ -132,7 +133,7 @@ const Label = (props: {
       y={props.y + y}
       fontSize={12}
       textAnchor={props.textAnchor}
-      className="fill-secondary"
+      fill="magenta"
     >
       {props.text}
     </text>
@@ -182,8 +183,9 @@ const Line = (props: {
       x2={props.x + x2}
       y2={props.y + y2}
       vectorEffect={"non-scaling-stroke"}
-      className="stroke-secondary stroke-global"
       strokeLinecap="round"
+      strokeWidth={strokeWidth}
+      stroke="magenta"
     />
   );
 };
@@ -251,8 +253,8 @@ const SegmentPolygon = (props: {
 
   return (
     <polygon
-      className={`fill-secondary`}
-      style={{ opacity: props.opacity }}
+      fill="magenta"
+      opacity={props.opacity}
       points={`${props.x + x1},${props.y + y1} ${props.x + x2},${
         props.y + y2
       } ${props.x + x3},${props.y + y3} ${props.x + x4},${props.y + y4}`}
@@ -273,7 +275,8 @@ const ArcPath = (props: { x: number; y: number; radius: number }) => {
     <path
       d={`M ${start.x} ${start.y} A ${radius} ${radius} 0 1 0 ${end.x} ${end.y}`}
       vectorEffect={"non-scaling-stroke"}
-      className="stroke-secondary stroke-global"
+      stroke="magenta"
+      strokeWidth={strokeWidth}
     />
   );
 };
