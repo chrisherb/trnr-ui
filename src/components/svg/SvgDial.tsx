@@ -8,9 +8,10 @@ const SvgDial = ({
   x,
   y,
   diameter,
-  labels = 5,
-  segments = 48,
-  showSuffix = true,
+  labels,
+  segments,
+  showSuffix,
+  color,
 }: Dial) => {
   const parameter = useParameter(0, 10, 5);
   const radius = diameter / 2 - strokeWidth;
@@ -22,8 +23,8 @@ const SvgDial = ({
 
   return (
     <g>
-      <ArcPath x={x} y={y} radius={middleRadius} />
-      <ArcPath x={x} y={y} radius={innerRadius} />
+      <ArcPath x={x} y={y} radius={middleRadius} color={color} />
+      <ArcPath x={x} y={y} radius={innerRadius} color={color} />
       <Segments
         x={x}
         y={y}
@@ -31,6 +32,7 @@ const SvgDial = ({
         segments={segments}
         innerRadius={innerRadius}
         outerRadius={middleRadius}
+        color={color}
       />
       <Lines
         x={x}
@@ -38,6 +40,7 @@ const SvgDial = ({
         numLines={labels}
         innerRadius={middleRadius}
         outerRadius={outerRadius}
+        color={color}
       />
       <Labels
         x={x}
@@ -46,6 +49,7 @@ const SvgDial = ({
         parameter={parameter}
         radius={labelRadius}
         showSuffix={showSuffix}
+        color={color}
       />
     </g>
   );
@@ -69,6 +73,7 @@ const Labels = ({
   parameter,
   radius,
   showSuffix,
+  color,
 }: {
   x: number;
   y: number;
@@ -76,6 +81,7 @@ const Labels = ({
   radius: number;
   numLabels: number;
   showSuffix: boolean;
+  color: string;
 }) => {
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
@@ -110,6 +116,7 @@ const Labels = ({
             value={index}
             radius={radius}
             textAnchor={textAnchor}
+            color={color}
           />
         );
       })}
@@ -124,6 +131,7 @@ const Label = (props: {
   value: number;
   radius: number;
   textAnchor: string;
+  color: string;
 }) => {
   const [x, y] = getPointCoordinates(props.value, props.radius);
 
@@ -133,7 +141,7 @@ const Label = (props: {
       y={props.y + y}
       fontSize={12}
       textAnchor={props.textAnchor}
-      fill="magenta"
+      fill={props.color}
     >
       {props.text}
     </text>
@@ -146,6 +154,7 @@ const Lines = (props: {
   numLines: number;
   innerRadius: number;
   outerRadius: number;
+  color: string;
 }) => {
   const lines = [];
   for (let i = 0; i < props.numLines; i++) {
@@ -160,6 +169,7 @@ const Lines = (props: {
       degree={value}
       innerRadius={props.innerRadius}
       outerRadius={props.outerRadius}
+      color={props.color}
     />
   ));
 };
@@ -170,6 +180,7 @@ const Line = (props: {
   degree: number;
   innerRadius: number;
   outerRadius: number;
+  color: string;
 }) => {
   const [x1, y1] = getPointCoordinates(props.degree, props.innerRadius);
   const [x2, y2] = getPointCoordinates(props.degree, props.outerRadius);
@@ -185,7 +196,7 @@ const Line = (props: {
       vectorEffect={"non-scaling-stroke"}
       strokeLinecap="round"
       strokeWidth={strokeWidth}
-      stroke="magenta"
+      stroke={props.color}
     />
   );
 };
@@ -197,6 +208,7 @@ const Segments = (props: {
   segments: number;
   innerRadius: number;
   outerRadius: number;
+  color: string;
 }) => {
   const getSegments = (parts: number, span: number) => {
     const internalParts = parts * span - 1;
@@ -228,6 +240,7 @@ const Segments = (props: {
           outerRadius={props.outerRadius}
           innerRadius={props.innerRadius}
           opacity={index < value ? 1 : index > value ? 0.1 : decimals}
+          color={props.color}
         />
       ))}
     </>
@@ -242,6 +255,7 @@ const SegmentPolygon = (props: {
   outerRadius: number;
   innerRadius: number;
   opacity: number;
+  color: string;
 }) => {
   const outerRadius = props.outerRadius - 4;
   const innerRadius = props.innerRadius + 4;
@@ -253,7 +267,7 @@ const SegmentPolygon = (props: {
 
   return (
     <polygon
-      fill="magenta"
+      fill={props.color}
       opacity={props.opacity}
       points={`${props.x + x1},${props.y + y1} ${props.x + x2},${
         props.y + y2
@@ -262,7 +276,12 @@ const SegmentPolygon = (props: {
   );
 };
 
-const ArcPath = (props: { x: number; y: number; radius: number }) => {
+const ArcPath = (props: {
+  x: number;
+  y: number;
+  radius: number;
+  color: string;
+}) => {
   const x = props.x;
   const y = props.y;
   const radius = props.radius;
@@ -275,7 +294,7 @@ const ArcPath = (props: { x: number; y: number; radius: number }) => {
     <path
       d={`M ${start.x} ${start.y} A ${radius} ${radius} 0 1 0 ${end.x} ${end.y}`}
       vectorEffect={"non-scaling-stroke"}
-      stroke="magenta"
+      stroke={props.color}
       strokeWidth={strokeWidth}
     />
   );
