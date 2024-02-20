@@ -241,8 +241,8 @@ const SegmentPolygon = (props: {
   innerRadius: number;
   opacity: number;
 }) => {
-  const outerRadius = props.outerRadius - 5;
-  const innerRadius = props.innerRadius + 5;
+  const outerRadius = props.outerRadius - 4;
+  const innerRadius = props.innerRadius + 4;
 
   const [x1, y1] = getPointCoordinates(props.from, innerRadius);
   const [x2, y2] = getPointCoordinates(props.from, outerRadius);
