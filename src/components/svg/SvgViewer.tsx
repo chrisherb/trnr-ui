@@ -9,7 +9,7 @@ export function SvgViewer(props: { conf: UIConfig }) {
         <rect width="100%" height="100%" fill="black" />
         {props.conf.controls.map((control) => {
           if (isPanel(control)) {
-            return <SvgPanel panel={control} />;
+            return <SvgPanel {...control} />;
           } else if (isDial(control)) {
             return <SvgDial {...control} />;
           }

@@ -12,6 +12,7 @@ export interface Control {
   name: string;
   x: number;
   y: number;
+  color: string;
 }
 
 export class Panel implements Control {
@@ -21,6 +22,7 @@ export class Panel implements Control {
   y: number = 0;
   width: number = 100;
   height: number = 100;
+  color: string = "red";
 }
 
 export class Dial implements Control {
@@ -32,6 +34,7 @@ export class Dial implements Control {
   segments: number = 48;
   labels: number = 5;
   showSuffix: boolean = false;
+  color: string = "red";
 }
 
 export function isPanel(obj: any): obj is Panel {
