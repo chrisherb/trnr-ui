@@ -1,12 +1,12 @@
 import { Panel } from "../../ControlModel";
 
-export function SvgPanel(props: { panel: Panel }) {
+export function SvgPanel(props: Panel) {
   return (
     <rect
-      x={props.panel.x}
-      y={props.panel.y}
-      width={props.panel.width}
-      height={props.panel.height}
+      x={props.x}
+      y={props.y}
+      width={props.width}
+      height={props.height}
       fill="none"
       stroke="red"
       strokeWidth={2}
