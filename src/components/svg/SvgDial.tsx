@@ -4,6 +4,10 @@ import { Dial } from "../../ControlModel";
 
 const strokeWidth = 2;
 
+interface SvgDialProps extends Dial {
+  isExport?: boolean;
+}
+
 const SvgDial = ({
   x,
   y,
@@ -12,19 +16,40 @@ const SvgDial = ({
   segments,
   showSuffix,
   color,
-}: Dial) => {
+  isExport = false,
+}: SvgDialProps) => {
   const parameter = useParameter(0, 10, 5);
-  const radius = diameter / 2 - strokeWidth;
-  const outer = radius - strokeWidth * 2;
-  const labelRadius = outer * 0.9;
-  const outerRadius = outer * 0.85;
-  const middleRadius = outer * 0.8;
-  const innerRadius = outer * 0.45;
+  const radius = diameter / 2;
+  const labelRadius = radius * 1.2;
+  const outerRadius = radius * 1.1;
+  const middleRadius = radius;
+  const innerRadius = radius * 0.6;
 
   return (
     <g>
-      <ArcPath x={x} y={y} radius={middleRadius} color={color} />
-      <ArcPath x={x} y={y} radius={innerRadius} color={color} />
+      {!isExport && (
+        <>
+          <ArcPath x={x} y={y} radius={middleRadius} color={color} />
+          <ArcPath x={x} y={y} radius={innerRadius} color={color} />
+          <Lines
+            x={x}
+            y={y}
+            numLines={labels}
+            innerRadius={middleRadius}
+            outerRadius={outerRadius}
+            color={color}
+          />
+          <Labels
+            x={x}
+            y={y}
+            numLabels={labels}
+            parameter={parameter}
+            radius={labelRadius}
+            showSuffix={showSuffix}
+            color={color}
+          />
+        </>
+      )}
       <Segments
         x={x}
         y={y}
@@ -32,23 +57,6 @@ const SvgDial = ({
         segments={segments}
         innerRadius={innerRadius}
         outerRadius={middleRadius}
-        color={color}
-      />
-      <Lines
-        x={x}
-        y={y}
-        numLines={labels}
-        innerRadius={middleRadius}
-        outerRadius={outerRadius}
-        color={color}
-      />
-      <Labels
-        x={x}
-        y={y}
-        numLabels={labels}
-        parameter={parameter}
-        radius={labelRadius}
-        showSuffix={showSuffix}
         color={color}
       />
     </g>
@@ -296,6 +304,7 @@ const ArcPath = (props: {
       vectorEffect={"non-scaling-stroke"}
       stroke={props.color}
       strokeWidth={strokeWidth}
+      fill="none"
     />
   );
 };

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Dialog } from "./components/Dialog";
 import { CogIcon } from "./components/Icons";
-import { UIConfig } from "./ControlModel";
+import { Dial, UIConfig } from "./ControlModel";
 import { ControlsList } from "./components/ControlsList";
 import { ControlDetails } from "./components/ControlDetails";
-import { SvgViewer } from "./components/svg/SvgViewer";
+import { SvgExportViewer, SvgViewer } from "./components/svg/SvgViewer";
 import { Settings } from "./components/Settings";
 import { IOButtons } from "./components/IO";
 
