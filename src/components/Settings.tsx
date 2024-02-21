@@ -11,7 +11,7 @@ export function Settings(props: {
           <th>Width</th>
           <td>
             <input
-              type="text"
+              type="number"
               className="input input-sm w-full max-w-xs"
               value={props.config.width}
               onChange={(e) =>
@@ -27,13 +27,29 @@ export function Settings(props: {
           <th>Height</th>
           <td>
             <input
-              type="text"
+              type="number"
               className="input input-sm w-full max-w-xs"
               value={props.config.height}
               onChange={(e) =>
                 props.onChange({
                   ...props.config,
                   height: parseInt(e.target.value),
+                })
+              }
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>Background Color</th>
+          <td>
+            <input
+              type="color"
+              className="input input-sm w-full max-w-xs"
+              value={props.config.backgroundColor}
+              onChange={(e) =>
+                props.onChange({
+                  ...props.config,
+                  backgroundColor: e.target.value,
                 })
               }
             />

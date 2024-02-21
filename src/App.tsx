@@ -14,6 +14,7 @@ function App() {
     width: 800,
     height: 600,
     controls: [],
+    backgroundColor: "#000000",
   });
 
   return (
