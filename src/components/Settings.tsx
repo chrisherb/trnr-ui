@@ -55,6 +55,38 @@ export function Settings(props: {
             />
           </td>
         </tr>
+        <tr>
+          <th>Primary Color</th>
+          <td>
+            <input
+              type="color"
+              className="input input-sm w-full max-w-xs"
+              value={props.config.primaryColor}
+              onChange={(e) =>
+                props.onChange({
+                  ...props.config,
+                  primaryColor: e.target.value,
+                })
+              }
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>Secondary Color</th>
+          <td>
+            <input
+              type="color"
+              className="input input-sm w-full max-w-xs"
+              value={props.config.secondaryColor}
+              onChange={(e) =>
+                props.onChange({
+                  ...props.config,
+                  secondaryColor: e.target.value,
+                })
+              }
+            />
+          </td>
+        </tr>
       </tbody>
     </table>
   );
