@@ -28,6 +28,12 @@ export function IOButtons(props: {
     downloadFile(JSON.stringify(props.config), "config.json", "text/json");
   };
 
+  const handleExport = () => {
+    const svg = document.getElementById("svg");
+    const htmlString = svg?.outerHTML;
+    downloadFile(htmlString, "ui.svg", "text/svg");
+  };
+
   return (
     <div className="m-2 space-x-2 flex flex-row">
       <button className="btn btn-sm btn-neutral" onClick={handleLoad}>
@@ -36,7 +42,9 @@ export function IOButtons(props: {
       <button className="btn btn-sm btn-neutral" onClick={handleSave}>
         Save
       </button>
-      <button className="btn btn-sm btn-neutral">Export</button>
+      <button className="btn btn-sm btn-neutral" onClick={handleExport}>
+        Export
+      </button>
     </div>
   );
 }
