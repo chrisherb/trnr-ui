@@ -6,6 +6,7 @@ import { ControlsList } from "./components/ControlsList";
 import { ControlDetails } from "./components/ControlDetails";
 import { SvgViewer } from "./components/svg/SvgViewer";
 import { Settings } from "./components/Settings";
+import { IOButtons } from "./components/IO";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -40,7 +41,7 @@ function App() {
             })
           }
         />
-        <Navbar />
+        <IOButtons config={uiConfig} />
       </div>
       <div className="flex-auto">
         <button
@@ -54,16 +55,6 @@ function App() {
       <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
         <Settings config={uiConfig} onChange={(conf) => setUiConfig(conf)} />
       </Dialog>
-    </div>
-  );
-}
-
-function Navbar() {
-  return (
-    <div className="m-2 space-x-2 flex flex-row">
-      <button className="btn btn-sm btn-neutral">Load</button>
-      <button className="btn btn-sm btn-neutral">Save</button>
-      <button className="btn btn-sm btn-neutral">Export</button>
     </div>
   );
 }
