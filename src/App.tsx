@@ -5,6 +5,7 @@ import { UIConfig } from "./ControlModel";
 import { ControlsList } from "./components/ControlsList";
 import { ControlDetails } from "./components/ControlDetails";
 import { SvgViewer } from "./components/svg/SvgViewer";
+import { Settings } from "./components/Settings";
 
 function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -50,7 +51,7 @@ function App() {
         <SvgViewer conf={uiConfig} />
       </div>
       <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
-        <div>Settings</div>
+        <Settings config={uiConfig} onChange={(conf) => setUiConfig(conf)} />
       </Dialog>
     </div>
   );
