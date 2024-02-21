@@ -50,7 +50,7 @@ function App() {
         >
           <CogIcon />
         </button>
-        <SvgViewer conf={uiConfig} />
+        <SvgViewer config={uiConfig} />
       </div>
       <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
         <Settings config={uiConfig} onChange={(conf) => setUiConfig(conf)} />
