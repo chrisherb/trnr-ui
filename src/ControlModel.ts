@@ -22,7 +22,7 @@ export class Panel implements Control {
   y: number = 0;
   width: number = 100;
   height: number = 100;
-  color: string = "red";
+  color: string = "#ff0000";
 }
 
 export class Dial implements Control {
@@ -34,7 +34,7 @@ export class Dial implements Control {
   segments: number = 48;
   labels: number = 5;
   showSuffix: boolean = false;
-  color: string = "red";
+  color: string = "#ff0000";
 }
 
 export function isPanel(obj: any): obj is Panel {
