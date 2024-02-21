@@ -8,7 +8,7 @@ export function SvgPanel(props: Panel) {
       width={props.width}
       height={props.height}
       fill="none"
-      stroke={props.color}
+      stroke="url(#primary)"
       strokeWidth={2}
       rx={5}
       ry={5}

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Dialog } from "./components/Dialog";
 import { CogIcon } from "./components/Icons";
-import { Dial, UIConfig } from "./ControlModel";
+import { UIConfig } from "./ControlModel";
 import { ControlsList } from "./components/ControlsList";
 import { ControlDetails } from "./components/ControlDetails";
-import { SvgExportViewer, SvgViewer } from "./components/svg/SvgViewer";
+import { SvgViewer } from "./components/svg/SvgViewer";
 import { Settings } from "./components/Settings";
 import { IOButtons } from "./components/IO";
 
@@ -16,6 +16,8 @@ function App() {
     height: 600,
     controls: [],
     backgroundColor: "#000000",
+    primaryColor: "#ff0000",
+    secondaryColor: "#00ff00",
   });
 
   return (

@@ -51,10 +51,6 @@ export function ControlDetails(props: {
         {activeTab === 1 && props.control && (
           <table className="table">
             <tbody>
-              <StyleFieldRows
-                control={props.control}
-                onControlChange={props.onControlChange}
-              />
               {isDial(props.control) && (
                 <DialStyleFieldRows
                   control={props.control}
@@ -187,32 +183,6 @@ function DiameterFieldRows(props: {
               props.onControlChange({
                 ...props.control,
                 diameter: parseInt(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-    </>
-  );
-}
-
-function StyleFieldRows(props: {
-  control: Control;
-  onControlChange: (control: Control) => void;
-}) {
-  return (
-    <>
-      <tr>
-        <th>Color</th>
-        <td>
-          <input
-            type="color"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.color}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                color: e.target.value,
               })
             }
           />

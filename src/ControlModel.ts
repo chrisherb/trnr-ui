@@ -6,6 +6,8 @@ export interface UIConfig {
   width: number;
   height: number;
   backgroundColor: string;
+  primaryColor: string;
+  secondaryColor: string;
 }
 
 export interface Control {
@@ -13,7 +15,6 @@ export interface Control {
   name: string;
   x: number;
   y: number;
-  color: string;
 }
 
 export class Panel implements Control {
@@ -23,7 +24,6 @@ export class Panel implements Control {
   y: number = 0;
   width: number = 100;
   height: number = 100;
-  color: string = "#ff0000";
 }
 
 export class Dial implements Control {
@@ -35,7 +35,6 @@ export class Dial implements Control {
   segments: number = 48;
   labels: number = 5;
   showSuffix: boolean = false;
-  color: string = "#ff0000";
 }
 
 export function isPanel(obj: any): obj is Panel {
