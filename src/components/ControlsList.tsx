@@ -6,7 +6,7 @@ import {
   Dial,
   Panel,
 } from "../ControlModel";
-import { DeleteIcon, PlusIcon } from "./Icons";
+import { DeleteIcon, DuplicateIcon, PlusIcon } from "./Icons";
 
 export function ControlsList(props: {
   controls: Control[];
@@ -70,18 +70,28 @@ export function ControlsList(props: {
             onMouseEnter={() => setMouseOver(index)}
             onMouseLeave={() => setMouseOver(-1)}
           >
-            <span>{item.name}</span>
+            <span className="flex-grow">{item.name}</span>
             {index === mouseOver && (
-              <button
-                className="h-5"
-                onClick={() =>
-                  props.onControlsChange(
-                    props.controls.filter((_, i) => i !== index)
-                  )
-                }
-              >
-                <DeleteIcon />
-              </button>
+              <>
+                <button
+                  className="h-5"
+                  onClick={() =>
+                    props.onControlsChange([...props.controls, item])
+                  }
+                >
+                  <DuplicateIcon />
+                </button>
+                <button
+                  className="h-5"
+                  onClick={() =>
+                    props.onControlsChange(
+                      props.controls.filter((_, i) => i !== index)
+                    )
+                  }
+                >
+                  <DeleteIcon />
+                </button>
+              </>
             )}
           </a>
         </li>
