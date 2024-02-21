@@ -16,6 +16,22 @@ export function ControlsList(props: {
   const [active, setActive] = useState(-1);
   const [mouseOver, setMouseOver] = useState(-1);
 
+  const handleCreateControl = (controlType: ControlType) => {
+    props.onControlsChange([...props.controls, createControl(controlType)]);
+    handleControlSelect(createControl(controlType), props.controls.length);
+
+    // close dropdown by removing focus
+    const elem = document.activeElement;
+    if (elem && elem instanceof HTMLElement) {
+      elem.blur();
+    }
+  };
+
+  const handleControlSelect = (control: Control, index: number) => {
+    setActive(index);
+    props.onControlSelect(control, index);
+  };
+
   return (
     <ul className="menu">
       <li className="menu-title ">
@@ -32,12 +48,7 @@ export function ControlsList(props: {
               {CONTROL_TYPES.map((controlType, index) => (
                 <li key={index}>
                   <div
-                    onClick={() =>
-                      props.onControlsChange([
-                        ...props.controls,
-                        createControl(controlType),
-                      ])
-                    }
+                    onClick={() => handleCreateControl(controlType)}
                     className="flex justify-between text-base-content"
                   >
                     <a>{controlType}</a>
@@ -55,10 +66,7 @@ export function ControlsList(props: {
             className={`${
               index === active ? "active" : ""
             } w-full flex justify-between`}
-            onClick={() => {
-              setActive(index);
-              props.onControlSelect(item, index);
-            }}
+            onClick={() => handleControlSelect(item, index)}
             onMouseEnter={() => setMouseOver(index)}
             onMouseLeave={() => setMouseOver(-1)}
           >
