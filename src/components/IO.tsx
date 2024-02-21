@@ -1,13 +1,38 @@
 import { UIConfig } from "../ControlModel";
 
-export function IOButtons(props: { config: UIConfig }) {
+export function IOButtons(props: {
+  config: UIConfig;
+  onChange: (config: UIConfig) => void;
+}) {
+  const handleLoad = () => {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.click();
+
+    fileInput.addEventListener("change", (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          // e.target.result contains the file content
+          const fileContent = e.target.result;
+          const config = JSON.parse(fileContent);
+          props.onChange(config);
+        };
+        reader.readAsText(file);
+      }
+    });
+  };
+
   const handleSave = () => {
     downloadFile(JSON.stringify(props.config), "config.json", "text/json");
   };
 
   return (
     <div className="m-2 space-x-2 flex flex-row">
-      <button className="btn btn-sm btn-neutral">Load</button>
+      <button className="btn btn-sm btn-neutral" onClick={handleLoad}>
+        Load
+      </button>
       <button className="btn btn-sm btn-neutral" onClick={handleSave}>
         Save
       </button>

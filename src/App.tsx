@@ -41,7 +41,7 @@ function App() {
             })
           }
         />
-        <IOButtons config={uiConfig} />
+        <IOButtons config={uiConfig} onChange={setUiConfig} />
       </div>
       <div className="flex-auto">
         <button
