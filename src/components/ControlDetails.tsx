@@ -55,6 +55,12 @@ export function ControlDetails(props: {
                 control={props.control}
                 onControlChange={props.onControlChange}
               />
+              {isDial(props.control) && (
+                <DialStyleFieldRows
+                  control={props.control}
+                  onControlChange={props.onControlChange}
+                />
+              )}
             </tbody>
           </table>
         )}
@@ -207,6 +213,32 @@ function StyleFieldRows(props: {
               props.onControlChange({
                 ...props.control,
                 color: e.target.value,
+              })
+            }
+          />
+        </td>
+      </tr>
+    </>
+  );
+}
+
+function DialStyleFieldRows(props: {
+  control: Dial;
+  onControlChange: (control: Dial) => void;
+}) {
+  return (
+    <>
+      <tr>
+        <th>Segments</th>
+        <td>
+          <input
+            type="number"
+            className="input input-sm w-full max-w-xs"
+            value={props.control.segments}
+            onChange={(e) =>
+              props.onControlChange({
+                ...props.control,
+                segments: parseInt(e.target.value),
               })
             }
           />
