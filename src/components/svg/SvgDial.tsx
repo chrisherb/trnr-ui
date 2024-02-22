@@ -13,6 +13,7 @@ interface SvgDialProps extends Dial {
 const SvgDial = ({
   x,
   y,
+  name,
   diameter,
   labels,
   segments,
@@ -32,6 +33,17 @@ const SvgDial = ({
     <g>
       {!isExport && (
         <>
+          <text
+            x={x}
+            y={y - radius * 1.5}
+            fontSize={18}
+            fontFamily={fontFamily}
+            fontWeight={fontWeight}
+            textAnchor="middle"
+            fill="url(#primary)"
+          >
+            {name}
+          </text>
           <ArcPath x={x} y={y} radius={middleRadius} />
           <ArcPath x={x} y={y} radius={innerRadius} />
           <Lines
