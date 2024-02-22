@@ -17,7 +17,7 @@ export function SvgViewer(props: { config: UIConfig }) {
           primary={props.config.primaryColor}
           secondary={props.config.secondaryColor}
         />
-        {getComponent(props.config)}
+        {getComponents(props.config)}
       </svg>
     </div>
   );
@@ -46,20 +46,21 @@ export function SvgExportViewer(props: {
           primary={props.config.primaryColor}
           secondary={props.config.secondaryColor}
         />
-        {getComponent(props.config, true)}
+        {getComponents(props.config, true)}
       </svg>
     </div>
   );
 }
 
-function getComponent(config: UIConfig, isExport = false) {
-  return config.controls.map((control) => {
+function getComponents(config: UIConfig, isExport = false) {
+  return config.controls.map((control, index) => {
     if (isPanel(control)) {
-      return <SvgPanel {...control} />;
+      return <SvgPanel {...control} key={index} />;
     } else if (isDial(control)) {
       return (
         <SvgDial
           {...control}
+          key={index}
           isExport={isExport}
           fontFamily={config.fontFamily}
         />
