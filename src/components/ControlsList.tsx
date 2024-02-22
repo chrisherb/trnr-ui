@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   CONTROL_TYPES,
-  Control,
+  Element,
   ControlType,
   Dial,
   Panel,
@@ -9,9 +9,9 @@ import {
 import { DeleteIcon, DuplicateIcon, PlusIcon } from "./Icons";
 
 export function ControlsList(props: {
-  controls: Control[];
-  onControlsChange: (items: Control[]) => void;
-  onControlSelect: (control: Control, index: number) => void;
+  controls: Element[];
+  onControlsChange: (items: Element[]) => void;
+  onControlSelect: (control: Element, index: number) => void;
 }) {
   const [active, setActive] = useState(-1);
   const [mouseOver, setMouseOver] = useState(-1);
@@ -27,7 +27,7 @@ export function ControlsList(props: {
     }
   };
 
-  const handleControlSelect = (control: Control, index: number) => {
+  const handleControlSelect = (control: Element, index: number) => {
     setActive(index);
     props.onControlSelect(control, index);
   };
@@ -100,7 +100,7 @@ export function ControlsList(props: {
   );
 }
 
-function createControl(type: ControlType): Control {
+function createControl(type: ControlType): Element {
   switch (type) {
     case "Panel":
       return new Panel();
@@ -112,7 +112,6 @@ function createControl(type: ControlType): Control {
         name: type,
         x: 0,
         y: 0,
-        color: "red",
       };
   }
 }

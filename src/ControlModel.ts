@@ -2,7 +2,7 @@ export const CONTROL_TYPES = ["Panel", "Dial"];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
 export interface UIConfig {
-  controls: Control[];
+  controls: Element[];
   width: number;
   height: number;
   fontFamily: string;
@@ -12,15 +12,20 @@ export interface UIConfig {
   secondaryColor: string;
 }
 
-export interface Control {
+export interface Element {
   readonly type: ControlType;
   name: string;
   x: number;
   y: number;
 }
 
-export class Panel implements Control {
-  readonly type: string = "Panel";
+export interface Control extends Element {
+  rangeMin: number;
+  rangeMax: number;
+}
+
+export class Panel implements Element {
+  readonly type: ControlType = "Panel";
   name: string = "Panel";
   x: number = 0;
   y: number = 0;
@@ -29,7 +34,7 @@ export class Panel implements Control {
 }
 
 export class Dial implements Control {
-  readonly type: string = "Dial";
+  readonly type: ControlType = "Dial";
   name: string = "Dial";
   x: number = 0;
   y: number = 0;
@@ -37,6 +42,16 @@ export class Dial implements Control {
   segments: number = 48;
   labels: number = 5;
   showSuffix: boolean = false;
+  rangeMin: number = 0;
+  rangeMax: number = 10;
+}
+
+export function isControl(obj: any): obj is Control {
+  return (
+    obj &&
+    typeof obj.type === "string" &&
+    (obj.type === "Dial" || obj.type === "Panel")
+  );
 }
 
 export function isPanel(obj: any): obj is Panel {

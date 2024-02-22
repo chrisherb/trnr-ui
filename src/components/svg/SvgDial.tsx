@@ -20,9 +20,11 @@ const SvgDial = ({
   showSuffix,
   fontFamily,
   fontWeight,
+  rangeMin,
+  rangeMax,
   isExport = false,
 }: SvgDialProps) => {
-  const parameter = useParameter(0, 10, 5);
+  const parameter = useParameter(rangeMin, rangeMax, 5);
   const radius = diameter / 2;
   const labelRadius = radius * 1.2;
   const outerRadius = radius * 1.06;
@@ -135,7 +137,7 @@ const Labels = ({
           <Label
             x={x}
             y={y}
-            key={name}
+            key={index}
             text={name.toString()}
             value={index}
             radius={radius}
@@ -188,11 +190,11 @@ const Lines = (props: {
     lines.push(i / (props.numLines - 1));
   }
 
-  return lines.map((value) => (
+  return lines.map((value, index) => (
     <Line
       x={props.x}
       y={props.y}
-      key={value}
+      key={index}
       degree={value}
       innerRadius={props.innerRadius}
       outerRadius={props.outerRadius}
