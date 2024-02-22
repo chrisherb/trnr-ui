@@ -24,7 +24,7 @@ const SvgDial = ({
   const parameter = useParameter(0, 10, 5);
   const radius = diameter / 2;
   const labelRadius = radius * 1.2;
-  const outerRadius = radius * 1.1;
+  const outerRadius = radius * 1.06;
   const middleRadius = radius;
   const innerRadius = radius * 0.6;
 
