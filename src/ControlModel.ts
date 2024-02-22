@@ -22,6 +22,7 @@ export interface Element {
 export interface Control extends Element {
   rangeMin: number;
   rangeMax: number;
+  showSuffix: boolean;
 }
 
 export class Panel implements Element {
@@ -41,7 +42,7 @@ export class Dial implements Control {
   diameter: number = 100;
   segments: number = 48;
   labels: number = 5;
-  showSuffix: boolean = false;
+  showSuffix: boolean = true;
   rangeMin: number = 0;
   rangeMax: number = 10;
 }

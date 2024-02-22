@@ -244,6 +244,22 @@ function ControlStyleFieldRows(props: {
           />
         </td>
       </tr>
+      <tr>
+        <th>Show Suffix</th>
+        <td>
+          <input
+            type="checkbox"
+            className="checkbox"
+            checked={props.control.showSuffix}
+            onChange={(e) =>
+              props.onControlChange({
+                ...props.control,
+                showSuffix: e.target.checked,
+              })
+            }
+          />
+        </td>
+      </tr>
     </>
   );
 }
