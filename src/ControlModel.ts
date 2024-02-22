@@ -6,6 +6,7 @@ export interface UIConfig {
   width: number;
   height: number;
   fontFamily: string;
+  fontWeight: string;
   backgroundColor: string;
   primaryColor: string;
   secondaryColor: string;

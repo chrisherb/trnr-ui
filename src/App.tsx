@@ -16,6 +16,7 @@ function App() {
     height: 600,
     controls: [],
     fontFamily: "Arial",
+    fontWeight: "bold",
     backgroundColor: "#000000",
     primaryColor: "#ff0000",
     secondaryColor: "#00ff00",

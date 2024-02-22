@@ -56,6 +56,22 @@ export function Settings(props: {
           </td>
         </tr>
         <tr>
+          <th>Font Weight</th>
+          <td>
+            <input
+              type="text"
+              className="input input-sm w-full max-w-xs"
+              value={props.config.fontWeight}
+              onChange={(e) =>
+                props.onChange({
+                  ...props.config,
+                  fontWeight: e.target.value,
+                })
+              }
+            />
+          </td>
+        </tr>
+        <tr>
           <th>Background Color</th>
           <td>
             <input

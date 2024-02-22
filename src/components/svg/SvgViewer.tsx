@@ -63,6 +63,7 @@ function getComponents(config: UIConfig, isExport = false) {
           key={index}
           isExport={isExport}
           fontFamily={config.fontFamily}
+          fontWeight={config.fontWeight}
         />
       );
     }

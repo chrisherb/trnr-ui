@@ -6,6 +6,7 @@ const strokeWidth = 2;
 
 interface SvgDialProps extends Dial {
   fontFamily: string;
+  fontWeight: string;
   isExport?: boolean;
 }
 
@@ -17,6 +18,7 @@ const SvgDial = ({
   segments,
   showSuffix,
   fontFamily,
+  fontWeight,
   isExport = false,
 }: SvgDialProps) => {
   const parameter = useParameter(0, 10, 5);
@@ -47,6 +49,7 @@ const SvgDial = ({
             radius={labelRadius}
             showSuffix={showSuffix}
             fontFamily={fontFamily}
+            fontWeight={fontWeight}
           />
         </>
       )}
@@ -81,6 +84,7 @@ const Labels = ({
   radius,
   showSuffix,
   fontFamily,
+  fontWeight,
 }: {
   x: number;
   y: number;
@@ -89,6 +93,7 @@ const Labels = ({
   numLabels: number;
   showSuffix: boolean;
   fontFamily: string;
+  fontWeight: string;
 }) => {
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
@@ -124,6 +129,7 @@ const Labels = ({
             radius={radius}
             textAnchor={textAnchor}
             fontFamily={fontFamily}
+            fontWeight={fontWeight}
           />
         );
       })}
@@ -139,6 +145,7 @@ const Label = (props: {
   radius: number;
   textAnchor: string;
   fontFamily: string;
+  fontWeight: string;
 }) => {
   const [x, y] = getPointCoordinates(props.value, props.radius);
 
@@ -148,6 +155,7 @@ const Label = (props: {
       y={props.y + y}
       fontSize={18}
       fontFamily={props.fontFamily}
+      fontWeight={props.fontWeight}
       textAnchor={props.textAnchor}
       fill="url(#primary)"
     >
