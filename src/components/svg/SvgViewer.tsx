@@ -57,7 +57,13 @@ function getComponent(config: UIConfig, isExport = false) {
     if (isPanel(control)) {
       return <SvgPanel {...control} />;
     } else if (isDial(control)) {
-      return <SvgDial {...control} isExport={isExport} />;
+      return (
+        <SvgDial
+          {...control}
+          isExport={isExport}
+          fontFamily={config.fontFamily}
+        />
+      );
     }
   });
 }

@@ -5,6 +5,7 @@ export interface UIConfig {
   controls: Control[];
   width: number;
   height: number;
+  fontFamily: string;
   backgroundColor: string;
   primaryColor: string;
   secondaryColor: string;
