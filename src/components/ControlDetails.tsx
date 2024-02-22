@@ -1,76 +1,24 @@
-import { useState } from "react";
-import {
-  Element,
-  Dial,
-  Panel,
-  isDial,
-  isPanel,
-  Control,
-  isControl,
-} from "../ControlModel";
+import { Element } from "../ControlModel";
 
 export function ControlDetails(props: {
   control: Element | undefined;
   onControlChange: (control: Element) => void;
 }) {
-  const [activeTab, setActiveTab] = useState(0);
-
   return (
     <div className="h-96 flex flex-col">
       <div role="tablist" className="tabs tabs-bordered">
-        <a
-          role="tab"
-          className={`tab ${activeTab === 0 && "tab-active"}`}
-          onClick={() => setActiveTab(0)}
-        >
-          Common
-        </a>
-        <a
-          role="tab"
-          className={`tab ${activeTab === 1 && "tab-active"}`}
-          onClick={() => setActiveTab(1)}
-        >
-          Style
+        <a role="tab" className={"tab tab-active"}>
+          Properties
         </a>
       </div>
       <div className="flex-grow overflow-y-auto">
-        {activeTab === 0 && props.control && (
+        {props.control && (
           <table className="table">
             <tbody>
-              <CommonFieldRows
+              <IterateControlProps
                 control={props.control}
                 onControlChange={props.onControlChange}
               />
-              {isPanel(props.control) && (
-                <SizeFieldRows
-                  control={props.control}
-                  onControlChange={props.onControlChange}
-                />
-              )}
-              {isDial(props.control) && (
-                <DiameterFieldRows
-                  control={props.control}
-                  onControlChange={props.onControlChange}
-                />
-              )}
-            </tbody>
-          </table>
-        )}
-        {activeTab === 1 && props.control && (
-          <table className="table">
-            <tbody>
-              {isControl(props.control) && (
-                <ControlStyleFieldRows
-                  control={props.control}
-                  onControlChange={props.onControlChange}
-                />
-              )}
-              {isDial(props.control) && (
-                <DialStyleFieldRows
-                  control={props.control}
-                  onControlChange={props.onControlChange}
-                />
-              )}
             </tbody>
           </table>
         )}
@@ -79,213 +27,81 @@ export function ControlDetails(props: {
   );
 }
 
-function CommonFieldRows(props: {
+function IterateControlProps(props: {
   control: Element;
   onControlChange: (control: Element) => void;
 }) {
-  return (
-    <>
-      <tr>
-        <th>Name</th>
-        <td>
-          <input
-            type="text"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.name}
-            onChange={(e) =>
-              props.control &&
-              props.onControlChange({
-                ...props.control,
-                name: e.target.value,
-              })
-            }
-          />
-        </td>
-      </tr>
-      <tr>
-        <th>X</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.x}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                x: parseInt(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-      <tr>
-        <th>Y</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.y}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                y: parseInt(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-    </>
-  );
+  return Object.keys(props.control)
+    .filter((key) => key !== "type") // skip type property
+    .map((key) => {
+      const handleChange = (key: string, value: any) => {
+        props.control[key] = value;
+        props.onControlChange(props.control);
+      };
+
+      const getType = (key: string) => {
+        const type = typeof props.control[key];
+        if (type === "string") {
+          return "text";
+        } else {
+          return type;
+        }
+      };
+
+      return (
+        <tr key={key}>
+          <th>{key}</th>
+          <td>
+            <Input
+              control={props.control}
+              onControlChange={props.onControlChange}
+              type={getType(key)}
+              value={props.control[key]}
+              onChange={(value) => handleChange(key, value)}
+            />
+          </td>
+        </tr>
+      );
+    });
 }
 
-function SizeFieldRows(props: {
-  control: Panel;
-  onControlChange: (control: Panel) => void;
+function Input(props: {
+  control: Element;
+  onControlChange: (control: Element) => void;
+  type: string;
+  value: any;
+  onChange: (value: any) => void;
+  disabled?: boolean;
 }) {
-  return (
-    <>
-      <tr>
-        <th>Width</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.width}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                width: parseInt(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-      <tr>
-        <th>Height</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.height}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                height: parseInt(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-    </>
-  );
-}
-
-function DiameterFieldRows(props: {
-  control: Dial;
-  onControlChange: (control: Dial) => void;
-}) {
-  return (
-    <>
-      <tr>
-        <th>Diameter</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.diameter}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                diameter: parseInt(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-    </>
-  );
-}
-
-function ControlStyleFieldRows(props: {
-  control: Control;
-  onControlChange: (control: Control) => void;
-}) {
-  return (
-    <>
-      <tr>
-        <th>Range Min</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.rangeMin}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                rangeMin: parseFloat(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-      <tr>
-        <th>Range Max</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.rangeMax}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                rangeMax: parseFloat(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-      <tr>
-        <th>Show Suffix</th>
-        <td>
-          <input
-            type="checkbox"
-            className="checkbox"
-            checked={props.control.showSuffix}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                showSuffix: e.target.checked,
-              })
-            }
-          />
-        </td>
-      </tr>
-    </>
-  );
-}
-
-function DialStyleFieldRows(props: {
-  control: Dial;
-  onControlChange: (control: Dial) => void;
-}) {
-  return (
-    <>
-      <tr>
-        <th>Segments</th>
-        <td>
-          <input
-            type="number"
-            className="input input-sm w-full max-w-xs"
-            value={props.control.segments}
-            onChange={(e) =>
-              props.onControlChange({
-                ...props.control,
-                segments: parseInt(e.target.value),
-              })
-            }
-          />
-        </td>
-      </tr>
-    </>
-  );
+  if (props.type === "boolean") {
+    return (
+      <input
+        type="checkbox"
+        disabled={props.disabled}
+        className="checkbox checkbox-xs"
+        checked={props.value}
+        onChange={(e) => props.onChange(e.target.checked)}
+      />
+    );
+  } else if (props.type === "number") {
+    return (
+      <input
+        type={props.type}
+        disabled={props.disabled}
+        className="input input-sm w-full max-w-xs"
+        value={props.value}
+        onChange={(e) => props.onChange(parseFloat(e.target.value))}
+      />
+    );
+  } else {
+    return (
+      <input
+        type={props.type}
+        disabled={props.disabled}
+        className="input input-sm w-full max-w-xs"
+        value={props.value}
+        onChange={(e) => props.onChange(e.target.value)}
+      />
+    );
+  }
 }

@@ -14,6 +14,7 @@ export interface UIConfig {
 
 export interface Element {
   readonly type: ControlType;
+  [key: string]: any;
   name: string;
   x: number;
   y: number;
