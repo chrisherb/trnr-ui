@@ -5,6 +5,7 @@ import {
   ControlType,
   Dial,
   Panel,
+  Digital,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, PlusIcon } from "./Icons";
 
@@ -106,6 +107,8 @@ function createControl(type: ControlType): Element {
       return new Panel();
     case "Dial":
       return new Dial();
+    case "Digital":
+      return new Digital();
     default:
       return {
         type,

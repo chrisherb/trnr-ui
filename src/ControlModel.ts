@@ -1,4 +1,4 @@
-export const CONTROL_TYPES = ["Panel", "Dial"];
+export const CONTROL_TYPES = ["Panel", "Dial", "Digital"];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
 export interface UIConfig {
@@ -51,6 +51,20 @@ export class Dial implements Control {
   rangeMax: number = 10;
 }
 
+export class Digital implements Control {
+  [key: string]: any;
+  exponent: number = 1;
+  readonly type: ControlType = "Digital";
+  name: string = "Digital";
+  x: number = 0;
+  y: number = 0;
+  diameter: number = 100;
+  labels: number = 5;
+  suffix: string = "";
+  rangeMin: number = 0;
+  rangeMax: number = 10;
+}
+
 export function isControl(obj: any): obj is Control {
   return (
     obj &&
@@ -65,4 +79,8 @@ export function isPanel(obj: any): obj is Panel {
 
 export function isDial(obj: any): obj is Dial {
   return obj && typeof obj.type === "string" && obj.type === "Dial";
+}
+
+export function isDigital(obj: any): obj is Digital {
+  return obj && typeof obj.type === "string" && obj.type === "Digital";
 }

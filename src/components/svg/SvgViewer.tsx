@@ -1,5 +1,6 @@
-import { Dial, UIConfig, isDial, isPanel } from "../../ControlModel";
+import { Dial, UIConfig, isDial, isDigital, isPanel } from "../../ControlModel";
 import SvgDial from "./SvgDial";
+import SvgDigital from "./SvgDigital";
 import { SvgPanel } from "./SvgPanel";
 
 export function SvgViewer(props: { config: UIConfig }) {
@@ -66,6 +67,8 @@ function getComponents(config: UIConfig, isExport = false) {
           fontWeight={config.fontWeight}
         />
       );
+    } else if (isDigital(control)) {
+      return <SvgDigital {...control} key={index} />;
     }
   });
 }
