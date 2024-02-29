@@ -53,6 +53,17 @@ const SvgDigital = ({
           fontWeight={fontWeight}
         />
       )}
+      <text
+        x={x + 25 + width / 2}
+        y={y + 28}
+        fontSize={18}
+        fontFamily={fontFamily}
+        fontWeight={fontWeight}
+        textAnchor="middle"
+        fill="url(#primary)"
+      >
+        {suffix}
+      </text>
       <g transform={`translate(${x - width / 2}, ${y})`}>
         <rect
           x={-5}
