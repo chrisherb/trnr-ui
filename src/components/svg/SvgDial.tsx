@@ -17,14 +17,15 @@ const SvgDial = ({
   diameter,
   labels,
   segments,
-  showSuffix,
+  suffix,
   fontFamily,
   fontWeight,
   rangeMin,
   rangeMax,
+  exponent,
   isExport = false,
 }: SvgDialProps) => {
-  const parameter = useParameter(rangeMin, rangeMax, 5);
+  const parameter = useParameter(rangeMin, rangeMax, 5, name, suffix, exponent);
   const radius = diameter / 2;
   const labelRadius = radius * 1.2;
   const outerRadius = radius * 1.06;
@@ -61,7 +62,7 @@ const SvgDial = ({
             numLabels={labels}
             parameter={parameter}
             radius={labelRadius}
-            showSuffix={showSuffix}
+            showSuffix={true}
             fontFamily={fontFamily}
             fontWeight={fontWeight}
           />

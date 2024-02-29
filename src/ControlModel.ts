@@ -23,7 +23,8 @@ export interface Element {
 export interface Control extends Element {
   rangeMin: number;
   rangeMax: number;
-  showSuffix: boolean;
+  exponent: number;
+  suffix: string;
 }
 
 export class Panel implements Element {
@@ -36,6 +37,8 @@ export class Panel implements Element {
 }
 
 export class Dial implements Control {
+  [key: string]: any;
+  exponent: number = 1;
   readonly type: ControlType = "Dial";
   name: string = "Dial";
   x: number = 0;
@@ -43,7 +46,7 @@ export class Dial implements Control {
   diameter: number = 100;
   segments: number = 48;
   labels: number = 5;
-  showSuffix: boolean = true;
+  suffix: string = "";
   rangeMin: number = 0;
   rangeMax: number = 10;
 }
