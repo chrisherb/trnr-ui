@@ -19,7 +19,6 @@ const SvgDigital = ({
   fontWeight,
 }: DigitalProps) => {
   const parameter = useParameter(rangeMin, rangeMax, 5, name, suffix, exponent);
-
   const rangeMaxLength = Math.abs(parameter.rangeMax).toString().length;
   const rangeMinLength = Math.abs(parameter.rangeMin).toString().length;
   const length = Math.max(rangeMaxLength, rangeMinLength);
@@ -45,6 +44,15 @@ const SvgDigital = ({
       >
         {name.toUpperCase()}
       </text>
+      {bipolar && (
+        <PlusMinusSigns
+          value={parameter.value}
+          x={x - width / 2}
+          y={y}
+          fontFamily={fontFamily}
+          fontWeight={fontWeight}
+        />
+      )}
       <g transform={`translate(${x - width / 2}, ${y})`}>
         <rect
           x={-5}
@@ -66,6 +74,43 @@ const SvgDigital = ({
 };
 
 export default SvgDigital;
+
+const PlusMinusSigns = (props: {
+  value: number;
+  x: number;
+  y: number;
+  fontFamily: string;
+  fontWeight: string;
+}) => {
+  return (
+    <>
+      <text
+        x={props.x - 25}
+        y={props.y + 20}
+        fontSize={24}
+        fontFamily={props.fontFamily}
+        fontWeight={props.fontWeight}
+        textAnchor="middle"
+        fill="url(#primary)"
+        opacity={props.value > 0 ? 1 : 0.5}
+      >
+        +
+      </text>
+      <text
+        x={props.x - 25}
+        y={props.y + 43}
+        fontSize={24}
+        fontFamily={props.fontFamily}
+        fontWeight={props.fontWeight}
+        textAnchor="middle"
+        fill="url(#primary)"
+        opacity={props.value < 0 ? 1 : 0.5}
+      >
+        -
+      </text>
+    </>
+  );
+};
 
 const DigitalNumber = (props: { x: number; value: string }) => {
   const getSegmentState = (number: string) => {
