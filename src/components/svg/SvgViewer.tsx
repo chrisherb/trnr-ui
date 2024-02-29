@@ -68,7 +68,15 @@ function getComponents(config: UIConfig, isExport = false) {
         />
       );
     } else if (isDigital(control)) {
-      return <SvgDigital {...control} key={index} />;
+      return (
+        <SvgDigital
+          {...control}
+          key={index}
+          isExport={isExport}
+          fontFamily={config.fontFamily}
+          fontWeight={config.fontWeight}
+        />
+      );
     }
   });
 }
