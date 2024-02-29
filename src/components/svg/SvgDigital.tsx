@@ -2,40 +2,23 @@ import { Digital } from "../../ControlModel";
 import { useParameter } from "../hooks/useParameter";
 
 interface DigitalProps extends Digital {
-  size?: "small" | "medium" | "large";
-  showSuffix?: boolean;
+  fontFamily: string;
+  fontWeight: string;
+  isExport?: boolean;
 }
 
 const SvgDigital = ({
   x,
   y,
   name,
-  diameter,
-  labels,
-  segments,
   suffix,
   rangeMin,
   rangeMax,
   exponent,
-  size = "medium",
-  showSuffix = true,
+  fontFamily,
+  fontWeight,
 }: DigitalProps) => {
   const parameter = useParameter(rangeMin, rangeMax, 5, name, suffix, exponent);
-  let sizeStyle = "";
-
-  switch (size) {
-    case "small":
-      sizeStyle = "h-16";
-      break;
-    case "medium":
-      sizeStyle = "h-20";
-      break;
-    case "large":
-      sizeStyle = "h-28";
-      break;
-    default:
-      sizeStyle = "";
-  }
 
   const rangeMaxLength = Math.abs(parameter.rangeMax).toString().length;
   const rangeMinLength = Math.abs(parameter.rangeMin).toString().length;
@@ -50,22 +33,35 @@ const SvgDigital = ({
   const width = digits.length * 30;
 
   return (
-    <g transform={`translate(${x - width / 2}, ${y})`}>
-      <rect
-        x={-5}
-        y={-5}
-        width={width + 7}
-        height={58}
-        fill="none"
-        stroke="url(#primary)"
-        strokeWidth={2}
-        rx={5}
-        ry={5}
-      />
-      {digits.map((value, index) => (
-        <DigitalNumber x={index * 30} key={index} value={value} />
-      ))}
-    </g>
+    <>
+      <text
+        x={x}
+        y={y - 20}
+        fontSize={18}
+        fontFamily={fontFamily}
+        fontWeight={fontWeight}
+        textAnchor="middle"
+        fill="url(#primary)"
+      >
+        {name.toUpperCase()}
+      </text>
+      <g transform={`translate(${x - width / 2}, ${y})`}>
+        <rect
+          x={-5}
+          y={-5}
+          width={width + 7}
+          height={58}
+          fill="none"
+          stroke="url(#primary)"
+          strokeWidth={2}
+          rx={5}
+          ry={5}
+        />
+        {digits.map((value, index) => (
+          <DigitalNumber x={index * 30} key={index} value={value} />
+        ))}
+      </g>
+    </>
   );
 };
 
