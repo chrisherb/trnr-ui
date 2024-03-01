@@ -45,7 +45,7 @@ const SvgDial = ({
             textAnchor="middle"
             fill="url(#primary)"
           >
-            {name}
+            {name.toUpperCase()}
           </text>
           <ArcPath x={x} y={y} radius={middleRadius} />
           <ArcPath x={x} y={y} radius={innerRadius} />
