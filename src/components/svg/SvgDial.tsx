@@ -7,7 +7,7 @@ const strokeWidth = 2;
 interface SvgDialProps extends Dial {
   fontFamily: string;
   fontWeight: string;
-  isExport?: boolean;
+  mode: "all" | "static-parts" | "dynamic-parts";
 }
 
 const SvgDial = ({
@@ -23,7 +23,7 @@ const SvgDial = ({
   rangeMin,
   rangeMax,
   exponent,
-  isExport = false,
+  mode = "all",
 }: SvgDialProps) => {
   const parameter = useParameter(rangeMin, rangeMax, 5, name, suffix, exponent);
   const radius = diameter / 2;
@@ -34,7 +34,7 @@ const SvgDial = ({
 
   return (
     <g>
-      {!isExport && (
+      {(mode === "all" || mode === "static-parts") && (
         <>
           <text
             x={x}
@@ -68,14 +68,16 @@ const SvgDial = ({
           />
         </>
       )}
-      <Segments
-        x={x}
-        y={y}
-        value={parameter.normalizedValue}
-        segments={segments}
-        innerRadius={innerRadius}
-        outerRadius={middleRadius}
-      />
+      {(mode === "all" || mode === "dynamic-parts") && (
+        <Segments
+          x={x}
+          y={y}
+          value={parameter.normalizedValue}
+          segments={segments}
+          innerRadius={innerRadius}
+          outerRadius={middleRadius}
+        />
+      )}
     </g>
   );
 };

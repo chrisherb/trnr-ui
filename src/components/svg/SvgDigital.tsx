@@ -4,7 +4,7 @@ import { useParameter } from "../hooks/useParameter";
 interface DigitalProps extends Digital {
   fontFamily: string;
   fontWeight: string;
-  isExport?: boolean;
+  mode: "all" | "static-parts" | "dynamic-parts";
 }
 
 const SvgDigital = ({
@@ -17,6 +17,7 @@ const SvgDigital = ({
   exponent,
   fontFamily,
   fontWeight,
+  mode = "all",
 }: DigitalProps) => {
   const parameter = useParameter(rangeMin, rangeMax, 5, name, suffix, exponent);
   const rangeMaxLength = Math.abs(parameter.rangeMax).toString().length;
@@ -33,18 +34,20 @@ const SvgDigital = ({
 
   return (
     <>
-      <text
-        x={x}
-        y={y - 20}
-        fontSize={18}
-        fontFamily={fontFamily}
-        fontWeight={fontWeight}
-        textAnchor="middle"
-        fill="url(#primary)"
-      >
-        {name.toUpperCase()}
-      </text>
-      {bipolar && (
+      {(mode === "all" || mode === "static-parts") && (
+        <text
+          x={x}
+          y={y - 20}
+          fontSize={18}
+          fontFamily={fontFamily}
+          fontWeight={fontWeight}
+          textAnchor="middle"
+          fill="url(#primary)"
+        >
+          {name.toUpperCase()}
+        </text>
+      )}
+      {(mode === "all" || mode === "dynamic-parts") && bipolar && (
         <PlusMinusSigns
           value={parameter.value}
           x={x - width / 2}
@@ -53,32 +56,37 @@ const SvgDigital = ({
           fontWeight={fontWeight}
         />
       )}
-      <text
-        x={x + 25 + width / 2}
-        y={y + 28}
-        fontSize={18}
-        fontFamily={fontFamily}
-        fontWeight={fontWeight}
-        textAnchor="middle"
-        fill="url(#primary)"
-      >
-        {suffix}
-      </text>
+      {(mode === "all" || mode === "static-parts") && (
+        <text
+          x={x + 25 + width / 2}
+          y={y + 28}
+          fontSize={18}
+          fontFamily={fontFamily}
+          fontWeight={fontWeight}
+          textAnchor="middle"
+          fill="url(#primary)"
+        >
+          {suffix}
+        </text>
+      )}
       <g transform={`translate(${x - width / 2}, ${y})`}>
-        <rect
-          x={-5}
-          y={-5}
-          width={width + 7}
-          height={58}
-          fill="none"
-          stroke="url(#primary)"
-          strokeWidth={2}
-          rx={5}
-          ry={5}
-        />
-        {digits.map((value, index) => (
-          <DigitalNumber x={index * 30} key={index} value={value} />
-        ))}
+        {(mode === "all" || mode === "static-parts") && (
+          <rect
+            x={-5}
+            y={-5}
+            width={width + 7}
+            height={58}
+            fill="none"
+            stroke="url(#primary)"
+            strokeWidth={2}
+            rx={5}
+            ry={5}
+          />
+        )}
+        {(mode === "all" || mode === "dynamic-parts") &&
+          digits.map((value, index) => (
+            <DigitalNumber x={index * 30} key={index} value={value} />
+          ))}
       </g>
     </>
   );
