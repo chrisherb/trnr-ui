@@ -1,4 +1,6 @@
+import { renderToString } from "react-dom/server";
 import { UIConfig } from "../ControlModel";
+import { SvgViewer } from "./svg/SvgViewer";
 
 export function IOButtons(props: {
   config: UIConfig;
@@ -29,9 +31,11 @@ export function IOButtons(props: {
   };
 
   const handleExport = () => {
-    const svg = document.getElementById("svg");
-    const htmlString = svg?.outerHTML;
-    downloadFile(htmlString, "ui.svg", "text/svg");
+    const svgString = renderToString(
+      <SvgViewer config={props.config} mode="static-parts" />
+    );
+    console.log(svgString);
+    downloadFile(svgString, "ui.svg", "text/svg");
   };
 
   return (

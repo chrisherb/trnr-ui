@@ -54,7 +54,9 @@ function App() {
         >
           <CogIcon />
         </button>
-        <SvgViewer config={uiConfig} />
+        <div className="w-full h-full flex justify-center items-center">
+          <SvgViewer config={uiConfig} mode="all" />{" "}
+        </div>
       </div>
       <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
         <Settings config={uiConfig} onChange={(conf) => setUiConfig(conf)} />
