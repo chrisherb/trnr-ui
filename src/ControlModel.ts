@@ -41,9 +41,9 @@ export class Dial implements Control {
   exponent: number = 1;
   readonly type: ControlType = "Dial";
   name: string = "Dial";
-  x: number = 0;
-  y: number = 0;
-  diameter: number = 100;
+  x: number = 200;
+  y: number = 200;
+  diameter: number = 200;
   segments: number = 48;
   labels: number = 5;
   suffix: string = "";
@@ -56,10 +56,9 @@ export class Digital implements Control {
   exponent: number = 1;
   readonly type: ControlType = "Digital";
   name: string = "Digital";
-  x: number = 0;
-  y: number = 0;
+  x: number = 100;
+  y: number = 100;
   diameter: number = 100;
-  labels: number = 5;
   suffix: string = "";
   rangeMin: number = 0;
   rangeMax: number = 10;
