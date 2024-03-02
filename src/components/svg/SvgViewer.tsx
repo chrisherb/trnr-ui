@@ -11,7 +11,6 @@ export function SvgViewer(props: {
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      id="svg"
       width={props.config.width}
       height={props.config.height}
     >
@@ -25,7 +24,7 @@ export function SvgViewer(props: {
   );
 }
 
-export function SvgExportViewer(props: {
+export function SvgControlViewer(props: {
   config: UIConfig;
   exportControl: Dial;
 }) {
@@ -39,7 +38,6 @@ export function SvgExportViewer(props: {
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      id="svg"
       width={props.exportControl.diameter}
       viewBox={viewBox}
     >
