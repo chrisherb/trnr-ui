@@ -1,19 +1,19 @@
 import { useEffect, useRef } from "react";
 
-export function Dialog(props: {
-  isOpened: boolean;
+export function Modal(props: {
+  open: boolean;
   onClose: () => void;
   children: JSX.Element;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    if (props.isOpened) {
+    if (props.open) {
       ref.current?.showModal();
     } else {
       ref.current?.close();
     }
-  }, [props.isOpened]);
+  }, [props.open]);
 
   return (
     <dialog

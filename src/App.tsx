@@ -23,7 +23,7 @@ function App() {
       <div className="w-96 border-r border-neutral flex flex-col">
         <div className="grow">
           <ControlsList
-            controls={uiConfig.controls}
+            config={uiConfig}
             onControlsChange={(controls) => {
               setUiConfig({ ...uiConfig, controls });
             }}

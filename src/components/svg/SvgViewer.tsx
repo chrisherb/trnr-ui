@@ -34,25 +34,41 @@ export function SvgControlViewer(props: {
     props.exportControl.diameter
   } ${props.exportControl.diameter}`;
 
+  const frames =
+    props.exportControl.segments * props.exportControl.exportResolution + 1;
+
   return (
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       width={props.exportControl.diameter}
-      viewBox={viewBox}
+      height={frames * props.exportControl.diameter}
     >
-      <Honeycomb
-        primary={props.config.primaryColor}
-        secondary={props.config.secondaryColor}
-      />
-      {getComponents(props.config, "dynamic-parts")}
+      {Array.from(Array(frames).keys()).map((i) => {
+        return (
+          <svg
+            width={props.exportControl.diameter}
+            height={props.exportControl.diameter}
+            y={i * props.exportControl.diameter}
+            viewBox={viewBox}
+            key={i}
+          >
+            <Honeycomb
+              primary={props.config.primaryColor}
+              secondary={props.config.secondaryColor}
+            />
+            {getComponents(props.config, "dynamic-parts", i / (frames - 1))}
+          </svg>
+        );
+      })}
     </svg>
   );
 }
 
 function getComponents(
   config: UIConfig,
-  mode: "all" | "static-parts" | "dynamic-parts"
+  mode: "all" | "static-parts" | "dynamic-parts",
+  value: number = 0.5
 ) {
   return config.controls.map((control, index) => {
     if (isPanel(control)) {
@@ -65,6 +81,7 @@ function getComponents(
           fontFamily={config.fontFamily}
           fontWeight={config.fontWeight}
           mode={mode}
+          value={value}
         />
       );
     } else if (isDigital(control)) {

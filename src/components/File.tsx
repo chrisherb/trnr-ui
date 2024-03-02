@@ -8,7 +8,7 @@ import {
   CogIcon,
 } from "./Icons";
 import { useState } from "react";
-import { Dialog } from "./Dialog";
+import { Modal } from "./Modal";
 import { Settings } from "./Settings";
 
 export function File(props: {
@@ -73,12 +73,12 @@ export function File(props: {
           <CogIcon />
         </button>
       </div>
-      <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
+      <Modal open={settingsOpen} onClose={() => setSettingsOpen(false)}>
         <Settings
           config={props.config}
           onChange={(conf) => props.onChange(conf)}
         />
-      </Dialog>
+      </Modal>
     </>
   );
 }

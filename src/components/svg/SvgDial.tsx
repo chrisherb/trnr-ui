@@ -8,6 +8,7 @@ interface SvgDialProps extends Dial {
   fontFamily: string;
   fontWeight: string;
   mode: "all" | "static-parts" | "dynamic-parts";
+  value?: number;
 }
 
 const SvgDial = ({
@@ -24,8 +25,16 @@ const SvgDial = ({
   rangeMax,
   exponent,
   mode = "all",
+  value = 0.5,
 }: SvgDialProps) => {
-  const parameter = useParameter(rangeMin, rangeMax, 5, name, suffix, exponent);
+  const parameter = useParameter(
+    rangeMin,
+    rangeMax,
+    value,
+    name,
+    suffix,
+    exponent
+  );
   const radius = diameter / 2;
   const labelRadius = radius * 1.2;
   const outerRadius = radius * 1.06;

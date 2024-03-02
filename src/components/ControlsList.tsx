@@ -6,20 +6,30 @@ import {
   Dial,
   Panel,
   Digital,
+  UIConfig,
 } from "../ControlModel";
-import { DeleteIcon, DuplicateIcon, PlusIcon } from "./Icons";
+import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
+import { Modal } from "./Modal";
+import { SvgControlViewer } from "./svg/SvgViewer";
 
 export function ControlsList(props: {
-  controls: Element[];
+  config: UIConfig;
   onControlsChange: (items: Element[]) => void;
   onControlSelect: (control: Element, index: number) => void;
 }) {
   const [active, setActive] = useState(-1);
   const [mouseOver, setMouseOver] = useState(-1);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleCreateControl = (controlType: ControlType) => {
-    props.onControlsChange([...props.controls, createControl(controlType)]);
-    handleControlSelect(createControl(controlType), props.controls.length);
+    props.onControlsChange([
+      ...props.config.controls,
+      createControl(controlType),
+    ]);
+    handleControlSelect(
+      createControl(controlType),
+      props.config.controls.length
+    );
 
     // close dropdown by removing focus
     const elem = document.activeElement;
@@ -34,70 +44,85 @@ export function ControlsList(props: {
   };
 
   return (
-    <ul className="menu">
-      <li className="menu-title ">
-        <div className="flex justify-between">
-          <span>Controls</span>
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-xs btn-circle">
-              <PlusIcon />
+    <>
+      <ul className="menu">
+        <li className="menu-title ">
+          <div className="flex justify-between">
+            <span>Controls</span>
+            <div className="dropdown">
+              <div tabIndex={0} role="button" className="btn btn-xs btn-circle">
+                <PlusIcon />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                {CONTROL_TYPES.map((controlType, index) => (
+                  <li key={index}>
+                    <div
+                      onClick={() => handleCreateControl(controlType)}
+                      className="flex justify-between text-base-content"
+                    >
+                      <a>{controlType}</a>
+                      <PlusIcon />
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              {CONTROL_TYPES.map((controlType, index) => (
-                <li key={index}>
-                  <div
-                    onClick={() => handleCreateControl(controlType)}
-                    className="flex justify-between text-base-content"
-                  >
-                    <a>{controlType}</a>
-                    <PlusIcon />
-                  </div>
-                </li>
-              ))}
-            </ul>
           </div>
-        </div>
-      </li>
-      {props.controls.map((item, index) => (
-        <li key={index}>
-          <a
-            className={`${
-              index === active ? "active" : ""
-            } w-full flex justify-between`}
-            onClick={() => handleControlSelect(item, index)}
-            onMouseEnter={() => setMouseOver(index)}
-            onMouseLeave={() => setMouseOver(-1)}
-          >
-            <span className="flex-grow">{item.name}</span>
-            {index === mouseOver && (
-              <>
-                <button
-                  className="h-5"
-                  onClick={() =>
-                    props.onControlsChange([...props.controls, item])
-                  }
-                >
-                  <DuplicateIcon />
-                </button>
-                <button
-                  className="h-5"
-                  onClick={() =>
-                    props.onControlsChange(
-                      props.controls.filter((_, i) => i !== index)
-                    )
-                  }
-                >
-                  <DeleteIcon />
-                </button>
-              </>
-            )}
-          </a>
         </li>
-      ))}
-    </ul>
+        {props.config.controls.map((item, index) => (
+          <li key={index}>
+            <a
+              className={`${
+                index === active ? "active" : ""
+              } w-full flex justify-between`}
+              onClick={() => handleControlSelect(item, index)}
+              onMouseEnter={() => setMouseOver(index)}
+              onMouseLeave={() => setMouseOver(-1)}
+            >
+              <span className="flex-grow">{item.name}</span>
+              {index === mouseOver && (
+                <>
+                  <button className="h-5" onClick={() => setDialogOpen(true)}>
+                    <MagnifierIcon />
+                  </button>
+                  <button
+                    className="h-5"
+                    onClick={() =>
+                      props.onControlsChange([...props.config.controls, item])
+                    }
+                  >
+                    <DuplicateIcon />
+                  </button>
+                  <button
+                    className="h-5"
+                    onClick={() =>
+                      props.onControlsChange(
+                        props.config.controls.filter((_, i) => i !== index)
+                      )
+                    }
+                  >
+                    <DeleteIcon />
+                  </button>
+                </>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+      {props.config.controls[active] && dialogOpen && (
+        <Modal open={dialogOpen} onClose={() => setDialogOpen(false)}>
+          <div className="flex justify-center">
+            <SvgControlViewer
+              config={props.config}
+              exportControl={props.config.controls[active] as Dial}
+            />
+          </div>
+        </Modal>
+      )}
+    </>
   );
 }
 

@@ -25,6 +25,7 @@ export interface Control extends Element {
   rangeMax: number;
   exponent: number;
   suffix: string;
+  exportResolution: number;
 }
 
 export class Panel implements Element {
@@ -38,8 +39,8 @@ export class Panel implements Element {
 
 export class Dial implements Control {
   [key: string]: any;
-  exponent: number = 1;
   readonly type: ControlType = "Dial";
+  exponent: number = 1;
   name: string = "Dial";
   x: number = 200;
   y: number = 200;
@@ -49,12 +50,13 @@ export class Dial implements Control {
   suffix: string = "";
   rangeMin: number = 0;
   rangeMax: number = 10;
+  exportResolution: number = 2;
 }
 
 export class Digital implements Control {
   [key: string]: any;
-  exponent: number = 1;
   readonly type: ControlType = "Digital";
+  exponent: number = 1;
   name: string = "Digital";
   x: number = 100;
   y: number = 100;
@@ -62,6 +64,7 @@ export class Digital implements Control {
   suffix: string = "";
   rangeMin: number = 0;
   rangeMax: number = 10;
+  exportResolution: number = 1;
 }
 
 export function isControl(obj: any): obj is Control {
