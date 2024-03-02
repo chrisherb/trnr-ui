@@ -1,11 +1,21 @@
 import { renderToString } from "react-dom/server";
 import { UIConfig } from "../ControlModel";
 import { SvgViewer } from "./svg/SvgViewer";
+import {
+  DocumentUploadIcon,
+  DocumentDownloadIcon,
+  DownloadIcon,
+  CogIcon,
+} from "./Icons";
+import { useState } from "react";
+import { Dialog } from "./Dialog";
+import { Settings } from "./Settings";
 
-export function IOButtons(props: {
+export function File(props: {
   config: UIConfig;
   onChange: (config: UIConfig) => void;
 }) {
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const handleLoad = () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
@@ -39,17 +49,37 @@ export function IOButtons(props: {
   };
 
   return (
-    <div className="m-2 space-x-2 flex flex-row">
-      <button className="btn btn-sm btn-neutral" onClick={handleLoad}>
-        Load
-      </button>
-      <button className="btn btn-sm btn-neutral" onClick={handleSave}>
-        Save
-      </button>
-      <button className="btn btn-sm btn-neutral" onClick={handleExport}>
-        Export
-      </button>
-    </div>
+    <>
+      <div className="tooltip tooltip-bottom" data-tip="Load Config">
+        <button onClick={handleLoad} className="btn btn-xs btn-circle m-4">
+          <DocumentUploadIcon />
+        </button>
+      </div>
+      <div className="tooltip tooltip-bottom" data-tip="Save Config">
+        <button onClick={handleSave} className="btn btn-xs btn-circle m-4">
+          <DocumentDownloadIcon />
+        </button>
+      </div>
+      <div className="tooltip tooltip-bottom" data-tip="Export">
+        <button onClick={handleExport} className="btn btn-xs btn-circle m-4">
+          <DownloadIcon />
+        </button>
+      </div>
+      <div className="tooltip tooltip-bottom" data-tip="Settings">
+        <button
+          onClick={() => setSettingsOpen(true)}
+          className="btn btn-xs btn-circle m-4"
+        >
+          <CogIcon />
+        </button>
+      </div>
+      <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
+        <Settings
+          config={props.config}
+          onChange={(conf) => props.onChange(conf)}
+        />
+      </Dialog>
+    </>
   );
 }
 

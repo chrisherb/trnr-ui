@@ -1,15 +1,11 @@
 import { useState } from "react";
-import { Dialog } from "./components/Dialog";
-import { CogIcon } from "./components/Icons";
 import { UIConfig } from "./ControlModel";
 import { ControlsList } from "./components/ControlsList";
 import { ControlDetails } from "./components/ControlDetails";
 import { SvgViewer } from "./components/svg/SvgViewer";
-import { Settings } from "./components/Settings";
-import { IOButtons } from "./components/IO";
+import { File } from "./components/File";
 
 function App() {
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [selectedControlIndex, setSelectedControlIndex] = useState(-1);
   const [uiConfig, setUiConfig] = useState<UIConfig>({
     width: 800,
@@ -45,22 +41,15 @@ function App() {
             })
           }
         />
-        <IOButtons config={uiConfig} onChange={setUiConfig} />
       </div>
       <div className="flex-auto">
-        <button
-          onClick={() => setSettingsOpen(true)}
-          className="btn btn-xs btn-circle fixed right-0 m-4"
-        >
-          <CogIcon />
-        </button>
+        <div className="fixed right-0 ">
+          <File config={uiConfig} onChange={setUiConfig} />
+        </div>
         <div className="w-full h-full flex justify-center items-center">
           <SvgViewer config={uiConfig} mode="all" />{" "}
         </div>
       </div>
-      <Dialog isOpened={settingsOpen} onClose={() => setSettingsOpen(false)}>
-        <Settings config={uiConfig} onChange={(conf) => setUiConfig(conf)} />
-      </Dialog>
     </div>
   );
 }
