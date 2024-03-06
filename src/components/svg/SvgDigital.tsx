@@ -18,8 +18,16 @@ const SvgDigital = ({
   fontFamily,
   fontWeight,
   mode = "all",
+  value = 0.5,
 }: DigitalProps) => {
-  const parameter = useParameter(rangeMin, rangeMax, 5, name, suffix, exponent);
+  const parameter = useParameter(
+    rangeMin,
+    rangeMax,
+    value,
+    name,
+    suffix,
+    exponent
+  );
   const rangeMaxLength = Math.abs(parameter.rangeMax).toString().length;
   const rangeMinLength = Math.abs(parameter.rangeMin).toString().length;
   const length = Math.max(rangeMaxLength, rangeMinLength);
@@ -30,22 +38,21 @@ const SvgDigital = ({
 
   const bipolar = parameter.rangeMax < 0 || parameter.rangeMin < 0;
 
-  const width = digits.length * 30;
+  const width = digits.length * 28 + (digits.length - 1) * 2;
+  const height = 48;
+  const margin = 8;
+  const radius = 6;
 
   return (
     <>
       {(mode === "all" || mode === "static-parts") && (
-        <text
+        <Title
           x={x}
-          y={y - 20}
-          fontSize={18}
+          y={y}
+          name={name}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
-          textAnchor="middle"
-          fill="url(#primary)"
-        >
-          {name.toUpperCase()}
-        </text>
+        />
       )}
       {(mode === "all" || mode === "dynamic-parts") && bipolar && (
         <PlusMinusSigns
@@ -57,30 +64,26 @@ const SvgDigital = ({
         />
       )}
       {(mode === "all" || mode === "static-parts") && (
-        <text
-          x={x + 25 + width / 2}
+        <Suffix
+          x={x + 20 + width / 2}
           y={y + 28}
-          fontSize={18}
+          suffix={suffix}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
-          textAnchor="middle"
-          fill="url(#primary)"
-        >
-          {suffix}
-        </text>
+        />
       )}
       <g transform={`translate(${x - width / 2}, ${y})`}>
         {(mode === "all" || mode === "static-parts") && (
           <rect
-            x={-5}
-            y={-5}
-            width={width + 7}
-            height={58}
+            x={-margin}
+            y={-margin}
+            width={width + margin * 2 - 1}
+            height={height + margin * 2}
             fill="none"
             stroke="url(#primary)"
             strokeWidth={2}
-            rx={5}
-            ry={5}
+            rx={radius}
+            ry={radius}
           />
         )}
         {(mode === "all" || mode === "dynamic-parts") &&
@@ -93,6 +96,50 @@ const SvgDigital = ({
 };
 
 export default SvgDigital;
+
+const Title = (props: {
+  x: number;
+  y: number;
+  fontFamily: string;
+  fontWeight: string;
+  name: string;
+}) => {
+  return (
+    <text
+      x={props.x}
+      y={props.y - 20}
+      fontSize={18}
+      fontFamily={props.fontFamily}
+      fontWeight={props.fontWeight}
+      textAnchor="middle"
+      fill="url(#primary)"
+    >
+      {props.name.toUpperCase()}
+    </text>
+  );
+};
+
+const Suffix = (props: {
+  x: number;
+  y: number;
+  suffix: string;
+  fontFamily: string;
+  fontWeight: string;
+}) => {
+  return (
+    <text
+      x={props.x}
+      y={props.y}
+      fontSize={18}
+      fontFamily={props.fontFamily}
+      fontWeight={props.fontWeight}
+      textAnchor="left"
+      fill="url(#primary)"
+    >
+      {props.suffix}
+    </text>
+  );
+};
 
 const PlusMinusSigns = (props: {
   value: number;
