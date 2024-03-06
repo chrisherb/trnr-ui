@@ -58,6 +58,7 @@ export class Dial implements Control {
   rangeMin: number = 0;
   rangeMax: number = 10;
   exportResolution: number = 2;
+  bipolar: boolean = false;
 }
 
 export class Digital implements Control {

@@ -26,6 +26,7 @@ const SvgDial = ({
   exponent,
   mode = "all",
   value = 0.5,
+  bipolar = false,
 }: SvgDialProps) => {
   const parameter = useParameter(
     rangeMin,
@@ -81,10 +82,11 @@ const SvgDial = ({
         <Segments
           x={x}
           y={y}
-          value={parameter.normalizedValue}
+          parameter={parameter}
           segments={segments}
           innerRadius={innerRadius}
           outerRadius={middleRadius}
+          bipolar={bipolar}
         />
       )}
     </g>
@@ -243,10 +245,11 @@ const Line = (props: {
 const Segments = (props: {
   x: number;
   y: number;
-  value: number;
+  parameter: Parameter;
   segments: number;
   innerRadius: number;
   outerRadius: number;
+  bipolar: boolean;
 }) => {
   const getSegments = (parts: number, span: number) => {
     const internalParts = parts * span - 1;
@@ -262,9 +265,40 @@ const Segments = (props: {
     return segments;
   };
 
-  const adjustedValue = props.value * props.segments;
+  const adjustedValue = props.parameter.normalizedValue * props.segments;
   const value = Math.floor(adjustedValue);
   const decimals = (adjustedValue - value) * 0.9 + 0.1;
+  const midPoint = Math.floor(
+    props.parameter.getNormalizedValue(0) * props.segments
+  );
+
+  const getOpacity = (index: number) => {
+    if (index < value) {
+      return 1;
+    } else if (index > value) {
+      return 0.1;
+    } else {
+      return decimals;
+    }
+  };
+
+  const getBipolarOpacity = (index: number) => {
+    // if index is below 0
+    if (index < midPoint) {
+      // indices below the value are dark
+      if (index < value) return 0.1;
+      // rest is lit
+      else return 1;
+    }
+    // if index is above 0
+    else if (index >= midPoint) {
+      // indices above the value are dark
+      if (index > value - 1) return 0.1;
+      // values above index are dark
+      else return 1;
+    }
+    return 0.1;
+  };
 
   return (
     <>
@@ -277,7 +311,7 @@ const Segments = (props: {
           to={segment.to}
           outerRadius={props.outerRadius}
           innerRadius={props.innerRadius}
-          opacity={index < value ? 1 : index > value ? 0.1 : decimals}
+          opacity={props.bipolar ? getBipolarOpacity(index) : getOpacity(index)}
         />
       ))}
     </>

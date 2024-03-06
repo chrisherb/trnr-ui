@@ -9,6 +9,7 @@ export interface Parameter {
   name: string;
   setValue: (value: number) => void;
   getDenormalizedValue: (value: number) => number;
+  getNormalizedValue: (value: number) => number;
   setNormalizedValue: (value: number) => void;
   suffix: string;
 }
@@ -37,6 +38,7 @@ export function useParameter(
     setValue: (value: number) => setNormalized(clamp(normalize(value))),
     getDenormalizedValue: (value: number) => denormalize(value),
     setNormalizedValue: (value: number) => setNormalized(clamp(value)),
+    getNormalizedValue: (value: number) => normalize(value),
     name: name,
     rangeMin: rangeMin,
     rangeMax: rangeMax,
