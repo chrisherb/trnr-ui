@@ -8,6 +8,7 @@ import {
   Digital,
   UIConfig,
   Text,
+  isControl,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -86,9 +87,11 @@ export function ControlsList(props: {
               <span className="flex-grow">{item.name}</span>
               {index === mouseOver && (
                 <>
-                  <button className="h-5" onClick={() => setDialogOpen(true)}>
-                    <MagnifierIcon />
-                  </button>
+                  {isControl(item) && (
+                    <button className="h-5" onClick={() => setDialogOpen(true)}>
+                      <MagnifierIcon />
+                    </button>
+                  )}
                   <button
                     className="h-5"
                     onClick={() =>
