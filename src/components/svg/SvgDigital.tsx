@@ -48,7 +48,7 @@ const SvgDigital = ({
       {(mode === "all" || mode === "static-parts") && (
         <Title
           x={x}
-          y={y}
+          y={y - 25}
           name={name}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
@@ -107,7 +107,7 @@ const Title = (props: {
   return (
     <text
       x={props.x}
-      y={props.y - 20}
+      y={props.y}
       fontSize={18}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
