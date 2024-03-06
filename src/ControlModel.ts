@@ -1,4 +1,4 @@
-export const CONTROL_TYPES = ["Panel", "Dial", "Digital"];
+export const CONTROL_TYPES = ["Panel", "Dial", "Digital", "Text"];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
 export interface UIConfig {
@@ -35,6 +35,13 @@ export class Panel implements Element {
   y: number = 0;
   width: number = 100;
   height: number = 100;
+}
+
+export class Text implements Element {
+  readonly type: ControlType = "Text";
+  name: string = "Text";
+  x: number = 100;
+  y: number = 100;
 }
 
 export class Dial implements Control {
@@ -85,4 +92,8 @@ export function isDial(obj: any): obj is Dial {
 
 export function isDigital(obj: any): obj is Digital {
   return obj && typeof obj.type === "string" && obj.type === "Digital";
+}
+
+export function isText(obj: any): obj is Text {
+  return obj && typeof obj.type === "string" && obj.type === "Text";
 }

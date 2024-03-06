@@ -7,6 +7,7 @@ import {
   Panel,
   Digital,
   UIConfig,
+  Text,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -134,6 +135,8 @@ function createControl(type: ControlType): Element {
       return new Dial();
     case "Digital":
       return new Digital();
+    case "Text":
+      return new Text();
     default:
       return {
         type,
