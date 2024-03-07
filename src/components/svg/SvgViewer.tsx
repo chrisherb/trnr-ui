@@ -1,5 +1,6 @@
 import {
   Dial,
+  Digital,
   UIConfig,
   isDial,
   isDigital,
@@ -34,6 +35,27 @@ export function SvgViewer(props: {
 
 export function SvgControlViewer(props: {
   config: UIConfig;
+  exportControl: Dial | Digital;
+}) {
+  if (isDial(props.exportControl)) {
+    return (
+      <SvgDialViewer
+        config={props.config}
+        exportControl={props.exportControl}
+      />
+    );
+  } else if (isDigital(props.exportControl)) {
+    return (
+      <SvgDigitalViewer
+        config={props.config}
+        exportControl={props.exportControl}
+      />
+    );
+  }
+}
+
+export function SvgDialViewer(props: {
+  config: UIConfig;
   exportControl: Dial;
 }) {
   const viewBox = `${
@@ -58,6 +80,56 @@ export function SvgControlViewer(props: {
             width={props.exportControl.diameter}
             height={props.exportControl.diameter}
             y={i * props.exportControl.diameter}
+            viewBox={viewBox}
+            key={i}
+          >
+            <Honeycomb
+              primary={props.config.primaryColor}
+              secondary={props.config.secondaryColor}
+            />
+            {getComponents(props.config, "dynamic-parts", i / (frames - 1))}
+          </svg>
+        );
+      })}
+    </svg>
+  );
+}
+
+export function SvgDigitalViewer(props: {
+  config: UIConfig;
+  exportControl: Digital;
+}) {
+  const rangeMaxLength = Math.abs(props.exportControl.rangeMax).toString()
+    .length;
+  const rangeMinLength = Math.abs(props.exportControl.rangeMin).toString()
+    .length;
+  const digits = Math.max(rangeMaxLength, rangeMinLength);
+
+  const signOffset = 16;
+
+  const width = digits * 35 + signOffset;
+  const height = 48;
+
+  const viewBox = `${props.exportControl.x - width / 2 - signOffset} ${
+    props.exportControl.y
+  } ${width} ${height}`;
+
+  const frames =
+    props.exportControl.rangeMax - props.exportControl.rangeMin + 1;
+
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={frames * height}
+    >
+      {Array.from(Array(frames).keys()).map((i) => {
+        return (
+          <svg
+            width={width}
+            height={height}
+            y={i * height}
             viewBox={viewBox}
             key={i}
           >
@@ -100,6 +172,7 @@ function getComponents(
           fontFamily={config.fontFamily}
           fontWeight={config.fontWeight}
           mode={mode}
+          value={value}
         />
       );
     } else if (isText(control)) {
