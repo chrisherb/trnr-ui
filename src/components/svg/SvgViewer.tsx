@@ -7,12 +7,14 @@ import {
   isDigital,
   isLogo,
   isPanel,
+  isSlider,
   isText,
 } from "../../ControlModel";
 import SvgDial from "./SvgDial";
 import SvgDigital from "./SvgDigital";
 import { SvgLogo } from "./SvgLogo";
 import { SvgPanel } from "./SvgPanel";
+import { SvgSlider } from "./SvgSlider";
 import { SvgText } from "./SvgText";
 
 export function SvgViewer(props: {
@@ -189,6 +191,16 @@ function getComponents(
       );
     } else if (isLogo(control)) {
       return <SvgLogo {...control} key={index} />;
+    } else if (isSlider(control)) {
+      return (
+        <SvgSlider
+          {...control}
+          key={index}
+          fontFamily={config.fontFamily}
+          fontWeight={config.fontWeight}
+          mode={mode}
+        />
+      );
     }
   });
 }

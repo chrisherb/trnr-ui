@@ -1,4 +1,11 @@
-export const CONTROL_TYPES = ["Panel", "Dial", "Digital", "Text", "Logo"];
+export const CONTROL_TYPES = [
+  "Panel",
+  "Dial",
+  "Slider",
+  "Digital",
+  "Text",
+  "Logo",
+];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
 export interface UIConfig {
@@ -69,6 +76,24 @@ export class Dial implements Control {
   bipolar: boolean = false;
 }
 
+export class Slider implements Control {
+  [key: string]: any;
+  readonly type: ControlType = "Slider";
+  name: string = "Slider";
+  rangeMin: number = 0;
+  rangeMax: number = 10;
+  exponent: number = 1;
+  segments: number = 48;
+  labels: number = 5;
+  suffix: string = "";
+  exportResolution: number = 1;
+  x: number = 100;
+  y: number = 100;
+  length: number = 100;
+  width: number = 40;
+  orientation: "horizontal" | "vertical" = "horizontal";
+}
+
 export class Digital implements Control {
   [key: string]: any;
   readonly type: ControlType = "Digital";
@@ -109,4 +134,8 @@ export function isText(obj: any): obj is Text {
 
 export function isLogo(obj: any): obj is Logo {
   return obj && typeof obj.type === "string" && obj.type === "Logo";
+}
+
+export function isSlider(obj: any): obj is Slider {
+  return obj && typeof obj.type === "string" && obj.type === "Slider";
 }

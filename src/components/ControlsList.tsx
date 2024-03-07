@@ -10,6 +10,7 @@ import {
   Text,
   isControl,
   Logo,
+  Slider,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -145,6 +146,8 @@ function createControl(type: ControlType): Element {
       return new Text();
     case "Logo":
       return new Logo();
+    case "Slider":
+      return new Slider();
     default:
       return {
         type,

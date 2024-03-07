@@ -38,8 +38,8 @@ const SvgDial = ({
   );
   const radius = diameter / 2;
   const labelRadius = radius + 18;
-  const outerRadius = radius * 1.06;
-  const middleRadius = radius;
+  const indicatorRadius = radius + 6;
+  const outerRadius = radius;
   const innerRadius = radius * 0.6;
 
   return (
@@ -57,14 +57,14 @@ const SvgDial = ({
           >
             {name.toUpperCase()}
           </text>
-          <ArcPath x={x} y={y} radius={middleRadius} />
+          <ArcPath x={x} y={y} radius={outerRadius} />
           <ArcPath x={x} y={y} radius={innerRadius} />
           <Lines
             x={x}
             y={y}
             numLines={labels}
-            innerRadius={middleRadius}
-            outerRadius={outerRadius}
+            innerRadius={outerRadius}
+            outerRadius={indicatorRadius}
           />
           <Labels
             x={x}
@@ -85,7 +85,7 @@ const SvgDial = ({
           parameter={parameter}
           segments={segments}
           innerRadius={innerRadius}
-          outerRadius={middleRadius}
+          outerRadius={outerRadius}
           bipolar={bipolar}
         />
       )}
