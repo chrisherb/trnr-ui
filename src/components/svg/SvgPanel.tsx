@@ -1,6 +1,7 @@
 import { Panel } from "../../ControlModel";
 
 export function SvgPanel(props: Panel) {
+  const radius = 6;
   return (
     <rect
       x={props.x}
@@ -10,8 +11,8 @@ export function SvgPanel(props: Panel) {
       fill="none"
       stroke="url(#primary)"
       strokeWidth={2}
-      rx={5}
-      ry={5}
+      rx={radius}
+      ry={radius}
     />
   );
 }
