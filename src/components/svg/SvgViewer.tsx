@@ -4,11 +4,13 @@ import {
   UIConfig,
   isDial,
   isDigital,
+  isLogo,
   isPanel,
   isText,
 } from "../../ControlModel";
 import SvgDial from "./SvgDial";
 import SvgDigital from "./SvgDigital";
+import { SvgLogo } from "./SvgLogo";
 import { SvgPanel } from "./SvgPanel";
 import { SvgText } from "./SvgText";
 
@@ -184,6 +186,8 @@ function getComponents(
           fontWeight={config.fontWeight}
         />
       );
+    } else if (isLogo(control)) {
+      return <SvgLogo {...control} key={index} />;
     }
   });
 }

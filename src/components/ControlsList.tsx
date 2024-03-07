@@ -9,6 +9,7 @@ import {
   UIConfig,
   Text,
   isControl,
+  Logo,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -84,7 +85,9 @@ export function ControlsList(props: {
               onMouseEnter={() => setMouseOver(index)}
               onMouseLeave={() => setMouseOver(-1)}
             >
-              <span className="flex-grow">{item.name}</span>
+              <span className="flex-grow">
+                {item.name ? item.name : item.type}
+              </span>
               {index === mouseOver && (
                 <>
                   {isControl(item) && (
@@ -140,6 +143,8 @@ function createControl(type: ControlType): Element {
       return new Digital();
     case "Text":
       return new Text();
+    case "Logo":
+      return new Logo();
     default:
       return {
         type,
