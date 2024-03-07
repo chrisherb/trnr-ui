@@ -41,11 +41,10 @@ export function File(props: {
   };
 
   const handleExport = () => {
-    const svgString = renderToString(
+    const backgroundSvg = renderToString(
       <SvgViewer config={props.config} mode="static-parts" />
     );
-    console.log(svgString);
-    downloadFile(svgString, "ui.svg", "text/svg");
+    downloadFile(backgroundSvg, "background.svg", "text/svg");
   };
 
   return (
