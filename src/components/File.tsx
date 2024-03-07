@@ -1,6 +1,6 @@
 import { renderToString } from "react-dom/server";
-import { UIConfig } from "../ControlModel";
-import { SvgViewer } from "./svg/SvgViewer";
+import { UIConfig, isControl } from "../ControlModel";
+import { SvgControlViewer, SvgViewer } from "./svg/SvgViewer";
 import {
   DocumentUploadIcon,
   DocumentDownloadIcon,
@@ -45,6 +45,15 @@ export function File(props: {
       <SvgViewer config={props.config} mode="static-parts" />
     );
     downloadFile(backgroundSvg, "background.svg", "text/svg");
+
+    props.config.controls.forEach((control) => {
+      if (isControl(control)) {
+        const controlSvg = renderToString(
+          <SvgControlViewer config={props.config} exportControl={control} />
+        );
+        downloadFile(controlSvg, `${control.type}.svg`, "text/svg");
+      }
+    });
   };
 
   return (

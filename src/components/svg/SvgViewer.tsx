@@ -1,4 +1,5 @@
 import {
+  Control,
   Dial,
   Digital,
   UIConfig,
@@ -37,7 +38,7 @@ export function SvgViewer(props: {
 
 export function SvgControlViewer(props: {
   config: UIConfig;
-  exportControl: Dial | Digital;
+  exportControl: Control;
 }) {
   if (isDial(props.exportControl)) {
     return (
