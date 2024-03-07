@@ -57,7 +57,7 @@ export class Dial implements Control {
   suffix: string = "";
   rangeMin: number = 0;
   rangeMax: number = 10;
-  exportResolution: number = 2;
+  exportResolution: number = 1;
   bipolar: boolean = false;
 }
 
