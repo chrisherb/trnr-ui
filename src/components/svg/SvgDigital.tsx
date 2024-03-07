@@ -40,7 +40,7 @@ const SvgDigital = ({
 
   const width = digits.length * 28 + (digits.length - 1) * 2;
   const height = 48;
-  const margin = 8;
+  const margin = 6;
   const radius = 6;
 
   return (
