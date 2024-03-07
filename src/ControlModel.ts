@@ -79,7 +79,7 @@ export function isControl(obj: any): obj is Control {
   return (
     obj &&
     typeof obj.type === "string" &&
-    (obj.type === "Dial" || obj.type === "Panel")
+    (obj.type === "Dial" || obj.type === "Digital")
   );
 }
 
