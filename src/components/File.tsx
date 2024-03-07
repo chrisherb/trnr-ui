@@ -51,7 +51,11 @@ export function File(props: {
         const controlSvg = renderToString(
           <SvgControlViewer config={props.config} exportControl={control} />
         );
-        downloadFile(controlSvg, `${control.type}.svg`, "text/svg");
+        downloadFile(
+          controlSvg,
+          `${control.type}_${control.name}.svg`,
+          "text/svg"
+        );
       }
     });
   };

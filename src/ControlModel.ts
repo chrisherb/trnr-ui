@@ -20,6 +20,7 @@ export interface Element {
 }
 
 export interface Control extends Element {
+  name: string;
   rangeMin: number;
   rangeMax: number;
   exponent: number;
