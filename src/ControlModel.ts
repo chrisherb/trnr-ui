@@ -87,9 +87,9 @@ export class Slider implements Control {
   labels: number = 5;
   suffix: string = "";
   exportResolution: number = 1;
-  x: number = 100;
+  x: number = 150;
   y: number = 100;
-  length: number = 100;
+  length: number = 200;
   width: number = 40;
   orientation: "horizontal" | "vertical" = "horizontal";
 }
