@@ -71,7 +71,7 @@ function Indicators(props: {
 
   const y = props.orientation === "horizontal" ? props.y : props.y + 40;
 
-  const anchor = props.orientation === "horizontal" ? "middle" : "end";
+  const anchor = props.orientation === "horizontal" ? "middle" : "start";
 
   const labels = [];
   for (let i = 0; i < props.labels; i++) {
@@ -108,7 +108,7 @@ function Indicators(props: {
         return (
           <g key={i}>
             <text
-              x={props.orientation === "horizontal" ? x1 : x1 + 24}
+              x={props.orientation === "horizontal" ? x1 : x1 + 12}
               y={props.orientation === "horizontal" ? y1 - 12 : y1 + 5}
               fontSize={18}
               fontFamily={props.fontFamily}
