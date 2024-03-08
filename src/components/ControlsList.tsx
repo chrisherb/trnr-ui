@@ -99,7 +99,10 @@ export function ControlsList(props: {
                   <button
                     className="h-5"
                     onClick={() =>
-                      props.onControlsChange([...props.config.controls, item])
+                      props.onControlsChange([
+                        ...props.config.controls,
+                        { ...item },
+                      ])
                     }
                   >
                     <DuplicateIcon />
