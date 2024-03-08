@@ -86,6 +86,10 @@ function Indicators(props: {
     labels.push(label);
   }
 
+  if (props.orientation !== "horizontal") {
+    labels.reverse();
+  }
+
   return (
     <>
       {labels.map((label, i) => {
@@ -256,9 +260,15 @@ const Segments = (props: {
     return 0.1;
   };
 
+  const segments = getSegments(props.segments, 4);
+
+  if (props.orientation !== "horizontal") {
+    segments.reverse();
+  }
+
   return (
     <>
-      {getSegments(props.segments, 4).map((segment, index) => (
+      {segments.map((segment, index) => (
         <SegmentPolygon
           x={props.x}
           y={props.y}
