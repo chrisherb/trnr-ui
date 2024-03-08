@@ -62,12 +62,12 @@ export class Logo implements Element {
 export class Dial implements Control {
   [key: string]: any;
   readonly type: ControlType = "Dial";
-  exponent: number = 1;
   name: string = "Dial";
   x: number = 200;
   y: number = 200;
-  diameter: number = 200;
+  exponent: number = 1;
   segments: number = 48;
+  diameter: number = 200;
   labels: number = 5;
   suffix: string = "";
   rangeMin: number = 0;
@@ -80,18 +80,19 @@ export class Slider implements Control {
   [key: string]: any;
   readonly type: ControlType = "Slider";
   name: string = "Slider";
+  x: number = 150;
+  y: number = 100;
   rangeMin: number = 0;
   rangeMax: number = 10;
   exponent: number = 1;
-  segments: number = 48;
+  segments: number = 20;
   labels: number = 5;
   suffix: string = "";
   exportResolution: number = 1;
-  x: number = 150;
-  y: number = 100;
   length: number = 200;
   width: number = 40;
   orientation: "horizontal" | "vertical" = "horizontal";
+  bipolar: boolean = false;
 }
 
 export class Digital implements Control {
@@ -112,7 +113,7 @@ export function isControl(obj: any): obj is Control {
   return (
     obj &&
     typeof obj.type === "string" &&
-    (obj.type === "Dial" || obj.type === "Digital")
+    (obj.type === "Dial" || obj.type === "Digital" || obj.type === "Slider")
   );
 }
 
