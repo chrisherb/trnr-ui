@@ -2,6 +2,7 @@ import {
   Control,
   Dial,
   Digital,
+  Slider,
   UIConfig,
   isDial,
   isDigital,
@@ -52,6 +53,13 @@ export function SvgControlViewer(props: {
   } else if (isDigital(props.exportControl)) {
     return (
       <SvgDigitalViewer
+        config={props.config}
+        exportControl={props.exportControl}
+      />
+    );
+  } else if (isSlider(props.exportControl)) {
+    return (
+      <SvgSliderViewer
         config={props.config}
         exportControl={props.exportControl}
       />
@@ -150,6 +158,55 @@ export function SvgDigitalViewer(props: {
   );
 }
 
+const SvgSliderViewer = (props: {
+  config: UIConfig;
+  exportControl: Slider;
+}) => {
+  const frames =
+    props.exportControl.segments * props.exportControl.exportResolution + 1;
+
+  const orientation = props.exportControl.orientation;
+  const width =
+    orientation === "horizontal"
+      ? props.exportControl.length
+      : props.exportControl.width;
+  const height =
+    orientation === "horizontal"
+      ? props.exportControl.width
+      : props.exportControl.length;
+
+  const viewBox = `${props.exportControl.x - width / 2} ${
+    props.exportControl.y
+  } ${width} ${height}`;
+
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={frames * height}
+    >
+      {Array.from(Array(frames).keys()).map((i) => {
+        return (
+          <svg
+            width={width}
+            height={height}
+            y={i * height}
+            viewBox={viewBox}
+            key={i}
+          >
+            <Honeycomb
+              primary={props.config.primaryColor}
+              secondary={props.config.secondaryColor}
+            />
+            {getComponents(props.config, "dynamic-parts", i / (frames - 1))}
+          </svg>
+        );
+      })}
+    </svg>
+  );
+};
+
 function getComponents(
   config: UIConfig,
   mode: "all" | "static-parts" | "dynamic-parts",
@@ -199,6 +256,7 @@ function getComponents(
           fontFamily={config.fontFamily}
           fontWeight={config.fontWeight}
           mode={mode}
+          value={value}
         />
       );
     }

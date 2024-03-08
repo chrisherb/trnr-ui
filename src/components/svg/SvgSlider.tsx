@@ -20,10 +20,16 @@ export function SvgSlider({ value = 0.5, ...props }: SvgSliderProps) {
 
   return (
     <>
-      <Title {...props} />
-      <Indicators parameter={parameter} {...props} />
-      <Lines {...props} />
-      <Segments parameter={parameter} {...props} />
+      {(props.mode === "all" || props.mode === "static-parts") && (
+        <>
+          <Title {...props} />
+          <Indicators parameter={parameter} {...props} />
+          <Lines {...props} />
+        </>
+      )}
+      {(props.mode === "all" || props.mode === "dynamic-parts") && (
+        <Segments parameter={parameter} {...props} />
+      )}
     </>
   );
 }

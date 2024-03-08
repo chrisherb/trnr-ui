@@ -110,11 +110,7 @@ export class Digital implements Control {
 }
 
 export function isControl(obj: any): obj is Control {
-  return (
-    obj &&
-    typeof obj.type === "string" &&
-    (obj.type === "Dial" || obj.type === "Digital" || obj.type === "Slider")
-  );
+  return isDial(obj) || isSlider(obj) || isDigital(obj);
 }
 
 export function isPanel(obj: any): obj is Panel {
