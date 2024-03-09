@@ -10,14 +10,15 @@ interface SvgMeterProps extends Meter {
 
 export function SvgMeter({ value = 0.5, ...props }: SvgMeterProps) {
   const parameter = useParameter(-4, 4, value, props.name, props.suffix, 1);
-  const columnWidth = (props.width - 6) / props.columns;
+  const columnWidth = Math.round(props.width / props.columns);
+  const width = props.columns * columnWidth + 6;
 
   return (
     <>
       {(props.mode === "all" || props.mode === "static-parts") && (
         <>
-          <Indicators parameter={parameter} {...props} />
-          <Lines {...props} />
+          <Indicators parameter={parameter} {...props} width={width} />
+          <Lines {...props} width={width} />
           {Array.from(Array(props.columns).keys()).map((i) => {
             return (
               <Segments
