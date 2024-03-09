@@ -8,25 +8,32 @@ interface SvgMeterProps extends Meter {
   value?: number;
 }
 
-export function SvgMeter(props: SvgMeterProps) {
-  const parameter = useParameter(-4, 4, 0.5, props.name, props.suffix, 1);
+export function SvgMeter({ value = 0.5, ...props }: SvgMeterProps) {
+  const parameter = useParameter(-4, 4, value, props.name, props.suffix, 1);
   const columnWidth = (props.width - 6) / props.columns;
 
   return (
     <>
-      <Indicators parameter={parameter} {...props} />
-      <Lines {...props} />
-      {Array.from(Array(props.columns).keys()).map((i) => {
-        return (
-          <Segments
-            key={i}
-            parameter={parameter}
-            {...props}
-            x={props.x + i * columnWidth + 4}
-            width={columnWidth - 2}
-          />
-        );
-      })}
+      {(props.mode === "all" || props.mode === "static-parts") && (
+        <>
+          <Indicators parameter={parameter} {...props} />
+          <Lines {...props} />
+          {Array.from(Array(props.columns).keys()).map((i) => {
+            return (
+              <Segments
+                key={i}
+                parameter={parameter}
+                {...props}
+                x={props.x + i * columnWidth + 4}
+                width={columnWidth - 2}
+              />
+            );
+          })}
+        </>
+      )}
+      {props.mode === "dynamic-parts" && (
+        <Segments parameter={parameter} {...props} width={columnWidth} />
+      )}
     </>
   );
 }

@@ -2,6 +2,7 @@ import {
   Control,
   Dial,
   Digital,
+  Meter,
   Slider,
   UIConfig,
   isDial,
@@ -62,6 +63,13 @@ export function SvgControlViewer(props: {
   } else if (isSlider(props.exportControl)) {
     return (
       <SvgSliderViewer
+        config={props.config}
+        exportControl={props.exportControl}
+      />
+    );
+  } else if (isMeter(props.exportControl)) {
+    return (
+      <SvgMeterViewer
         config={props.config}
         exportControl={props.exportControl}
       />
@@ -180,6 +188,43 @@ const SvgSliderViewer = (props: {
   const viewBox = `${props.exportControl.x - width / 2} ${
     props.exportControl.y
   } ${width} ${height}`;
+
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={frames * height}
+    >
+      {Array.from(Array(frames).keys()).map((i) => {
+        return (
+          <svg
+            width={width}
+            height={height}
+            y={i * height}
+            viewBox={viewBox}
+            key={i}
+          >
+            <Honeycomb
+              primary={props.config.primaryColor}
+              secondary={props.config.secondaryColor}
+            />
+            {getComponents(props.config, "dynamic-parts", i / (frames - 1))}
+          </svg>
+        );
+      })}
+    </svg>
+  );
+};
+
+const SvgMeterViewer = (props: { config: UIConfig; exportControl: Meter }) => {
+  const frames =
+    props.exportControl.segments * props.exportControl.exportResolution + 1;
+
+  const width = props.exportControl.width / props.exportControl.columns;
+  const height = props.exportControl.height;
+
+  const viewBox = `${props.exportControl.x} ${props.exportControl.y} ${width} ${height}`;
 
   return (
     <svg
