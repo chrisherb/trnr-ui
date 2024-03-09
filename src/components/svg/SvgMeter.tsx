@@ -99,6 +99,16 @@ function Indicators(props: {
               vectorEffect={"non-scaling-stroke"}
               strokeLinecap="round"
             />
+            <line
+              x1={x1 + props.width + 6}
+              y1={y1}
+              x2={x2 + props.width + 6}
+              y2={y2}
+              strokeWidth={2}
+              stroke="url(#primary)"
+              vectorEffect={"non-scaling-stroke"}
+              strokeLinecap="round"
+            />
           </g>
         );
       })}
