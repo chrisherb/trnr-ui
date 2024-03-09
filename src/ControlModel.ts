@@ -5,6 +5,7 @@ export const CONTROL_TYPES = [
   "Digital",
   "Text",
   "Logo",
+  "Meter",
 ];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
@@ -28,10 +29,6 @@ export interface Element {
 
 export interface Control extends Element {
   name: string;
-  rangeMin: number;
-  rangeMax: number;
-  exponent: number;
-  suffix: string;
   exportResolution: number;
 }
 
@@ -98,10 +95,10 @@ export class Slider implements Control {
 export class Digital implements Control {
   [key: string]: any;
   readonly type: ControlType = "Digital";
-  exponent: number = 1;
   name: string = "Digital";
   x: number = 100;
   y: number = 100;
+  exponent: number = 1;
   diameter: number = 100;
   suffix: string = "";
   rangeMin: number = 0;
@@ -109,8 +106,21 @@ export class Digital implements Control {
   exportResolution: number = 1;
 }
 
-export function isControl(obj: any): obj is Control {
-  return isDial(obj) || isSlider(obj) || isDigital(obj);
+export class Meter implements Control {
+  [key: string]: any;
+  readonly type: ControlType = "Meter";
+  name: string = "Meter";
+  x: number = 100;
+  y: number = 100;
+  width: number = 100;
+  height: number = 100;
+  segments: number = 10;
+  columns: number = 10;
+  labels: number = 5;
+  suffix: string = "";
+  exponent: number = 1;
+  exportResolution: number = 1;
+  bipolar: boolean = false;
 }
 
 export function isPanel(obj: any): obj is Panel {
@@ -135,4 +145,12 @@ export function isLogo(obj: any): obj is Logo {
 
 export function isSlider(obj: any): obj is Slider {
   return obj && typeof obj.type === "string" && obj.type === "Slider";
+}
+
+export function isMeter(obj: any): obj is Meter {
+  return obj && typeof obj.type === "string" && obj.type === "Meter";
+}
+
+export function isControl(obj: any): obj is Control {
+  return isDial(obj) || isSlider(obj) || isDigital(obj) || isMeter(obj);
 }

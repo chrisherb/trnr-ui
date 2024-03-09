@@ -7,6 +7,7 @@ import {
   isDial,
   isDigital,
   isLogo,
+  isMeter,
   isPanel,
   isSlider,
   isText,
@@ -14,6 +15,7 @@ import {
 import SvgDial from "./SvgDial";
 import SvgDigital from "./SvgDigital";
 import { SvgLogo } from "./SvgLogo";
+import { SvgMeter } from "./SvgMeter";
 import { SvgPanel } from "./SvgPanel";
 import { SvgSlider } from "./SvgSlider";
 import { SvgText } from "./SvgText";
@@ -251,6 +253,17 @@ function getComponents(
     } else if (isSlider(control)) {
       return (
         <SvgSlider
+          {...control}
+          key={index}
+          fontFamily={config.fontFamily}
+          fontWeight={config.fontWeight}
+          mode={mode}
+          value={value}
+        />
+      );
+    } else if (isMeter(control)) {
+      return (
+        <SvgMeter
           {...control}
           key={index}
           fontFamily={config.fontFamily}
