@@ -154,3 +154,18 @@ export function isMeter(obj: any): obj is Meter {
 export function isControl(obj: any): obj is Control {
   return isDial(obj) || isSlider(obj) || isDigital(obj) || isMeter(obj);
 }
+
+export function getControlHeight(control: Control): number {
+  if (isDial(control)) {
+    return control.diameter;
+  } else if (isSlider(control)) {
+    return control.orientation === "horizontal"
+      ? control.width
+      : control.length;
+  } else if (isDigital(control)) {
+    return 48;
+  } else if (isMeter(control)) {
+    return control.height;
+  }
+  return 0;
+}
