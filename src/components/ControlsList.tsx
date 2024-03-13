@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   CONTROL_TYPES,
-  Element,
+  UIElement,
   ControlType,
   Dial,
   Panel,
@@ -19,8 +19,8 @@ import { SvgControlViewer } from "./svg/SvgViewer";
 
 export function ControlsList(props: {
   config: UIConfig;
-  onControlsChange: (items: Element[]) => void;
-  onControlSelect: (control: Element, index: number) => void;
+  onControlsChange: (items: UIElement[]) => void;
+  onControlSelect: (control: UIElement, index: number) => void;
 }) {
   const [active, setActive] = useState(-1);
   const [mouseOver, setMouseOver] = useState(-1);
@@ -43,7 +43,7 @@ export function ControlsList(props: {
     }
   };
 
-  const handleControlSelect = (control: Element, index: number) => {
+  const handleControlSelect = (control: UIElement, index: number) => {
     setActive(index);
     props.onControlSelect(control, index);
   };
@@ -138,7 +138,7 @@ export function ControlsList(props: {
   );
 }
 
-function createControl(type: ControlType): Element {
+function createControl(type: ControlType): UIElement {
   switch (type) {
     case "Panel":
       return new Panel();

@@ -10,7 +10,7 @@ export const CONTROL_TYPES = [
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
 export interface UIConfig {
-  controls: Element[];
+  controls: UIElement[];
   width: number;
   height: number;
   fontFamily: string;
@@ -20,19 +20,19 @@ export interface UIConfig {
   secondaryColor: string;
 }
 
-export interface Element {
+export interface UIElement {
   readonly type: ControlType;
   [key: string]: any;
   x: number;
   y: number;
 }
 
-export interface Control extends Element {
+export interface Control extends UIElement {
   name: string;
   exportResolution: number;
 }
 
-export class Panel implements Element {
+export class Panel implements UIElement {
   readonly type: ControlType = "Panel";
   name: string = "Panel";
   x: number = 0;
@@ -41,14 +41,14 @@ export class Panel implements Element {
   height: number = 100;
 }
 
-export class Text implements Element {
+export class Text implements UIElement {
   readonly type: ControlType = "Text";
   name: string = "Text";
   x: number = 100;
   y: number = 100;
 }
 
-export class Logo implements Element {
+export class Logo implements UIElement {
   readonly type: ControlType = "Logo";
   x: number = 0;
   y: number = 0;
@@ -155,17 +155,59 @@ export function isControl(obj: any): obj is Control {
   return isDial(obj) || isSlider(obj) || isDigital(obj) || isMeter(obj);
 }
 
-export function getControlHeight(control: Control): number {
+export function getControlData(control: Control): {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  frames: number;
+} {
   if (isDial(control)) {
-    return control.diameter;
+    return {
+      width: control.diameter,
+      height: control.diameter,
+      x: control.x - control.diameter / 2,
+      y: control.y - control.diameter / 2,
+      frames: control.segments * control.exportResolution,
+    };
   } else if (isSlider(control)) {
-    return control.orientation === "horizontal"
-      ? control.width
-      : control.length;
+    return {
+      width:
+        control.orientation === "horizontal" ? control.length : control.width,
+      height:
+        control.orientation === "horizontal" ? control.width : control.length,
+      x: control.x,
+      y: control.y,
+      frames: control.segments * control.exportResolution,
+    };
   } else if (isDigital(control)) {
-    return 48;
+    const rangeMaxLength = Math.abs(control.rangeMax).toString().length;
+    const rangeMinLength = Math.abs(control.rangeMin).toString().length;
+    const digits = Math.max(rangeMaxLength, rangeMinLength);
+    const signOffset = 16;
+    const width = digits * 35 + signOffset;
+    return {
+      x: control.x - width / 2 - signOffset,
+      y: control.y,
+      width: width,
+      height: 48,
+      frames: control.rangeMax - control.exportControl.rangeMin + 1,
+    };
   } else if (isMeter(control)) {
-    return control.height;
+    return {
+      width: control.width / control.columns,
+      height: control.height,
+      x: control.x,
+      y: control.y,
+      frames: control.segments * control.exportResolution,
+    };
+  } else {
+    return {
+      width: 200,
+      height: 200,
+      x: control.x,
+      y: control.y,
+      frames: 1,
+    };
   }
-  return 0;
 }

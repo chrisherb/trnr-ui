@@ -1,8 +1,8 @@
-import { Element } from "../ControlModel";
+import { UIElement } from "../ControlModel";
 
 export function ControlDetails(props: {
-  control: Element | undefined;
-  onControlChange: (control: Element) => void;
+  control: UIElement | undefined;
+  onControlChange: (control: UIElement) => void;
 }) {
   return (
     <div className="h-96 flex flex-col">
@@ -28,8 +28,8 @@ export function ControlDetails(props: {
 }
 
 function IterateControlProps(props: {
-  control: Element;
-  onControlChange: (control: Element) => void;
+  control: UIElement;
+  onControlChange: (control: UIElement) => void;
 }) {
   return Object.keys(props.control)
     .filter((key) => key !== "type") // skip type property
@@ -66,8 +66,8 @@ function IterateControlProps(props: {
 }
 
 function Input(props: {
-  control: Element;
-  onControlChange: (control: Element) => void;
+  control: UIElement;
+  onControlChange: (control: UIElement) => void;
   type: string;
   value: any;
   onChange: (value: any) => void;

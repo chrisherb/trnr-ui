@@ -1,5 +1,5 @@
 import { renderToString } from "react-dom/server";
-import { UIConfig, getControlHeight, isControl } from "../ControlModel";
+import { UIConfig, getControlData, isControl } from "../ControlModel";
 import { SvgControlViewer, SvgViewer } from "./svg/SvgViewer";
 import {
   DocumentUploadIcon,
@@ -51,11 +51,12 @@ export function File(props: {
         const controlSvg = renderToString(
           <SvgControlViewer config={props.config} exportControl={control} />
         );
+
+        const { x, y, width, height } = getControlData(control);
+
         downloadFile(
           controlSvg,
-          `${control.type}_${control.name}_x${control.x}y${
-            control.y
-          }_h${getControlHeight(control)}.svg`,
+          `${control.type}_${control.name}_x${x}y${y}_h${height}.svg`,
           "text/svg"
         );
       }
