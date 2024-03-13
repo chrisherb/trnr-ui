@@ -161,59 +161,48 @@ export function isControl(obj: any): obj is Control {
   return isDial(obj) || isSlider(obj) || isDigital(obj) || isMeter(obj);
 }
 
-export function getControlData(control: Control): {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  frames: number;
-} {
+export function getControlData(
+  control: Control
+): [number, number, number, number, number] {
   if (isDial(control)) {
-    return {
-      width: control.diameter,
-      height: control.diameter,
-      x: control.x - control.diameter / 2,
-      y: control.y - control.diameter / 2,
-      frames: control.segments * control.exportResolution + 1,
-    };
+    return [
+      control.diameter,
+      control.diameter,
+      control.x - control.diameter / 2,
+      control.y - control.diameter / 2,
+      control.segments * control.exportResolution + 1,
+    ];
   } else if (isSlider(control)) {
-    return {
-      width:
-        control.orientation === "horizontal" ? control.length : control.width,
-      height:
-        control.orientation === "horizontal" ? control.width : control.length,
-      x: control.x,
-      y: control.y,
-      frames: control.segments * control.exportResolution + 1,
-    };
+    return [
+      control.orientation === "horizontal" ? control.length : control.width,
+
+      control.orientation === "horizontal" ? control.width : control.length,
+      control.x,
+      control.y,
+      control.segments * control.exportResolution + 1,
+    ];
   } else if (isDigital(control)) {
     const rangeMaxLength = Math.abs(control.rangeMax).toString().length;
     const rangeMinLength = Math.abs(control.rangeMin).toString().length;
     const digits = Math.max(rangeMaxLength, rangeMinLength);
     const signOffset = 16;
     const width = digits * 35 + signOffset;
-    return {
-      x: control.x - width / 2 - signOffset,
-      y: control.y,
-      width: width,
-      height: 48,
-      frames: control.rangeMax - control.exportControl.rangeMin + 1,
-    };
+    return [
+      control.x - width / 2 - signOffset,
+      control.y,
+      width,
+      48,
+      control.rangeMax - control.exportControl.rangeMin + 1,
+    ];
   } else if (isMeter(control)) {
-    return {
-      width: control.width / control.columns,
-      height: control.height,
-      x: control.x,
-      y: control.y,
-      frames: control.segments * control.exportResolution + 1,
-    };
+    return [
+      control.width / control.columns,
+      control.height,
+      control.x,
+      control.y,
+      control.segments * control.exportResolution + 1,
+    ];
   } else {
-    return {
-      width: 200,
-      height: 200,
-      x: control.x,
-      y: control.y,
-      frames: 1,
-    };
+    return [200, 200, control.x, control.y, 1];
   }
 }

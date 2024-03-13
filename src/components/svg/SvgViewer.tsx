@@ -46,7 +46,7 @@ export function SvgControlViewer(props: {
   exportControl: Control;
   orientation: "horizontal" | "vertical";
 }) {
-  const { x, y, width, height, frames } = getControlData(props.exportControl);
+  const [x, y, width, height, frames] = getControlData(props.exportControl);
 
   return (
     <svg

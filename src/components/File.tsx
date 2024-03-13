@@ -56,7 +56,7 @@ export function File(props: {
           />
         );
 
-        const { x, y, width, height } = getControlData(control);
+        const [x, y, _, height] = getControlData(control);
 
         downloadFile(
           controlSvg,
