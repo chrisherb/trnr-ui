@@ -166,19 +166,19 @@ export function getControlData(
 ): [number, number, number, number, number] {
   if (isDial(control)) {
     return [
-      control.diameter,
-      control.diameter,
       control.x - control.diameter / 2,
       control.y - control.diameter / 2,
+      control.diameter,
+      control.diameter,
       control.segments * control.exportResolution + 1,
     ];
   } else if (isSlider(control)) {
     return [
+      control.x,
+      control.y,
       control.orientation === "horizontal" ? control.length : control.width,
 
       control.orientation === "horizontal" ? control.width : control.length,
-      control.x,
-      control.y,
       control.segments * control.exportResolution + 1,
     ];
   } else if (isDigital(control)) {
@@ -196,10 +196,10 @@ export function getControlData(
     ];
   } else if (isMeter(control)) {
     return [
-      control.width / control.columns,
-      control.height,
       control.x,
       control.y,
+      control.width / control.columns,
+      control.height,
       control.segments * control.exportResolution + 1,
     ];
   } else {
