@@ -261,7 +261,7 @@ function getComponents(
 ) {
   return config.controls.map((control, index) => {
     if (isPanel(control)) {
-      return <SvgPanel {...control} key={index} />;
+      return <SvgPanel {...control} key={index} mode={mode} />;
     } else if (isDial(control)) {
       return (
         <SvgDial
@@ -291,10 +291,11 @@ function getComponents(
           key={index}
           fontFamily={config.fontFamily}
           fontWeight={config.fontWeight}
+          mode={mode}
         />
       );
     } else if (isLogo(control)) {
-      return <SvgLogo {...control} key={index} />;
+      return <SvgLogo {...control} key={index} mode={mode} />;
     } else if (isSlider(control)) {
       return (
         <SvgSlider
