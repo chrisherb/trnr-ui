@@ -43,24 +43,25 @@ export function SvgViewer(props: {
 export function SvgControlViewer(props: {
   config: UIConfig;
   exportControl: Control;
+  orientation: "horizontal" | "vertical";
 }) {
   const { x, y, width, height, frames } = getControlData(props.exportControl);
-  const viewBox = `${x} ${y} ${width} ${height}`;
 
   return (
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      width={props.exportControl.diameter}
-      height={frames * height}
+      width={props.orientation === "horizontal" ? width * frames : width}
+      height={props.orientation === "vertical" ? height * frames : height}
     >
       {Array.from(Array(frames).keys()).map((i) => {
         return (
           <svg
             width={width}
             height={height}
-            y={i * height}
-            viewBox={viewBox}
+            y={props.orientation === "vertical" ? i * height : 0}
+            x={props.orientation === "horizontal" ? i * width : 0}
+            viewBox={`${x} ${y} ${width} ${height}`}
             key={i}
           >
             <Honeycomb

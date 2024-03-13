@@ -30,6 +30,7 @@ export interface UIElement {
 export interface Control extends UIElement {
   name: string;
   exportResolution: number;
+  exportOrientation: "horizontal" | "vertical";
 }
 
 export class Panel implements UIElement {
@@ -71,6 +72,7 @@ export class Dial implements Control {
   rangeMax: number = 10;
   exportResolution: number = 1;
   bipolar: boolean = false;
+  exportOrientation: "horizontal" | "vertical" = "vertical";
 }
 
 export class Slider implements Control {
@@ -90,6 +92,7 @@ export class Slider implements Control {
   width: number = 40;
   orientation: "horizontal" | "vertical" = "horizontal";
   bipolar: boolean = false;
+  exportOrientation: "horizontal" | "vertical" = "vertical";
 }
 
 export class Digital implements Control {
@@ -104,6 +107,7 @@ export class Digital implements Control {
   rangeMin: number = 0;
   rangeMax: number = 10;
   exportResolution: number = 1;
+  exportOrientation: "horizontal" | "vertical" = "vertical";
 }
 
 export class Meter implements Control {
@@ -121,6 +125,7 @@ export class Meter implements Control {
   exponent: number = 1;
   exportResolution: number = 1;
   bipolar: boolean = false;
+  exportOrientation: "horizontal" | "vertical" = "horizontal";
 }
 
 export function isPanel(obj: any): obj is Panel {
@@ -168,7 +173,7 @@ export function getControlData(control: Control): {
       height: control.diameter,
       x: control.x - control.diameter / 2,
       y: control.y - control.diameter / 2,
-      frames: control.segments * control.exportResolution,
+      frames: control.segments * control.exportResolution + 1,
     };
   } else if (isSlider(control)) {
     return {
@@ -178,7 +183,7 @@ export function getControlData(control: Control): {
         control.orientation === "horizontal" ? control.width : control.length,
       x: control.x,
       y: control.y,
-      frames: control.segments * control.exportResolution,
+      frames: control.segments * control.exportResolution + 1,
     };
   } else if (isDigital(control)) {
     const rangeMaxLength = Math.abs(control.rangeMax).toString().length;
@@ -199,7 +204,7 @@ export function getControlData(control: Control): {
       height: control.height,
       x: control.x,
       y: control.y,
-      frames: control.segments * control.exportResolution,
+      frames: control.segments * control.exportResolution + 1,
     };
   } else {
     return {

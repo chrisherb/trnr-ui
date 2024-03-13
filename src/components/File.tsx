@@ -49,7 +49,11 @@ export function File(props: {
     props.config.controls.forEach((control) => {
       if (isControl(control)) {
         const controlSvg = renderToString(
-          <SvgControlViewer config={props.config} exportControl={control} />
+          <SvgControlViewer
+            config={props.config}
+            exportControl={control}
+            orientation={control.exportOrientation}
+          />
         );
 
         const { x, y, width, height } = getControlData(control);

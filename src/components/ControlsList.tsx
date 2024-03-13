@@ -130,6 +130,7 @@ export function ControlsList(props: {
             <SvgControlViewer
               config={props.config}
               exportControl={props.config.controls[active] as Dial}
+              orientation={props.config.controls[active].exportOrientation}
             />
           </div>
         </Modal>
