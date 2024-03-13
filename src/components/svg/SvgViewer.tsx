@@ -34,6 +34,7 @@ export function SvgViewer(props: {
       <Honeycomb
         primary={props.config.primaryColor}
         secondary={props.config.secondaryColor}
+        opacity={props.config.honeycombOpacity}
       />
       {getComponents(props.config, props.mode)}
     </svg>
@@ -67,6 +68,7 @@ export function SvgControlViewer(props: {
             <Honeycomb
               primary={props.config.primaryColor}
               secondary={props.config.secondaryColor}
+              opacity={props.config.honeycombOpacity}
             />
             {getComponents(props.config, "dynamic-parts", i / (frames - 1))}
           </svg>
@@ -162,7 +164,11 @@ function getComponent(
   }
 }
 
-function Honeycomb(props: { primary: string; secondary: string }) {
+function Honeycomb(props: {
+  primary: string;
+  secondary: string;
+  opacity: number;
+}) {
   return (
     <>
       <defs>
@@ -179,7 +185,7 @@ function Honeycomb(props: { primary: string; secondary: string }) {
             transform="scale(0.25)"
             d="M 12.980469 0 L 12.980469 7.5 L 0 15 L 0 33.509766 L 12.980469 41 L 12.980469 49 L 15 49 L 15 41 L 28 33.5 L 28 15 L 15 7.5 L 15 0 L 12.980469 0 z M 13.990234 9.25 L 26.990234 16.75 L 26.990234 31.75 L 13.990234 39.25 L 1 31.75 L 1 16.75 L 13.990234 9.25 z "
             fill="black"
-            opacity={0.5}
+            opacity={props.opacity}
           />
         </pattern>
         <pattern
@@ -195,7 +201,7 @@ function Honeycomb(props: { primary: string; secondary: string }) {
             transform="scale(0.25)"
             d="M 12.980469 0 L 12.980469 7.5 L 0 15 L 0 33.509766 L 12.980469 41 L 12.980469 49 L 15 49 L 15 41 L 28 33.5 L 28 15 L 15 7.5 L 15 0 L 12.980469 0 z M 13.990234 9.25 L 26.990234 16.75 L 26.990234 31.75 L 13.990234 39.25 L 1 31.75 L 1 16.75 L 13.990234 9.25 z "
             fill="black"
-            opacity={0.5}
+            opacity={props.opacity}
           />
         </pattern>
       </defs>

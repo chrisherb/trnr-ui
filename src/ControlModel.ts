@@ -18,6 +18,7 @@ export interface UIConfig {
   backgroundColor: string;
   primaryColor: string;
   secondaryColor: string;
+  honeycombOpacity: number;
 }
 
 export interface UIElement {

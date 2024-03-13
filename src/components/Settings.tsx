@@ -119,6 +119,22 @@ export function Settings(props: {
             />
           </td>
         </tr>
+        <tr>
+          <th>Honeycomb Opacity</th>
+          <td>
+            <input
+              type="number"
+              className="input input-sm w-full max-w-xs"
+              value={props.config.honeycombOpacity}
+              onChange={(e) =>
+                props.onChange({
+                  ...props.config,
+                  honeycombOpacity: parseFloat(e.target.value),
+                })
+              }
+            />
+          </td>
+        </tr>
       </tbody>
     </table>
   );
