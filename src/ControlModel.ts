@@ -174,7 +174,9 @@ export function getControlData(
     ];
   } else if (isSlider(control)) {
     return [
-      control.x,
+      control.orientation !== "horizontal"
+        ? control.x - control.width / 2
+        : control.x,
       control.y,
       control.orientation === "horizontal" ? control.length : control.width,
 
