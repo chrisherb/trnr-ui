@@ -1,3 +1,0 @@
-[submodule "src/dependencies/fontaudio"]
-	path = src/dependencies/fontaudio
-	url = https://github.com/fefanto/fontaudio.git
