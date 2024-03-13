@@ -16,7 +16,7 @@ function App() {
     backgroundColor: "#000000",
     primaryColor: "#ff0000",
     secondaryColor: "#00ff00",
-    honeycombOpacity: 0.5,
+    honeycombOpacity: 0.4,
   });
 
   return (
