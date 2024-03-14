@@ -137,7 +137,6 @@ function Indicators(props: {
               stroke="url(#primary)"
               vectorEffect={"non-scaling-stroke"}
               strokeLinecap="round"
-              textAnchor={anchor}
             />
           </g>
         );
