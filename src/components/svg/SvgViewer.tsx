@@ -104,7 +104,7 @@ function getComponent(
   value: number = 0.5
 ) {
   if (isPanel(control)) {
-    return <SvgPanel {...control} mode={mode} />;
+    return <SvgPanel {...control} key={index} mode={mode} />;
   } else if (isDial(control)) {
     return (
       <SvgDial
