@@ -200,7 +200,7 @@ export function getControlData(
     return [
       control.x,
       control.y,
-      control.width / control.columns,
+      control.width / control.columns + 4,
       control.height,
       control.segments * control.exportResolution + 1,
     ];
