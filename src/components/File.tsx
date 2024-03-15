@@ -56,11 +56,11 @@ export function File(props: {
           />
         );
 
-        const [x, y, _, height] = getControlData(control);
+        const [x, y, width, height] = getControlData(control);
 
         downloadFile(
           controlSvg,
-          `${control.type}_${control.name}_x${x}y${y}_h${height}.svg`,
+          `${control.type}_${control.name}_x${x}y${y}_w${width}h${height}.svg`,
           "text/svg"
         );
       }
