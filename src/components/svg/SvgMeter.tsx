@@ -8,31 +8,32 @@ interface SvgMeterProps extends Meter {
   value?: number;
 }
 
-export function SvgMeter({ value = 0.5, ...props }: SvgMeterProps) {
+export function SvgMeter({ mode, value = 0.5, ...props }: SvgMeterProps) {
   const parameter = useParameter(-4, 4, value, props.name, props.suffix, 1);
   const columnWidth = Math.round(props.width / props.columns);
   const width = props.columns * columnWidth + 6;
 
   return (
     <>
-      {(props.mode === "all" || props.mode === "static-parts") && (
+      {(mode === "all" || mode === "static-parts") && (
         <>
           <Indicators parameter={parameter} {...props} width={width} />
           <Lines {...props} width={width} />
-          {Array.from(Array(props.columns).keys()).map((i) => {
-            return (
-              <Segments
-                key={i}
-                parameter={parameter}
-                {...props}
-                x={props.x + i * columnWidth + 4}
-                width={columnWidth - 2}
-              />
-            );
-          })}
         </>
       )}
-      {props.mode === "dynamic-parts" && (
+      {mode === "all" &&
+        Array.from(Array(props.columns).keys()).map((i) => {
+          return (
+            <Segments
+              key={i}
+              parameter={parameter}
+              {...props}
+              x={props.x + i * columnWidth + 4}
+              width={columnWidth - 2}
+            />
+          );
+        })}
+      {mode === "dynamic-parts" && (
         <Segments parameter={parameter} {...props} width={columnWidth} />
       )}
     </>
@@ -149,7 +150,7 @@ function Lines(props: { x: number; y: number; height: number; width: number }) {
         y2={y2}
         stroke="url(#primary)"
         strokeWidth={2}
-      />
+      />{" "}
       <line
         x1={x3}
         y1={y3}
