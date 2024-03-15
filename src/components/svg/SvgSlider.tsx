@@ -135,7 +135,6 @@ function Indicators(props: {
               y2={y2}
               strokeWidth={2}
               stroke="url(#primary)"
-              vectorEffect={"non-scaling-stroke"}
               strokeLinecap="round"
             />
           </g>

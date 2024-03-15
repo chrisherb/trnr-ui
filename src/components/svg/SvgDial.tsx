@@ -234,7 +234,6 @@ const Line = (props: {
       y1={props.y + y1}
       x2={props.x + x2}
       y2={props.y + y2}
-      vectorEffect={"non-scaling-stroke"}
       strokeLinecap="round"
       strokeWidth={strokeWidth}
       stroke="url(#primary)"
@@ -358,7 +357,6 @@ const ArcPath = (props: { x: number; y: number; radius: number }) => {
   return (
     <path
       d={`M ${start.x} ${start.y} A ${radius} ${radius} 0 1 0 ${end.x} ${end.y}`}
-      vectorEffect={"non-scaling-stroke"}
       stroke="url(#primary)"
       strokeWidth={strokeWidth}
       fill="none"
