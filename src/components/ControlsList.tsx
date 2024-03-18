@@ -11,7 +11,7 @@ import {
   isControl,
   Logo,
   Slider,
-  Meter,
+  WaveformDisplay,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -154,7 +154,7 @@ function createControl(type: ControlType): UIElement {
     case "Slider":
       return new Slider();
     case "Meter":
-      return new Meter();
+      return new WaveformDisplay();
     default:
       return {
         type,

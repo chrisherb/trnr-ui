@@ -111,7 +111,7 @@ export class Digital implements Control {
   exportOrientation: "horizontal" | "vertical" = "vertical";
 }
 
-export class Meter implements Control {
+export class WaveformDisplay implements Control {
   [key: string]: any;
   readonly type: ControlType = "Meter";
   name: string = "Meter";
@@ -153,7 +153,7 @@ export function isSlider(obj: any): obj is Slider {
   return obj && typeof obj.type === "string" && obj.type === "Slider";
 }
 
-export function isMeter(obj: any): obj is Meter {
+export function isMeter(obj: any): obj is WaveformDisplay {
   return obj && typeof obj.type === "string" && obj.type === "Meter";
 }
 

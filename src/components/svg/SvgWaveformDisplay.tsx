@@ -1,7 +1,7 @@
-import { Meter } from "../../ControlModel";
+import { WaveformDisplay } from "../../ControlModel";
 import { Parameter, useParameter } from "../hooks/useParameter";
 
-interface SvgMeterProps extends Meter {
+interface SvgMeterProps extends WaveformDisplay {
   fontFamily: string;
   fontWeight: string;
   mode: "all" | "static-parts" | "dynamic-parts";
