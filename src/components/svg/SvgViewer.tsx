@@ -14,7 +14,7 @@ import {
 import SvgDial from "./SvgDial";
 import SvgDigital from "./SvgDigital";
 import { SvgLogo } from "./SvgLogo";
-import { SvgMeter } from "./SvgMeter";
+import { SvgWaveformDisplay } from "./SvgWaveformDisplay";
 import { SvgPanel } from "./SvgPanel";
 import { SvgSlider } from "./SvgSlider";
 import { SvgText } from "./SvgText";
@@ -152,7 +152,7 @@ function getComponent(
     );
   } else if (isMeter(control)) {
     return (
-      <SvgMeter
+      <SvgWaveformDisplay
         {...control}
         key={index}
         fontFamily={fontFamily}

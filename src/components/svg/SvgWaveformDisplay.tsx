@@ -8,7 +8,11 @@ interface SvgMeterProps extends Meter {
   value?: number;
 }
 
-export function SvgMeter({ mode, value = 0.5, ...props }: SvgMeterProps) {
+export function SvgWaveformDisplay({
+  mode,
+  value = 0.5,
+  ...props
+}: SvgMeterProps) {
   const parameter = useParameter(-4, 4, value, props.name, props.suffix, 1);
   const columnWidth = Math.round(props.width / props.columns);
   const width = props.columns * columnWidth + 6;
