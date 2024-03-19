@@ -5,7 +5,7 @@ export const CONTROL_TYPES = [
   "Digital",
   "Text",
   "Logo",
-  "Meter",
+  "Waveform",
 ];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
@@ -125,7 +125,6 @@ export class WaveformDisplay implements Control {
   suffix: string = "";
   exponent: number = 1;
   exportResolution: number = 1;
-  bipolar: boolean = false;
   exportOrientation: "horizontal" | "vertical" = "horizontal";
 }
 
