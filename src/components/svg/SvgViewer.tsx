@@ -6,7 +6,7 @@ import {
   isDial,
   isDigital,
   isLogo,
-  isMeter,
+  isWaveform,
   isPanel,
   isSlider,
   isText,
@@ -150,7 +150,7 @@ function getComponent(
         value={value}
       />
     );
-  } else if (isMeter(control)) {
+  } else if (isWaveform(control)) {
     return (
       <SvgWaveformDisplay
         {...control}

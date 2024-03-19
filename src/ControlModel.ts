@@ -152,12 +152,12 @@ export function isSlider(obj: any): obj is Slider {
   return obj && typeof obj.type === "string" && obj.type === "Slider";
 }
 
-export function isMeter(obj: any): obj is WaveformDisplay {
+export function isWaveform(obj: any): obj is WaveformDisplay {
   return obj && typeof obj.type === "string" && obj.type === "Meter";
 }
 
 export function isControl(obj: any): obj is Control {
-  return isDial(obj) || isSlider(obj) || isDigital(obj) || isMeter(obj);
+  return isDial(obj) || isSlider(obj) || isDigital(obj) || isWaveform(obj);
 }
 
 export function getControlData(
@@ -195,7 +195,7 @@ export function getControlData(
       48,
       control.rangeMax - control.exportControl.rangeMin + 1,
     ];
-  } else if (isMeter(control)) {
+  } else if (isWaveform(control)) {
     return [
       control.x,
       control.y,
