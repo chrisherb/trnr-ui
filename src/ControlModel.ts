@@ -199,9 +199,9 @@ export function getControlData(
     return [
       control.x,
       control.y,
-      Math.round(control.width / control.columns) + 4,
-      control.height,
-      control.segments * control.exportResolution + 1,
+      Math.round(control.width / control.columns),
+      Math.round(control.height / control.segments),
+      1,
     ];
   } else {
     return [200, 200, control.x, control.y, 1];

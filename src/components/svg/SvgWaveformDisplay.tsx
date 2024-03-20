@@ -17,28 +17,41 @@ export function SvgWaveformDisplay({
   const columnWidth = Math.round(props.width / props.columns);
   const width = props.columns * columnWidth + 6;
 
+  const segmentHeight = Math.round(props.height / props.segments);
+  const height = props.segments * segmentHeight;
+
   return (
     <>
       {(mode === "all" || mode === "static-parts") && (
         <>
-          <Indicators parameter={parameter} {...props} width={width} />
-          <Lines {...props} width={width} />
+          <Indicators
+            parameter={parameter}
+            {...props}
+            width={width}
+            height={height}
+          />
+          <Lines {...props} width={width} height={height} />
+          {Array.from(Array(props.columns).keys()).map((i) => {
+            return (
+              <Segments
+                key={i}
+                {...props}
+                x={props.x + i * columnWidth + 4}
+                width={columnWidth - 2}
+                height={height}
+              />
+            );
+          })}
         </>
       )}
-      {mode === "all" &&
-        Array.from(Array(props.columns).keys()).map((i) => {
-          return (
-            <Segments
-              key={i}
-              parameter={parameter}
-              {...props}
-              x={props.x + i * columnWidth + 4}
-              width={columnWidth - 2}
-            />
-          );
-        })}
+
       {mode === "dynamic-parts" && (
-        <Segments parameter={parameter} {...props} width={columnWidth} />
+        <Segments
+          parameter={parameter}
+          {...props}
+          width={columnWidth}
+          height={height}
+        />
       )}
     </>
   );
@@ -168,12 +181,13 @@ function Lines(props: { x: number; y: number; height: number; width: number }) {
 const Segments = (props: {
   x: number;
   y: number;
-  parameter: Parameter;
+  parameter?: Parameter;
   segments: number;
-  bipolar: boolean;
   height: number;
   width: number;
 }) => {
+  let parameter = props.parameter ? props.parameter : useParameter(0, 1, 0);
+
   const getSegments = (parts: number, span: number) => {
     const internalParts = parts * span - 1;
     const getSegment = (index: number, parts: number) => {
@@ -188,43 +202,8 @@ const Segments = (props: {
     return segments;
   };
 
-  const adjustedValue = props.parameter.normalizedValue * props.segments;
-  const value = Math.floor(adjustedValue);
-  const decimals = (adjustedValue - value) * 0.9 + 0.1;
-  const midPoint = Math.floor(
-    props.parameter.getNormalizedValue(0) * props.segments
-  );
-
-  const getOpacity = (index: number) => {
-    if (index < value) {
-      return 1;
-    } else if (index > value) {
-      return 0.1;
-    } else {
-      return decimals;
-    }
-  };
-
-  const getBipolarOpacity = (index: number) => {
-    // if index is below 0
-    if (index < midPoint) {
-      // indices below the value are dark
-      if (index < value) return 0.1;
-      // rest is lit
-      else return 1;
-    }
-    // if index is above 0
-    else if (index >= midPoint) {
-      // indices above the value are dark
-      if (index > value - 1) return 0.1;
-      // values above index are dark
-      else return 1;
-    }
-    return 0.1;
-  };
-
+  const decimals = parameter.normalizedValue * 0.9 + 0.1;
   const segments = getSegments(props.segments, 4);
-
   segments.reverse();
 
   return (
@@ -236,7 +215,7 @@ const Segments = (props: {
           key={index}
           from={segment.from}
           to={segment.to}
-          opacity={props.bipolar ? getBipolarOpacity(index) : getOpacity(index)}
+          opacity={decimals}
           height={props.height}
           width={props.width}
         />

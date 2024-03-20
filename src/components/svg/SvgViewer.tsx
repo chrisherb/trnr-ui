@@ -158,7 +158,7 @@ function getComponent(
         fontFamily={fontFamily}
         fontWeight={fontWeight}
         mode={mode}
-        value={value}
+        value={1}
       />
     );
   }
