@@ -1,3 +1,4 @@
+import { debug } from "console";
 import { WaveformDisplay } from "../../ControlModel";
 import { Parameter, useParameter } from "../hooks/useParameter";
 
@@ -28,9 +29,9 @@ export function SvgWaveformDisplay({
             parameter={parameter}
             {...props}
             width={width}
-            height={height}
+            height={height - 2}
           />
-          <Lines {...props} width={width} height={height} />
+          <Lines {...props} width={width} height={height - 2} />
           {Array.from(Array(props.columns).keys()).map((i) => {
             return (
               <Segments
@@ -49,7 +50,7 @@ export function SvgWaveformDisplay({
         <Segments
           parameter={parameter}
           {...props}
-          width={columnWidth}
+          width={columnWidth - 2}
           height={height}
         />
       )}
@@ -187,75 +188,24 @@ const Segments = (props: {
   width: number;
 }) => {
   let parameter = props.parameter ? props.parameter : useParameter(0, 1, 0);
+  const opacity = parameter.normalizedValue * 0.9 + 0.1;
 
-  const getSegments = (parts: number, span: number) => {
-    const internalParts = parts * span - 1;
-    const getSegment = (index: number, parts: number) => {
-      return (1 / parts) * index;
-    };
-    const segments = [];
-    for (let i = 0; i < internalParts; i += span) {
-      const from = getSegment(i, internalParts);
-      const to = getSegment(i + (span - 1), internalParts);
-      segments.push({ from, to });
-    }
-    return segments;
-  };
+  const segmentHeight = Math.round(props.height / props.segments);
 
-  const decimals = parameter.normalizedValue * 0.9 + 0.1;
-  const segments = getSegments(props.segments, 4);
-  segments.reverse();
+  debugger;
 
   return (
     <>
-      {segments.map((segment, index) => (
-        <SegmentPolygon
+      {Array.from({ length: props.segments }, (_, i) => (
+        <rect
           x={props.x}
-          y={props.y}
-          key={index}
-          from={segment.from}
-          to={segment.to}
-          opacity={decimals}
-          height={props.height}
+          y={props.y + segmentHeight * i}
           width={props.width}
+          height={segmentHeight - 2}
+          fill="url(#primary)"
+          opacity={opacity}
         />
       ))}
     </>
   );
-};
-
-const SegmentPolygon = (props: {
-  x: number;
-  y: number;
-  from: number;
-  to: number;
-  opacity: number;
-  width: number;
-  height: number;
-}) => {
-  let x1, y1, x2, y2, x3, y3, x4, y4;
-  const from = props.from;
-  const to = props.to;
-  const width = props.width;
-  const length = props.height;
-
-  [y1, x1] = getPointCoordinate(from, 0, length);
-  [y2, x2] = getPointCoordinate(from, width, length);
-  [y3, x3] = getPointCoordinate(to, width, length);
-  [y4, x4] = getPointCoordinate(to, 0, length);
-
-  return (
-    <polygon
-      fill="url(#primary)"
-      opacity={props.opacity}
-      points={`${props.x + x1},${props.y + y1} ${props.x + x2},${
-        props.y + y2
-      } ${props.x + x3},${props.y + y3} ${props.x + x4},${props.y + y4}`}
-    />
-  );
-};
-
-const getPointCoordinate = (value: number, width: number, length: number) => {
-  const x = value * length;
-  return [x, width];
 };
