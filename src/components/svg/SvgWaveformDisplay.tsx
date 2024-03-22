@@ -1,4 +1,3 @@
-import { debug } from "console";
 import { WaveformDisplay } from "../../ControlModel";
 import { Parameter, useParameter } from "../hooks/useParameter";
 
@@ -202,7 +201,7 @@ const Segments = (props: {
           y={props.y + segmentHeight * i}
           width={props.width}
           height={segmentHeight - 2}
-          fill="url(#primary)"
+          fill="url(#secondary)"
           opacity={opacity}
         />
       ))}
