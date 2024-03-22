@@ -203,6 +203,7 @@ const Segments = (props: {
           height={segmentHeight - 2}
           fill="url(#secondary)"
           opacity={opacity}
+          rx={1}
         />
       ))}
     </>
