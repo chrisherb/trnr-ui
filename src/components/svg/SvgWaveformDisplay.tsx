@@ -1,7 +1,7 @@
 import { WaveformDisplay } from "../../ControlModel";
 import { Parameter, useParameter } from "../hooks/useParameter";
 
-interface SvgMeterProps extends WaveformDisplay {
+interface SvgWaveformProps extends WaveformDisplay {
   fontFamily: string;
   fontWeight: string;
   mode: "all" | "static-parts" | "dynamic-parts";
@@ -11,9 +11,12 @@ interface SvgMeterProps extends WaveformDisplay {
 export function SvgWaveformDisplay({
   mode,
   value = 0.5,
+  bipolar,
   ...props
-}: SvgMeterProps) {
-  const parameter = useParameter(-4, 4, value, props.name, props.suffix, 1);
+}: SvgWaveformProps) {
+  const parameter = bipolar
+    ? useParameter(-4, 4, value, props.name, props.suffix, 1)
+    : useParameter(0, 4, value, props.name, props.suffix, 1);
   const columnWidth = Math.round(props.width / props.columns);
   const width = props.columns * columnWidth + 6;
 
