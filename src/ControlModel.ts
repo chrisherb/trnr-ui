@@ -5,7 +5,7 @@ export const CONTROL_TYPES = [
   "Digital",
   "Text",
   "Logo",
-  "Waveform",
+  "Meter",
 ];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
@@ -126,6 +126,7 @@ export class WaveformDisplay implements Control {
   exponent: number = 1;
   exportResolution: number = 1;
   exportOrientation: "horizontal" | "vertical" = "horizontal";
+  bipolar: boolean = false;
 }
 
 export function isPanel(obj: any): obj is Panel {
