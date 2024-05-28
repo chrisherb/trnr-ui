@@ -4,6 +4,7 @@ import { Parameter, useParameter } from "../hooks/useParameter";
 interface SvgSliderProps extends Slider {
   fontFamily: string;
   fontWeight: string;
+  strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
   value?: number;
 }
@@ -150,6 +151,7 @@ function Lines(props: {
   length: number;
   width: number;
   orientation: string;
+  strokeWidth: number;
 }) {
   const x =
     props.orientation === "horizontal"
@@ -191,7 +193,7 @@ function Lines(props: {
         x2={x2}
         y2={y2}
         stroke="url(#primary)"
-        strokeWidth={2}
+        strokeWidth={props.strokeWidth}
       />
       <line
         x1={x3}
@@ -199,7 +201,7 @@ function Lines(props: {
         x2={x4}
         y2={y4}
         stroke="url(#primary)"
-        strokeWidth={2}
+        strokeWidth={props.strokeWidth}
       />
     </>
   );
@@ -214,6 +216,7 @@ const Segments = (props: {
   length: number;
   width: number;
   orientation: "horizontal" | "vertical";
+  strokeWidth: number;
 }) => {
   const getSegments = (parts: number, span: number) => {
     const internalParts = parts * span - 1;
@@ -283,6 +286,7 @@ const Segments = (props: {
           length={props.length}
           width={props.width}
           orientation={props.orientation}
+          strokeWidth={props.strokeWidth}
         />
       ))}
     </>
@@ -298,6 +302,7 @@ const SegmentPolygon = (props: {
   length: number;
   width: number;
   orientation: "horizontal" | "vertical";
+  strokeWidth: number;
 }) => {
   let x1, y1, x2, y2, x3, y3, x4, y4;
   const from = props.from;
@@ -305,17 +310,18 @@ const SegmentPolygon = (props: {
   const width = props.width;
   const length = props.length;
   const or = props.orientation;
+  const gap = props.strokeWidth * 2;
 
   if (props.orientation === "horizontal") {
-    [x1, y1] = getPointCoordinate(from, 4, length, or);
-    [x2, y2] = getPointCoordinate(from, width - 4, length, or);
-    [x3, y3] = getPointCoordinate(to, width - 4, length, or);
-    [x4, y4] = getPointCoordinate(to, 4, length, or);
+    [x1, y1] = getPointCoordinate(from, gap, length, or);
+    [x2, y2] = getPointCoordinate(from, width - gap, length, or);
+    [x3, y3] = getPointCoordinate(to, width - gap, length, or);
+    [x4, y4] = getPointCoordinate(to, gap, length, or);
   } else {
-    [y1, x1] = getPointCoordinate(from, 4 - width / 2, length, or);
-    [y2, x2] = getPointCoordinate(from, width / 2 - 4, length, or);
-    [y3, x3] = getPointCoordinate(to, width / 2 - 4, length, or);
-    [y4, x4] = getPointCoordinate(to, 4 - width / 2, length, or);
+    [y1, x1] = getPointCoordinate(from, gap - width / 2, length, or);
+    [y2, x2] = getPointCoordinate(from, width / 2 - gap, length, or);
+    [y3, x3] = getPointCoordinate(to, width / 2 - gap, length, or);
+    [y4, x4] = getPointCoordinate(to, gap - width / 2, length, or);
   }
 
   return (

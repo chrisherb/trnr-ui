@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { Parameter, useParameter } from "../hooks/useParameter";
 import { Dial } from "../../ControlModel";
 
-const strokeWidth = 2;
-
 interface SvgDialProps extends Dial {
   fontFamily: string;
   fontWeight: string;
+  strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
   value?: number;
 }
@@ -22,6 +21,7 @@ const SvgDial = ({
   suffix,
   fontFamily,
   fontWeight,
+  strokeWidth,
   rangeMin,
   rangeMax,
   exponent,
@@ -58,14 +58,15 @@ const SvgDial = ({
           >
             {name.toUpperCase()}
           </text>
-          <ArcPath x={x} y={y} radius={outerRadius} />
-          <ArcPath x={x} y={y} radius={innerRadius} />
+          <ArcPath x={x} y={y} radius={outerRadius} strokeWidth={strokeWidth} />
+          <ArcPath x={x} y={y} radius={innerRadius} strokeWidth={strokeWidth} />
           <Lines
             x={x}
             y={y}
             numLines={labels}
             innerRadius={outerRadius}
             outerRadius={indicatorRadius}
+            strokeWidth={strokeWidth}
           />
           <Labels
             x={x}
@@ -87,6 +88,7 @@ const SvgDial = ({
           segments={segments}
           innerRadius={innerRadius}
           outerRadius={outerRadius}
+          strokeWidth={strokeWidth}
           bipolar={bipolar}
         />
       )}
@@ -199,6 +201,7 @@ const Lines = (props: {
   numLines: number;
   innerRadius: number;
   outerRadius: number;
+  strokeWidth: number;
 }) => {
   const lines = [];
   for (let i = 0; i < props.numLines; i++) {
@@ -206,14 +209,7 @@ const Lines = (props: {
   }
 
   return lines.map((value, index) => (
-    <Line
-      x={props.x}
-      y={props.y}
-      key={index}
-      degree={value}
-      innerRadius={props.innerRadius}
-      outerRadius={props.outerRadius}
-    />
+    <Line key={index} degree={value} {...props} />
   ));
 };
 
@@ -223,6 +219,7 @@ const Line = (props: {
   degree: number;
   innerRadius: number;
   outerRadius: number;
+  strokeWidth: number;
 }) => {
   const [x1, y1] = getPointCoordinates(props.degree, props.innerRadius);
   const [x2, y2] = getPointCoordinates(props.degree, props.outerRadius);
@@ -236,7 +233,7 @@ const Line = (props: {
       x2={props.x + x2}
       y2={props.y + y2}
       strokeLinecap="round"
-      strokeWidth={strokeWidth}
+      strokeWidth={props.strokeWidth}
       stroke="url(#primary)"
     />
   );
@@ -249,6 +246,7 @@ const Segments = (props: {
   segments: number;
   innerRadius: number;
   outerRadius: number;
+  strokeWidth: number;
   bipolar: boolean;
 }) => {
   const getSegments = (parts: number, span: number) => {
@@ -311,6 +309,7 @@ const Segments = (props: {
           to={segment.to}
           outerRadius={props.outerRadius}
           innerRadius={props.innerRadius}
+          strokeWidth={props.strokeWidth}
           opacity={props.bipolar ? getBipolarOpacity(index) : getOpacity(index)}
         />
       ))}
@@ -326,9 +325,10 @@ const SegmentPolygon = (props: {
   outerRadius: number;
   innerRadius: number;
   opacity: number;
+  strokeWidth: number;
 }) => {
-  const outerRadius = props.outerRadius - 4;
-  const innerRadius = props.innerRadius + 4;
+  const outerRadius = props.outerRadius - props.strokeWidth * 2;
+  const innerRadius = props.innerRadius + props.strokeWidth * 2;
 
   const [x1, y1] = getPointCoordinates(props.from, innerRadius);
   const [x2, y2] = getPointCoordinates(props.from, outerRadius);
@@ -346,7 +346,12 @@ const SegmentPolygon = (props: {
   );
 };
 
-const ArcPath = (props: { x: number; y: number; radius: number }) => {
+const ArcPath = (props: {
+  x: number;
+  y: number;
+  radius: number;
+  strokeWidth: number;
+}) => {
   const x = props.x;
   const y = props.y;
   const radius = props.radius;
@@ -359,7 +364,7 @@ const ArcPath = (props: { x: number; y: number; radius: number }) => {
     <path
       d={`M ${start.x} ${start.y} A ${radius} ${radius} 0 1 0 ${end.x} ${end.y}`}
       stroke="url(#primary)"
-      strokeWidth={strokeWidth}
+      strokeWidth={props.strokeWidth}
       fill="none"
     />
   );

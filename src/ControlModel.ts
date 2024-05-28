@@ -15,6 +15,7 @@ export interface UIConfig {
   height: number;
   fontFamily: string;
   fontWeight: string;
+  strokeWidth: number;
   backgroundColor: string;
   primaryColor: string;
   secondaryColor: string;
@@ -90,8 +91,8 @@ export class Slider implements Control {
   labels: number = 5;
   suffix: string = "";
   exportResolution: number = 1;
-  length: number = 200;
-  width: number = 40;
+  length: number = 100;
+  width: number = 25;
   orientation: "horizontal" | "vertical" = "horizontal";
   bipolar: boolean = false;
   exportOrientation: "horizontal" | "vertical" = "vertical";

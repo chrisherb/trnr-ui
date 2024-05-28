@@ -4,6 +4,7 @@ import { Parameter, useParameter } from "../hooks/useParameter";
 interface SvgWaveformProps extends WaveformDisplay {
   fontFamily: string;
   fontWeight: string;
+  strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
   value?: number;
 }
@@ -12,6 +13,7 @@ export function SvgWaveformDisplay({
   mode,
   value = 0.5,
   bipolar,
+  strokeWidth,
   ...props
 }: SvgWaveformProps) {
   const parameter = bipolar
@@ -33,7 +35,12 @@ export function SvgWaveformDisplay({
             width={width}
             height={height - 2}
           />
-          <Lines {...props} width={width} height={height - 2} />
+          <Lines
+            {...props}
+            width={width}
+            height={height - 2}
+            strokeWidth={strokeWidth}
+          />
           {Array.from(Array(props.columns).keys()).map((i) => {
             return (
               <Segments
@@ -143,7 +150,13 @@ function Indicators(props: {
   );
 }
 
-function Lines(props: { x: number; y: number; height: number; width: number }) {
+function Lines(props: {
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  strokeWidth: number;
+}) {
   const x = props.x;
 
   let x1, y1, x2, y2;
@@ -167,7 +180,7 @@ function Lines(props: { x: number; y: number; height: number; width: number }) {
         x2={x2}
         y2={y2}
         stroke="url(#primary)"
-        strokeWidth={2}
+        strokeWidth={props.strokeWidth}
       />{" "}
       <line
         x1={x3}
@@ -175,7 +188,7 @@ function Lines(props: { x: number; y: number; height: number; width: number }) {
         x2={x4}
         y2={y4}
         stroke="url(#primary)"
-        strokeWidth={2}
+        strokeWidth={props.strokeWidth}
       />
     </>
   );

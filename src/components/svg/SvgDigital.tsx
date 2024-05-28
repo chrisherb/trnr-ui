@@ -4,6 +4,7 @@ import { useParameter } from "../hooks/useParameter";
 interface DigitalProps extends Digital {
   fontFamily: string;
   fontWeight: string;
+  strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
 }
 
@@ -17,6 +18,7 @@ const SvgDigital = ({
   exponent,
   fontFamily,
   fontWeight,
+  strokeWidth,
   mode = "all",
   value = 0.5,
 }: DigitalProps) => {
@@ -81,7 +83,7 @@ const SvgDigital = ({
             height={height + margin * 2}
             fill="none"
             stroke="url(#primary)"
-            strokeWidth={2}
+            strokeWidth={strokeWidth}
             rx={radius}
             ry={radius}
           />

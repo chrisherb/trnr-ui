@@ -89,6 +89,7 @@ function getComponents(
       index,
       config.fontFamily,
       config.fontWeight,
+      config.strokeWidth,
       mode,
       value
     )
@@ -100,11 +101,19 @@ function getComponent(
   index: number,
   fontFamily: string,
   fontWeight: string,
+  strokeWidth: number,
   mode: "all" | "static-parts" | "dynamic-parts",
   value: number = 0.5
 ) {
   if (isPanel(control)) {
-    return <SvgPanel {...control} key={index} mode={mode} />;
+    return (
+      <SvgPanel
+        {...control}
+        key={index}
+        mode={mode}
+        strokeWidth={strokeWidth}
+      />
+    );
   } else if (isDial(control)) {
     return (
       <SvgDial
@@ -112,6 +121,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        strokeWidth={strokeWidth}
         mode={mode}
         value={value}
       />
@@ -123,6 +133,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        strokeWidth={strokeWidth}
         mode={mode}
         value={value}
       />
@@ -146,6 +157,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        strokeWidth={strokeWidth}
         mode={mode}
         value={value}
       />
@@ -157,6 +169,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        strokeWidth={strokeWidth}
         mode={mode}
         value={1}
       />

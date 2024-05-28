@@ -72,6 +72,22 @@ export function Settings(props: {
           </td>
         </tr>
         <tr>
+          <th>Stroke Width</th>
+          <td>
+            <input
+              type="number"
+              className="input input-sm w-full max-w-xs"
+              value={props.config.strokeWidth}
+              onChange={(e) =>
+                props.onChange({
+                  ...props.config,
+                  strokeWidth: parseFloat(e.target.value),
+                })
+              }
+            />
+          </td>
+        </tr>
+        <tr>
           <th>Background Color</th>
           <td>
             <input

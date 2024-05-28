@@ -1,6 +1,7 @@
 import { Panel } from "../../ControlModel";
 
 interface SvgPanelProps extends Panel {
+  strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
 }
 
@@ -16,7 +17,7 @@ export function SvgPanel(props: SvgPanelProps) {
           height={props.height}
           fill="none"
           stroke="url(#primary)"
-          strokeWidth={2}
+          strokeWidth={props.strokeWidth}
           rx={radius}
           ry={radius}
         />
