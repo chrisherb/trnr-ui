@@ -16,6 +16,7 @@ const SvgDial = ({
   y,
   name,
   diameter,
+  innerDiameterFactor,
   labels,
   segments,
   suffix,
@@ -40,7 +41,7 @@ const SvgDial = ({
   const labelRadius = radius + 18;
   const indicatorRadius = radius + 6;
   const outerRadius = radius;
-  const innerRadius = radius * 0.6;
+  const innerRadius = radius * innerDiameterFactor;
 
   return (
     <g>

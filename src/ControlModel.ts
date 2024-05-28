@@ -65,8 +65,9 @@ export class Dial implements Control {
   x: number = 200;
   y: number = 200;
   exponent: number = 1;
-  segments: number = 48;
-  diameter: number = 200;
+  segments: number = 32;
+  diameter: number = 100;
+  innerDiameterFactor: number = 0.5;
   labels: number = 5;
   suffix: string = "";
   rangeMin: number = 0;
