@@ -38,7 +38,7 @@ const SvgDial = ({
     exponent
   );
   const radius = diameter / 2;
-  const labelRadius = radius + 18;
+  const labelRadius = radius + 14;
   const indicatorRadius = radius + 6;
   const outerRadius = radius;
   const innerRadius = radius * innerDiameterFactor;
@@ -49,7 +49,7 @@ const SvgDial = ({
         <>
           <text
             x={x}
-            y={y - radius - 46}
+            y={y - radius - 39}
             fontSize={18}
             fontFamily={fontFamily}
             fontWeight={fontWeight}

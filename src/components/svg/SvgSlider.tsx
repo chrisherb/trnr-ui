@@ -48,7 +48,7 @@ function Title(props: {
   return (
     <text
       x={props.x}
-      y={props.y - 46}
+      y={props.y - 39}
       fontSize={18}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
@@ -69,6 +69,7 @@ function Indicators(props: {
   labels: number;
   fontFamily: string;
   fontWeight: string;
+  strokeWidth: number;
   parameter: Parameter;
 }) {
   const x =
@@ -111,16 +112,16 @@ function Indicators(props: {
           y2 = props.y;
         } else {
           x1 = x + 6;
-          y1 = y + lengthFrac * i - props.width;
+          y1 = y + lengthFrac * i - 40;
           x2 = x;
-          y2 = y + lengthFrac * i - props.width;
+          y2 = y + lengthFrac * i - 40;
         }
 
         return (
           <g key={i}>
             <text
-              x={props.orientation === "horizontal" ? x1 : x1 + 12}
-              y={props.orientation === "horizontal" ? y1 - 12 : y1 + 5}
+              x={props.orientation === "horizontal" ? x1 : x1 + 8}
+              y={props.orientation === "horizontal" ? y1 - 8 : y1 + 5}
               fontSize={18}
               fontFamily={props.fontFamily}
               fontWeight={props.fontWeight}
@@ -134,7 +135,7 @@ function Indicators(props: {
               y1={y1}
               x2={x2}
               y2={y2}
-              strokeWidth={2}
+              strokeWidth={props.strokeWidth}
               stroke="url(#primary)"
               strokeLinecap="round"
             />
