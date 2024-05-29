@@ -49,7 +49,7 @@ function Title(props: {
     <text
       x={props.x}
       y={props.y - 39}
-      fontSize={18}
+      fontSize={16}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor="middle"
@@ -122,7 +122,7 @@ function Indicators(props: {
             <text
               x={props.orientation === "horizontal" ? x1 : x1 + 8}
               y={props.orientation === "horizontal" ? y1 - 8 : y1 + 5}
-              fontSize={18}
+              fontSize={16}
               fontFamily={props.fontFamily}
               fontWeight={props.fontWeight}
               fill="url(#primary)"

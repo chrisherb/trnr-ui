@@ -50,7 +50,7 @@ const SvgDial = ({
           <text
             x={x}
             y={y - radius - 39}
-            fontSize={18}
+            fontSize={16}
             fontFamily={fontFamily}
             fontWeight={fontWeight}
             textAnchor="middle"
@@ -77,6 +77,7 @@ const SvgDial = ({
             showSuffix={true}
             fontFamily={fontFamily}
             fontWeight={fontWeight}
+            bipolar={bipolar}
           />
         </>
       )}
@@ -116,6 +117,7 @@ const Labels = ({
   showSuffix,
   fontFamily,
   fontWeight,
+  bipolar,
 }: {
   x: number;
   y: number;
@@ -125,14 +127,19 @@ const Labels = ({
   showSuffix: boolean;
   fontFamily: string;
   fontWeight: string;
+  bipolar: boolean;
 }) => {
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
-    const value = i / (numLabels - 1);
+    const fraction = i / (numLabels - 1);
+    const value = Math.round(parameter.getDenormalizedValue(fraction));
     const label = {
-      index: value,
-      name: Math.round(parameter.getDenormalizedValue(value)).toString(),
+      index: fraction,
+      name: value.toString(),
     };
+    if (bipolar && value > 0) {
+      label.name = "+" + label.name;
+    }
     if (showSuffix && i === numLabels - 1) {
       label.name += " " + parameter.suffix;
     }
@@ -184,7 +191,7 @@ const Label = (props: {
     <text
       x={props.x + x}
       y={props.y + y}
-      fontSize={18}
+      fontSize={16}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor={props.textAnchor}

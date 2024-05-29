@@ -110,7 +110,7 @@ const Title = (props: {
     <text
       x={props.x}
       y={props.y}
-      fontSize={18}
+      fontSize={16}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor="middle"
@@ -132,7 +132,7 @@ const Suffix = (props: {
     <text
       x={props.x}
       y={props.y}
-      fontSize={18}
+      fontSize={16}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor="left"

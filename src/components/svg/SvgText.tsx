@@ -14,7 +14,7 @@ export function SvgText(props: TextProps) {
           className="text"
           x={props.x}
           y={props.y}
-          fontSize={18}
+          fontSize={16}
           fontFamily={props.fontFamily}
           fontWeight={props.fontWeight}
           fill="url(#primary)"
