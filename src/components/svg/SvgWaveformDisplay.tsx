@@ -117,7 +117,7 @@ function Indicators(props: {
             <text
               x={x1 - 12}
               y={y1 + 5}
-              fontSize={18}
+              fontSize={16}
               fontFamily={props.fontFamily}
               fontWeight={props.fontWeight}
               fill="url(#primary)"
