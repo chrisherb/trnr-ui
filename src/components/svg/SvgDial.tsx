@@ -37,7 +37,7 @@ const SvgDial = ({
         <>
           <text
             x={props.x}
-            y={props.y - radius - 39}
+            y={props.y - radius - 34}
             fontSize={props.fontSize}
             fontFamily={props.fontFamily}
             fontWeight={props.fontWeight}

@@ -50,7 +50,7 @@ function Title(props: {
   return (
     <text
       x={props.x}
-      y={props.y - 39}
+      y={props.y - 34}
       fontSize={props.fontSize}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
