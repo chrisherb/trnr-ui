@@ -132,12 +132,13 @@ const Labels = ({
   const labels = [];
   for (let i = 0; i < numLabels; i++) {
     const fraction = i / (numLabels - 1);
-    const value = Math.round(parameter.getDenormalizedValue(fraction));
+    const value = parameter.getDenormalizedValue(fraction);
+    const roundedValue = value > 0 ? Math.ceil(value) : Math.floor(value);
     const label = {
       index: fraction,
-      name: value.toString(),
+      name: roundedValue.toString(),
     };
-    if (bipolar && value > 0) {
+    if (bipolar && roundedValue > 0) {
       label.name = "+" + label.name;
     }
     if (showSuffix && i === numLabels - 1) {
