@@ -11,86 +11,65 @@ interface SvgDialProps extends Dial {
 }
 
 const SvgDial = ({
-  x,
-  y,
-  name,
-  diameter,
-  innerDiameterFactor,
-  labels,
-  segments,
-  suffix,
-  fontFamily,
-  fontWeight,
-  strokeWidth,
-  rangeMin,
-  rangeMax,
-  exponent,
   mode = "all",
   value = 0.5,
   bipolar = false,
+  ...props
 }: SvgDialProps) => {
   const parameter = useParameter(
-    rangeMin,
-    rangeMax,
+    props.rangeMin,
+    props.rangeMax,
     value,
-    name,
-    suffix,
-    exponent
+    props.name,
+    props.suffix,
+    props.exponent
   );
-  const radius = diameter / 2;
+  const radius = props.diameter / 2;
   const labelRadius = radius + 14;
   const indicatorRadius = radius + 6;
   const outerRadius = radius;
-  const innerRadius = radius * innerDiameterFactor;
+  const innerRadius = radius * props.innerDiameterFactor;
 
   return (
     <g>
       {(mode === "all" || mode === "static-parts") && (
         <>
           <text
-            x={x}
-            y={y - radius - 39}
+            x={props.x}
+            y={props.y - radius - 39}
             fontSize={16}
-            fontFamily={fontFamily}
-            fontWeight={fontWeight}
+            fontFamily={props.fontFamily}
+            fontWeight={props.fontWeight}
             textAnchor="middle"
             fill="url(#primary)"
           >
-            {name.toUpperCase()}
+            {props.name.toUpperCase()}
           </text>
-          <ArcPath x={x} y={y} radius={outerRadius} strokeWidth={strokeWidth} />
-          <ArcPath x={x} y={y} radius={innerRadius} strokeWidth={strokeWidth} />
+          <ArcPath radius={outerRadius} {...props} />
+          <ArcPath radius={innerRadius} {...props} />
           <Lines
-            x={x}
-            y={y}
-            numLines={labels}
+            numLines={props.labels}
             innerRadius={outerRadius}
             outerRadius={indicatorRadius}
-            strokeWidth={strokeWidth}
+            {...props}
           />
           <Labels
-            x={x}
-            y={y}
-            numLabels={labels}
+            numLabels={props.labels}
             parameter={parameter}
             radius={labelRadius}
             showSuffix={true}
-            fontFamily={fontFamily}
-            fontWeight={fontWeight}
             bipolar={bipolar}
+            {...props}
           />
         </>
       )}
       {(mode === "all" || mode === "dynamic-parts") && (
         <Segments
-          x={x}
-          y={y}
           parameter={parameter}
-          segments={segments}
           innerRadius={innerRadius}
           outerRadius={outerRadius}
-          strokeWidth={strokeWidth}
           bipolar={bipolar}
+          {...props}
         />
       )}
     </g>
