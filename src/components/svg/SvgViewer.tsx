@@ -89,6 +89,7 @@ function getComponents(
       index,
       config.fontFamily,
       config.fontWeight,
+      config.fontSize,
       config.strokeWidth,
       mode,
       value
@@ -101,6 +102,7 @@ function getComponent(
   index: number,
   fontFamily: string,
   fontWeight: string,
+  fontSize: number,
   strokeWidth: number,
   mode: "all" | "static-parts" | "dynamic-parts",
   value: number = 0.5
@@ -121,6 +123,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        fontSize={fontSize}
         strokeWidth={strokeWidth}
         mode={mode}
         value={value}
@@ -133,6 +136,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        fontSize={fontSize}
         strokeWidth={strokeWidth}
         mode={mode}
         value={value}
@@ -145,6 +149,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        fontSize={fontSize}
         mode={mode}
       />
     );
@@ -157,6 +162,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        fontSize={fontSize}
         strokeWidth={strokeWidth}
         mode={mode}
         value={value}
@@ -169,6 +175,7 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
+        fontSize={fontSize}
         strokeWidth={strokeWidth}
         mode={mode}
         value={1}

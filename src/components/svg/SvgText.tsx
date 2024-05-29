@@ -3,6 +3,7 @@ import { Text } from "../../ControlModel";
 interface TextProps extends Text {
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   mode: "all" | "static-parts" | "dynamic-parts";
 }
 
@@ -14,7 +15,7 @@ export function SvgText(props: TextProps) {
           className="text"
           x={props.x}
           y={props.y}
-          fontSize={16}
+          fontSize={props.fontSize}
           fontFamily={props.fontFamily}
           fontWeight={props.fontWeight}
           fill="url(#primary)"

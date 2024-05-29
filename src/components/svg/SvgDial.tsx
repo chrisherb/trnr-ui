@@ -5,6 +5,7 @@ import { Dial } from "../../ControlModel";
 interface SvgDialProps extends Dial {
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
   value?: number;
@@ -37,7 +38,7 @@ const SvgDial = ({
           <text
             x={props.x}
             y={props.y - radius - 39}
-            fontSize={16}
+            fontSize={props.fontSize}
             fontFamily={props.fontFamily}
             fontWeight={props.fontWeight}
             textAnchor="middle"
@@ -87,17 +88,7 @@ const getPointCoordinates = (value: number, radius: number) => {
   return [x, y];
 };
 
-const Labels = ({
-  x,
-  y,
-  numLabels,
-  parameter,
-  radius,
-  showSuffix,
-  fontFamily,
-  fontWeight,
-  bipolar,
-}: {
+const Labels = (props: {
   x: number;
   y: number;
   parameter: Parameter;
@@ -106,22 +97,23 @@ const Labels = ({
   showSuffix: boolean;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   bipolar: boolean;
 }) => {
   const labels = [];
-  for (let i = 0; i < numLabels; i++) {
-    const fraction = i / (numLabels - 1);
-    const value = parameter.getDenormalizedValue(fraction);
+  for (let i = 0; i < props.numLabels; i++) {
+    const fraction = i / (props.numLabels - 1);
+    const value = props.parameter.getDenormalizedValue(fraction);
     const roundedValue = value > 0 ? Math.ceil(value) : Math.floor(value);
     const label = {
       index: fraction,
       name: roundedValue.toString(),
     };
-    if (bipolar && roundedValue > 0) {
+    if (props.bipolar && roundedValue > 0) {
       label.name = "+" + label.name;
     }
-    if (showSuffix && i === numLabels - 1) {
-      label.name += " " + parameter.suffix;
+    if (props.showSuffix && i === props.numLabels - 1) {
+      label.name += " " + props.parameter.suffix;
     }
     labels.push(label);
   }
@@ -139,15 +131,11 @@ const Labels = ({
 
         return (
           <Label
-            x={x}
-            y={y}
             key={index}
             text={name.toString()}
             value={index}
-            radius={radius}
             textAnchor={textAnchor}
-            fontFamily={fontFamily}
-            fontWeight={fontWeight}
+            {...props}
           />
         );
       })}
@@ -164,6 +152,7 @@ const Label = (props: {
   textAnchor: string;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
 }) => {
   const [x, y] = getPointCoordinates(props.value, props.radius);
 
@@ -171,7 +160,7 @@ const Label = (props: {
     <text
       x={props.x + x}
       y={props.y + y}
-      fontSize={16}
+      fontSize={props.fontSize}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor={props.textAnchor}

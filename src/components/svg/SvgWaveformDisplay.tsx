@@ -4,19 +4,17 @@ import { Parameter, useParameter } from "../hooks/useParameter";
 interface SvgWaveformProps extends WaveformDisplay {
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
   value?: number;
 }
 
 export function SvgWaveformDisplay({
-  mode,
   value = 0.5,
-  bipolar,
-  strokeWidth,
   ...props
 }: SvgWaveformProps) {
-  const parameter = bipolar
+  const parameter = props.bipolar
     ? useParameter(-4, 4, value, props.name, props.suffix, 1)
     : useParameter(0, 4, value, props.name, props.suffix, 1);
   const columnWidth = Math.round(props.width / props.columns);
@@ -27,20 +25,15 @@ export function SvgWaveformDisplay({
 
   return (
     <>
-      {(mode === "all" || mode === "static-parts") && (
+      {(props.mode === "all" || props.mode === "static-parts") && (
         <>
           <Indicators
+            {...props}
             parameter={parameter}
-            {...props}
             width={width}
             height={height - 2}
           />
-          <Lines
-            {...props}
-            width={width}
-            height={height - 2}
-            strokeWidth={strokeWidth}
-          />
+          <Lines {...props} width={width} height={height - 2} />
           {Array.from(Array(props.columns).keys()).map((i) => {
             return (
               <Segments
@@ -55,7 +48,7 @@ export function SvgWaveformDisplay({
         </>
       )}
 
-      {mode === "dynamic-parts" && (
+      {props.mode === "dynamic-parts" && (
         <Segments
           parameter={parameter}
           {...props}
@@ -75,6 +68,7 @@ function Indicators(props: {
   labels: number;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   parameter: Parameter;
 }) {
   const x = props.x;
@@ -117,7 +111,7 @@ function Indicators(props: {
             <text
               x={x1 - 12}
               y={y1 + 5}
-              fontSize={16}
+              fontSize={props.fontSize}
               fontFamily={props.fontFamily}
               fontWeight={props.fontWeight}
               fill="url(#primary)"

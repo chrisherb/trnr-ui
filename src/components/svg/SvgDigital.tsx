@@ -4,31 +4,19 @@ import { useParameter } from "../hooks/useParameter";
 interface DigitalProps extends Digital {
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
 }
 
-const SvgDigital = ({
-  x,
-  y,
-  name,
-  suffix,
-  rangeMin,
-  rangeMax,
-  exponent,
-  fontFamily,
-  fontWeight,
-  strokeWidth,
-  mode = "all",
-  value = 0.5,
-}: DigitalProps) => {
+const SvgDigital = ({ mode = "all", value = 0.5, ...props }: DigitalProps) => {
   const parameter = useParameter(
-    rangeMin,
-    rangeMax,
+    props.rangeMin,
+    props.rangeMax,
     value,
-    name,
-    suffix,
-    exponent
+    props.name,
+    props.suffix,
+    props.exponent
   );
   const rangeMaxLength = Math.abs(parameter.rangeMax).toString().length;
   const rangeMinLength = Math.abs(parameter.rangeMin).toString().length;
@@ -48,42 +36,28 @@ const SvgDigital = ({
   return (
     <>
       {(mode === "all" || mode === "static-parts") && (
-        <Title
-          x={x}
-          y={y - 25}
-          name={name}
-          fontFamily={fontFamily}
-          fontWeight={fontWeight}
-        />
+        <Title {...props} y={props.y - 25} />
       )}
       {(mode === "all" || mode === "dynamic-parts") && bipolar && (
         <PlusMinusSigns
+          {...props}
           value={parameter.value}
-          x={x - width / 2}
-          y={y}
-          fontFamily={fontFamily}
-          fontWeight={fontWeight}
+          x={props.x - width / 2}
         />
       )}
       {(mode === "all" || mode === "static-parts") && (
-        <Suffix
-          x={x + 20 + width / 2}
-          y={y + 28}
-          suffix={suffix}
-          fontFamily={fontFamily}
-          fontWeight={fontWeight}
-        />
+        <Suffix {...props} x={props.x + 20 + width / 2} y={props.y + 28} />
       )}
-      <g transform={`translate(${x - width / 2}, ${y})`}>
+      <g transform={`translate(${props.x - width / 2}, ${props.y})`}>
         {(mode === "all" || mode === "static-parts") && (
           <rect
+            {...props}
             x={-margin}
             y={-margin}
             width={width + margin * 2 - 1}
             height={height + margin * 2}
             fill="none"
             stroke="url(#primary)"
-            strokeWidth={strokeWidth}
             rx={radius}
             ry={radius}
           />
@@ -104,13 +78,14 @@ const Title = (props: {
   y: number;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   name: string;
 }) => {
   return (
     <text
       x={props.x}
       y={props.y}
-      fontSize={16}
+      fontSize={props.fontSize}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor="middle"
@@ -127,12 +102,13 @@ const Suffix = (props: {
   suffix: string;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
 }) => {
   return (
     <text
       x={props.x}
       y={props.y}
-      fontSize={16}
+      fontSize={props.fontSize}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor="left"

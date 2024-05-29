@@ -13,6 +13,7 @@ function App() {
     controls: [],
     fontFamily: "Arial",
     fontWeight: "bold",
+    fontSize: 15,
     strokeWidth: 1.5,
     backgroundColor: "#000000",
     primaryColor: "#ff0000",

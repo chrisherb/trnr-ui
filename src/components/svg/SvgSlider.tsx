@@ -4,6 +4,7 @@ import { Parameter, useParameter } from "../hooks/useParameter";
 interface SvgSliderProps extends Slider {
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
   value?: number;
@@ -40,6 +41,7 @@ function Title(props: {
   y: number;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   name: string;
   length: number;
   width: number;
@@ -49,7 +51,7 @@ function Title(props: {
     <text
       x={props.x}
       y={props.y - 39}
-      fontSize={16}
+      fontSize={props.fontSize}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
       textAnchor="middle"
@@ -69,6 +71,7 @@ function Indicators(props: {
   labels: number;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   strokeWidth: number;
   parameter: Parameter;
 }) {
@@ -122,7 +125,7 @@ function Indicators(props: {
             <text
               x={props.orientation === "horizontal" ? x1 : x1 + 8}
               y={props.orientation === "horizontal" ? y1 - 8 : y1 + 5}
-              fontSize={16}
+              fontSize={props.fontSize}
               fontFamily={props.fontFamily}
               fontWeight={props.fontWeight}
               fill="url(#primary)"
