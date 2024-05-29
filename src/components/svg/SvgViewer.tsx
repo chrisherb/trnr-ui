@@ -10,6 +10,7 @@ import {
   isPanel,
   isSlider,
   isText,
+  isRadio,
 } from "../../ControlModel";
 import SvgDial from "./SvgDial";
 import SvgDigital from "./SvgDigital";
@@ -18,6 +19,7 @@ import { SvgWaveformDisplay } from "./SvgWaveformDisplay";
 import { SvgPanel } from "./SvgPanel";
 import { SvgSlider } from "./SvgSlider";
 import { SvgText } from "./SvgText";
+import { SvgRadio } from "./SvgRadio";
 
 export function SvgViewer(props: {
   config: UIConfig;
@@ -179,6 +181,19 @@ function getComponent(
         strokeWidth={strokeWidth}
         mode={mode}
         value={1}
+      />
+    );
+  } else if (isRadio(control)) {
+    return (
+      <SvgRadio
+        {...control}
+        key={index}
+        fontFamily={fontFamily}
+        fontWeight={fontWeight}
+        fontSize={fontSize}
+        strokeWidth={strokeWidth}
+        mode={mode}
+        value={value}
       />
     );
   }

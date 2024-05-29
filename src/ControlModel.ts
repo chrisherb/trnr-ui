@@ -6,6 +6,7 @@ export const CONTROL_TYPES = [
   "Text",
   "Logo",
   "Meter",
+  "Radio",
 ];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
@@ -15,6 +16,7 @@ export interface UIConfig {
   height: number;
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
   strokeWidth: number;
   backgroundColor: string;
   primaryColor: string;
@@ -67,7 +69,7 @@ export class Dial implements Control {
   y: number = 200;
   exponent: number = 1;
   segments: number = 32;
-  diameter: number = 100;
+  diameter: number = 85;
   innerDiameterFactor: number = 0.5;
   labels: number = 5;
   suffix: string = "";
@@ -131,6 +133,19 @@ export class WaveformDisplay implements Control {
   bipolar: boolean = false;
 }
 
+export class Radio implements Control {
+  [key: string]: any;
+  readonly type: ControlType = "Radio";
+  name: string = "Radio";
+  x: number = 100;
+  y: number = 100;
+  width: number = 35;
+  height: number = 35;
+  labels: string = "a,b,c";
+  exportResolution: number = 1;
+  exportOrientation: "horizontal" | "vertical" = "horizontal";
+}
+
 export function isPanel(obj: any): obj is Panel {
   return obj && typeof obj.type === "string" && obj.type === "Panel";
 }
@@ -159,8 +174,18 @@ export function isWaveform(obj: any): obj is WaveformDisplay {
   return obj && typeof obj.type === "string" && obj.type === "Meter";
 }
 
+export function isRadio(obj: any): obj is Radio {
+  return obj && typeof obj.type === "string" && obj.type === "Radio";
+}
+
 export function isControl(obj: any): obj is Control {
-  return isDial(obj) || isSlider(obj) || isDigital(obj) || isWaveform(obj);
+  return (
+    isDial(obj) ||
+    isSlider(obj) ||
+    isDigital(obj) ||
+    isWaveform(obj) ||
+    isRadio(obj)
+  );
 }
 
 export function getControlData(
@@ -205,6 +230,14 @@ export function getControlData(
       Math.round(control.width / control.columns),
       Math.round(control.height / control.segments),
       1,
+    ];
+  } else if (isRadio(control)) {
+    return [
+      control.x - 1,
+      control.y - 1,
+      (control.width + 8) * control.labels.split(",").length + 2,
+      control.height + 4,
+      control.labels.split(",").length,
     ];
   } else {
     return [200, 200, control.x, control.y, 1];

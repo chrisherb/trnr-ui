@@ -12,6 +12,7 @@ import {
   Logo,
   Slider,
   WaveformDisplay,
+  Radio,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -155,6 +156,8 @@ function createControl(type: ControlType): UIElement {
       return new Slider();
     case "Meter":
       return new WaveformDisplay();
+    case "Radio":
+      return new Radio();
     default:
       return {
         type,
