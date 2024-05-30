@@ -26,8 +26,8 @@ const SvgDial = ({
     props.exponent
   );
   const radius = props.diameter / 2;
-  const labelRadius = radius + 14;
-  const indicatorRadius = radius + 6;
+  const labelRadius = radius + 12;
+  const indicatorRadius = radius + 5;
   const outerRadius = radius;
   const innerRadius = radius * props.innerDiameterFactor;
 
@@ -37,7 +37,7 @@ const SvgDial = ({
         <>
           <text
             x={props.x}
-            y={props.y - radius - 34}
+            y={props.y - radius - 30}
             fontSize={props.fontSize}
             fontFamily={props.fontFamily}
             fontWeight={props.fontWeight}

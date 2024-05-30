@@ -50,7 +50,7 @@ function Title(props: {
   return (
     <text
       x={props.x}
-      y={props.y - 34}
+      y={props.y - 30}
       fontSize={props.fontSize}
       fontFamily={props.fontFamily}
       fontWeight={props.fontWeight}
@@ -107,14 +107,15 @@ function Indicators(props: {
         let x1, y1, x2, y2;
 
         const lengthFrac = props.length / (props.labels - 1);
+        const indicatorLength = 5;
 
         if (props.orientation === "horizontal") {
           x1 = x + lengthFrac * i - props.length;
-          y1 = props.y - 6;
+          y1 = props.y - indicatorLength;
           x2 = x + lengthFrac * i - props.length;
           y2 = props.y;
         } else {
-          x1 = x + 6;
+          x1 = x + indicatorLength;
           y1 = y + lengthFrac * i - 40;
           x2 = x;
           y2 = y + lengthFrac * i - 40;
@@ -123,8 +124,8 @@ function Indicators(props: {
         return (
           <g key={i}>
             <text
-              x={props.orientation === "horizontal" ? x1 : x1 + 8}
-              y={props.orientation === "horizontal" ? y1 - 8 : y1 + 5}
+              x={props.orientation === "horizontal" ? x1 : x1 + 7}
+              y={props.orientation === "horizontal" ? y1 - 7 : y1 + 5}
               fontSize={props.fontSize}
               fontFamily={props.fontFamily}
               fontWeight={props.fontWeight}
