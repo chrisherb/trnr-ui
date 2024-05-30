@@ -144,6 +144,8 @@ export class Radio implements Control {
   labels: string = "a,b,c";
   exportResolution: number = 1;
   exportOrientation: "horizontal" | "vertical" = "horizontal";
+  rows: number = 1;
+  gap: number = 8;
 }
 
 export function isPanel(obj: any): obj is Panel {
