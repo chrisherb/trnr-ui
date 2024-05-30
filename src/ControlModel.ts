@@ -143,7 +143,7 @@ export class Radio implements Control {
   height: number = 35;
   labels: string = "a,b,c";
   exportResolution: number = 1;
-  exportOrientation: "horizontal" | "vertical" = "horizontal";
+  exportOrientation: "horizontal" | "vertical" = "vertical";
   rows: number = 1;
   gap: number = 8;
 }
@@ -190,6 +190,9 @@ export function isControl(obj: any): obj is Control {
   );
 }
 
+/**
+ * @returns [x, y, width, height, frames]
+ */
 export function getControlData(
   control: Control
 ): [number, number, number, number, number] {
@@ -234,11 +237,14 @@ export function getControlData(
       1,
     ];
   } else if (isRadio(control)) {
+    const numPerRow = Math.ceil(
+      control.labels.split(",").length / control.rows
+    );
     return [
       control.x - 1,
       control.y - 1,
-      (control.width + 8) * control.labels.split(",").length + 2,
-      control.height + 4,
+      numPerRow * (control.width + control.gap),
+      control.rows * (control.height + control.gap),
       control.labels.split(",").length,
     ];
   } else {
