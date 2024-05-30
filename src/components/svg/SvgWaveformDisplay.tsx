@@ -109,13 +109,13 @@ function Indicators(props: {
         return (
           <g key={i}>
             <text
-              x={x1 - 12}
+              x={x1 + props.width + 16}
               y={y1 + 5}
               fontSize={props.fontSize}
               fontFamily={props.fontFamily}
               fontWeight={props.fontWeight}
               fill="url(#primary)"
-              textAnchor="end"
+              textAnchor="start"
             >
               {label.name}
             </text>
