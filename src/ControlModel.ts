@@ -147,6 +147,7 @@ export class Radio implements Control {
   exportOrientation: "horizontal" | "vertical" = "vertical";
   rows: number = 1;
   gap: number = 8;
+  fontSize: number = 15;
 }
 
 export function isPanel(obj: any): obj is Panel {

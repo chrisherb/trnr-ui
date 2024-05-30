@@ -3,7 +3,6 @@ import { Radio } from "../../ControlModel";
 interface SvgRadioProps extends Radio {
   fontFamily: string;
   fontWeight: string;
-  fontSize: number;
   strokeWidth: number;
   mode: "all" | "static-parts" | "dynamic-parts";
   value?: number;

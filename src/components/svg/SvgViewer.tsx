@@ -189,7 +189,6 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
-        fontSize={fontSize}
         strokeWidth={strokeWidth}
         mode={mode}
         value={value}
