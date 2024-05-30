@@ -148,6 +148,7 @@ export class Radio implements Control {
   rows: number = 1;
   gap: number = 8;
   fontSize: number = 15;
+  showPanel: boolean = true;
 }
 
 export function isPanel(obj: any): obj is Panel {

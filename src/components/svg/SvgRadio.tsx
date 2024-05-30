@@ -48,19 +48,21 @@ export const SvgRadio = ({
 
           return (
             <>
-              <rect
-                key={i}
-                x={props.x + colCount * adjustedWidth}
-                y={props.y + rowCount * adjustedHeight}
-                width={props.width}
-                height={props.height}
-                fill="none"
-                stroke="url(#primary)"
-                strokeWidth={props.strokeWidth}
-                opacity={getOpacity(i)}
-                rx={6}
-                ry={6}
-              />
+              {props.showPanel && (
+                <rect
+                  key={i}
+                  x={props.x + colCount * adjustedWidth}
+                  y={props.y + rowCount * adjustedHeight}
+                  width={props.width}
+                  height={props.height}
+                  fill="none"
+                  stroke="url(#primary)"
+                  strokeWidth={props.strokeWidth}
+                  opacity={getOpacity(i)}
+                  rx={6}
+                  ry={6}
+                />
+              )}
               <text
                 x={props.x + colCount * adjustedWidth + props.width / 2}
                 y={
