@@ -51,6 +51,7 @@ export class Text implements UIElement {
   name: string = "Text";
   x: number = 100;
   y: number = 100;
+  fontSize: number = 15;
 }
 
 export class Logo implements UIElement {

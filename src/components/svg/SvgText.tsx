@@ -3,7 +3,6 @@ import { Text } from "../../ControlModel";
 interface TextProps extends Text {
   fontFamily: string;
   fontWeight: string;
-  fontSize: number;
   mode: "all" | "static-parts" | "dynamic-parts";
 }
 

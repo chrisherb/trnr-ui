@@ -151,7 +151,6 @@ function getComponent(
         key={index}
         fontFamily={fontFamily}
         fontWeight={fontWeight}
-        fontSize={fontSize}
         mode={mode}
       />
     );
