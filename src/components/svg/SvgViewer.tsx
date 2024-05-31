@@ -74,7 +74,16 @@ export function SvgControlViewer(props: {
               secondary={props.config.secondaryColor}
               opacity={props.config.honeycombOpacity}
             />
-            {getComponents(props.config, "dynamic-parts", i / (frames - 1))}
+            {getComponent(
+              props.exportControl,
+              0,
+              props.config.fontFamily,
+              props.config.fontWeight,
+              props.config.fontSize,
+              props.config.strokeWidth,
+              "dynamic-parts",
+              i / (frames - 1)
+            )}
           </svg>
         );
       })}
