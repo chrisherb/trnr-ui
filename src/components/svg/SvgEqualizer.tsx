@@ -29,7 +29,7 @@ export function SvgEqualizer({ value = 0.5, ...props }: SvgEqualizerProps) {
         </>
       )}
       {(props.mode === "all" || props.mode === "dynamic-parts") && (
-        <Shelf value={value} {...props} />
+        <Band value={value} {...props} />
       )}
     </>
   );
@@ -58,7 +58,7 @@ function Title(props: {
   );
 }
 
-function Shelf(props: {
+function Band(props: {
   x: number;
   y: number;
   width: number;
@@ -72,28 +72,43 @@ function Shelf(props: {
   const segmentWidth = props.width / props.steps;
   const gapSize = 4;
 
+  const middleIndex = Math.round(props.steps / 2 - 1);
   const selectedIndex = Math.round(props.value * (props.steps - 1));
 
   const getOpacity = (index: number) => {
     if (index === selectedIndex) {
       return 1;
+    }
+
+    if (index > middleIndex) {
+      if (index > selectedIndex) {
+        return 0.2;
+      } else {
+        return 1;
+      }
     } else {
-      return 0.2;
+      if (index < selectedIndex) {
+        return 0.2;
+      } else {
+        return 1;
+      }
     }
   };
 
   return (
     <>
       {[...Array(props.steps)].map((_, i) => {
+        const index = props.steps - 1 - i;
+
         let adjustedIndex = 0;
         let gap = 0;
 
-        if (i === (props.steps - 1) / 2) {
-        } else if (i < props.steps / 2) {
-          adjustedIndex = i;
+        if (index === (props.steps - 1) / 2) {
+        } else if (index < props.steps / 2) {
+          adjustedIndex = index;
           gap = gapSize;
-        } else if (i > props.steps / 2) {
-          adjustedIndex = props.steps - i - 1;
+        } else if (index > props.steps / 2) {
+          adjustedIndex = props.steps - index - 1;
           gap = -gapSize;
         }
 
@@ -101,7 +116,7 @@ function Shelf(props: {
 
         if (props.band === "low") {
           x1 = props.x;
-          y1 = props.y + i * segmentHeight;
+          y1 = props.y + index * segmentHeight;
           x2 = props.x + props.width / 2;
           y2 = y1;
           x3 = props.x + props.width - adjustedIndex * segmentWidth;
@@ -110,16 +125,16 @@ function Shelf(props: {
           x1 = props.x + adjustedIndex * segmentWidth;
           y1 = props.y + props.height / 2 - gap;
           x2 = props.x + props.width / 2;
-          y2 = props.y + i * segmentHeight;
+          y2 = props.y + index * segmentHeight;
           x3 = props.x + props.width - adjustedIndex * segmentWidth;
           y3 = props.y + props.height / 2 - gap;
         } else if (props.band === "high") {
           x1 = props.x + adjustedIndex * segmentWidth;
           y1 = props.y + props.height / 2 - gap;
           x2 = props.x + props.width / 2;
-          y2 = props.y + i * segmentHeight;
+          y2 = props.y + index * segmentHeight;
           x3 = props.x + props.width;
-          y3 = props.y + i * segmentHeight;
+          y3 = y2;
         }
 
         return (
