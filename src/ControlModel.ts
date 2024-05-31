@@ -239,9 +239,8 @@ export function getControlData(
         ? control.x - control.width / 2
         : control.x,
       control.y,
-      control.orientation === "horizontal" ? control.length : control.width,
-
-      control.orientation === "horizontal" ? control.width : control.length,
+      control.length,
+      control.length,
       control.segments * control.exportResolution + 1,
     ];
   } else if (isDigital(control)) {
@@ -269,21 +268,23 @@ export function getControlData(
     const numPerRow = Math.ceil(
       control.labels.split(",").length / control.rows
     );
+    const width = numPerRow * (control.width + control.gap);
+    const height = control.rows * (control.height + control.gap);
+
+    const size = width > height ? width : height;
+
     return [
       control.x - 1,
       control.y - 1,
-      numPerRow * (control.width + control.gap),
-      control.rows * (control.height + control.gap),
+      size,
+      size,
       control.labels.split(",").length,
     ];
   } else if (isEqualizer(control)) {
-    return [
-      control.x - 1,
-      control.y - 1,
-      control.width,
-      control.height + 4,
-      control.steps,
-    ];
+    const size =
+      control.width > control.height ? control.width : control.height;
+
+    return [control.x - 1, control.y - 1, size + 4, size + 4, control.steps];
   } else {
     return [200, 200, control.x, control.y, 1];
   }
