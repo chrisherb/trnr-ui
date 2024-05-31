@@ -76,7 +76,7 @@ function Band(props: {
   const selectedIndex = Math.round(props.value * (props.steps - 1));
 
   const getOpacity = (index: number) => {
-    if (index === selectedIndex) {
+    if (index === middleIndex) {
       return 1;
     }
 

@@ -82,7 +82,7 @@ export function SvgControlViewer(props: {
               props.config.fontSize,
               props.config.strokeWidth,
               "dynamic-parts",
-              i / (frames - 1)
+              i
             )}
           </svg>
         );
