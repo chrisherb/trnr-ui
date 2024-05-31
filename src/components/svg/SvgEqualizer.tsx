@@ -203,6 +203,7 @@ function Labels(props: {
               fontWeight={props.fontWeight}
               fill="url(#primary)"
               textAnchor={"end"}
+              strokeLinecap="round"
             >
               {name}
             </text>
