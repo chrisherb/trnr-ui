@@ -13,6 +13,7 @@ import {
   Slider,
   WaveformDisplay,
   Radio,
+  Equalizer,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -158,6 +159,8 @@ function createControl(type: ControlType): UIElement {
       return new WaveformDisplay();
     case "Radio":
       return new Radio();
+    case "Equalizer":
+      return new Equalizer();
     default:
       return {
         type,

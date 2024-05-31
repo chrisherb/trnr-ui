@@ -7,6 +7,7 @@ export const CONTROL_TYPES = [
   "Logo",
   "Meter",
   "Radio",
+  "Equalizer",
 ];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
@@ -151,6 +152,26 @@ export class Radio implements Control {
   showPanel: boolean = true;
 }
 
+export class Equalizer implements Control {
+  [key: string]: any;
+  readonly type: ControlType = "Equalizer";
+  name: string = "Equalizer";
+  x: number = 100;
+  y: number = 100;
+  width: number = 100;
+  height: number = 100;
+  band: "low" | "mid" | "high" = "low";
+  exportResolution: number = 1;
+  exportOrientation: "horizontal" | "vertical" = "vertical";
+  steps: number = 13;
+  labels: number = 5;
+  suffix: string = "";
+  rangeMin: number = -12;
+  rangeMax: number = 12;
+  exponent: number = 1;
+  bipolar: boolean = true;
+}
+
 export function isPanel(obj: any): obj is Panel {
   return obj && typeof obj.type === "string" && obj.type === "Panel";
 }
@@ -183,13 +204,18 @@ export function isRadio(obj: any): obj is Radio {
   return obj && typeof obj.type === "string" && obj.type === "Radio";
 }
 
+export function isEqualizer(obj: any): obj is Equalizer {
+  return obj && typeof obj.type === "string" && obj.type === "Equalizer";
+}
+
 export function isControl(obj: any): obj is Control {
   return (
     isDial(obj) ||
     isSlider(obj) ||
     isDigital(obj) ||
     isWaveform(obj) ||
-    isRadio(obj)
+    isRadio(obj) ||
+    isEqualizer(obj)
   );
 }
 
@@ -249,6 +275,14 @@ export function getControlData(
       numPerRow * (control.width + control.gap),
       control.rows * (control.height + control.gap),
       control.labels.split(",").length,
+    ];
+  } else if (isEqualizer(control)) {
+    return [
+      control.x - 1,
+      control.y - 1,
+      control.width,
+      control.height + 4,
+      control.steps,
     ];
   } else {
     return [200, 200, control.x, control.y, 1];
