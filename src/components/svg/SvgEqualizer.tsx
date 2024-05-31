@@ -78,7 +78,7 @@ function Shelf(props: {
     if (index === selectedIndex) {
       return 1;
     } else {
-      return 0.5;
+      return 0.2;
     }
   };
 
