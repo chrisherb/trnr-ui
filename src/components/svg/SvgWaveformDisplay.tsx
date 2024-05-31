@@ -201,8 +201,6 @@ const Segments = (props: {
 
   const segmentHeight = Math.round(props.height / props.segments);
 
-  debugger;
-
   return (
     <>
       {Array.from({ length: props.segments }, (_, i) => (
