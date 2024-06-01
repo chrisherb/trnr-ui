@@ -47,10 +47,9 @@ export const SvgRadio = ({
           const adjustedHeight = props.height + gap;
 
           return (
-            <>
+            <g key={i}>
               {props.showPanel && (
                 <rect
-                  key={i}
                   x={props.x + colCount * adjustedWidth}
                   y={props.y + rowCount * adjustedHeight}
                   width={props.width}
@@ -80,7 +79,7 @@ export const SvgRadio = ({
               >
                 {label.toUpperCase()}
               </text>
-            </>
+            </g>
           );
         })}
     </>

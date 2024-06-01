@@ -205,6 +205,7 @@ const Segments = (props: {
     <>
       {Array.from({ length: props.segments }, (_, i) => (
         <rect
+          key={i}
           x={props.x}
           y={props.y + segmentHeight * i}
           width={props.width}
