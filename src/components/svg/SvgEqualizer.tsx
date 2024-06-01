@@ -73,26 +73,38 @@ function Band(props: {
   const gapSize = 4;
 
   const middleIndex = Math.round(props.steps / 2 - 1);
-  const selectedIndex = Math.round(props.value * (props.steps - 1));
+  const adjustedValue = props.value * (props.steps - 1);
+  const selectedIndex = Math.round(adjustedValue);
+  const decimals = adjustedValue - selectedIndex;
 
   const getOpacity = (index: number) => {
-    if (index === middleIndex) {
-      return 1;
-    }
+    let output = 0;
 
     if (index > middleIndex) {
       if (index > selectedIndex) {
-        return 0.2;
+        output = 0;
       } else {
-        return 1;
+        output = 1;
+      }
+      if (index === selectedIndex) {
+        output += decimals;
       }
     } else {
       if (index < selectedIndex) {
-        return 0.2;
+        output = 0;
       } else {
-        return 1;
+        output = 1;
+      }
+      if (index === selectedIndex - 1) {
+        output -= decimals;
       }
     }
+
+    if (index === middleIndex) {
+      output = 1;
+    }
+
+    return output;
   };
 
   return (
@@ -145,7 +157,7 @@ function Band(props: {
             stroke="url(#primary)"
             strokeLinecap="round"
             fill="none"
-            opacity={getOpacity(i)}
+            opacity={getOpacity(i) * 0.8 + 0.2}
           />
         );
       })}

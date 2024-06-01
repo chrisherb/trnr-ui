@@ -284,7 +284,13 @@ export function getControlData(
     const size =
       control.width > control.height ? control.width : control.height;
 
-    return [control.x - 1, control.y - 1, size + 4, size + 4, control.steps];
+    return [
+      control.x - 1,
+      control.y - 1,
+      size + 4,
+      size + 4,
+      control.steps * control.exportResolution - 1,
+    ];
   } else {
     return [200, 200, control.x, control.y, 1];
   }
