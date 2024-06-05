@@ -37,6 +37,7 @@ export interface Control extends UIElement {
   name: string;
   exportResolution: number;
   exportOrientation: "horizontal" | "vertical";
+  exportSquare: boolean;
 }
 
 export class Panel implements UIElement {
@@ -81,6 +82,7 @@ export class Dial implements Control {
   exportResolution: number = 1;
   bipolar: boolean = false;
   exportOrientation: "horizontal" | "vertical" = "vertical";
+  exportSquare: boolean = true;
 }
 
 export class Slider implements Control {
@@ -101,6 +103,7 @@ export class Slider implements Control {
   orientation: "horizontal" | "vertical" = "horizontal";
   bipolar: boolean = false;
   exportOrientation: "horizontal" | "vertical" = "vertical";
+  exportSquare: boolean = true;
 }
 
 export class Digital implements Control {
@@ -116,6 +119,7 @@ export class Digital implements Control {
   rangeMax: number = 10;
   exportResolution: number = 1;
   exportOrientation: "horizontal" | "vertical" = "vertical";
+  exportSquare: boolean = true;
 }
 
 export class WaveformDisplay implements Control {
@@ -134,6 +138,7 @@ export class WaveformDisplay implements Control {
   exportResolution: number = 1;
   exportOrientation: "horizontal" | "vertical" = "horizontal";
   bipolar: boolean = false;
+  exportSquare: boolean = true;
 }
 
 export class Radio implements Control {
@@ -151,6 +156,7 @@ export class Radio implements Control {
   gap: number = 8;
   fontSize: number = 15;
   showPanel: boolean = true;
+  exportSquare: boolean = true;
 }
 
 export class Button implements Control {
@@ -165,6 +171,7 @@ export class Button implements Control {
   exportOrientation: "horizontal" | "vertical" = "vertical";
   fontSize: number = 15;
   showPanel: boolean = true;
+  exportSquare: boolean = true;
 }
 
 export class Equalizer implements Control {
@@ -185,6 +192,7 @@ export class Equalizer implements Control {
   rangeMax: number = 12;
   exponent: number = 1;
   bipolar: boolean = true;
+  exportSquare: boolean = true;
 }
 
 export function isPanel(obj: any): obj is Panel {
@@ -254,13 +262,21 @@ export function getControlData(
       control.segments * control.exportResolution + 1,
     ];
   } else if (isSlider(control)) {
+    const x =
+      control.orientation === "horizontal"
+        ? control.x - control.length / 2
+        : control.x;
+    const y = control.y;
+    const width =
+      control.orientation === "horizontal" ? control.length : control.width;
+    const height =
+      control.orientation === "horizontal" ? control.width : control.length;
+
     return [
-      control.orientation !== "horizontal"
-        ? control.x - control.width / 2
-        : control.x,
-      control.y,
-      control.length,
-      control.length,
+      x,
+      y,
+      width,
+      height,
       control.segments * control.exportResolution + 1,
     ];
   } else if (isDigital(control)) {
@@ -291,24 +307,19 @@ export function getControlData(
     const width = numPerRow * (control.width + control.gap);
     const height = control.rows * (control.height + control.gap);
 
-    const size = width > height ? width : height;
-
     return [
       control.x - 1,
       control.y - 1,
-      size,
-      size,
+      width,
+      height,
       control.labels.split(",").length,
     ];
   } else if (isEqualizer(control)) {
-    const size =
-      control.width > control.height ? control.width : control.height;
-
     return [
       control.x - 1,
       control.y - 1,
-      size + 4,
-      size + 4,
+      control.width + 4,
+      control.height + 4,
       control.steps * control.exportResolution - 1,
     ];
   } else if (isButton(control)) {

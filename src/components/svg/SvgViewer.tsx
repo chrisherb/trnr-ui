@@ -47,12 +47,19 @@ export function SvgViewer(props: {
   );
 }
 
-export function SvgControlViewer(props: {
+export function SvgControlViewer({
+  ...props
+}: {
   config: UIConfig;
   exportControl: Control;
   orientation: "horizontal" | "vertical";
 }) {
-  const [x, y, width, height, frames] = getControlData(props.exportControl);
+  const [x, y, w, h, frames] = getControlData(props.exportControl);
+
+  const max = Math.max(w, h);
+
+  const width = props.exportControl.exportSquare ? max : w;
+  const height = props.exportControl.exportSquare ? max : h;
 
   return (
     <svg
