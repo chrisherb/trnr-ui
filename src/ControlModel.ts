@@ -273,7 +273,7 @@ export function getControlData(
     const x =
       control.orientation === "horizontal"
         ? control.x - control.length / 2
-        : control.x;
+        : control.x - control.width / 2;
     const y = control.y;
     const width =
       control.orientation === "horizontal" ? control.length : control.width;
