@@ -17,32 +17,36 @@ export const SvgButton = ({
 
   return (
     <>
-      {props.showPanel && (
-        <rect
-          x={props.x}
-          y={props.y}
-          width={props.width}
-          height={props.height}
-          fill="none"
-          stroke="url(#primary)"
-          strokeWidth={props.strokeWidth}
-          opacity={opacity}
-          rx={6}
-          ry={6}
-        />
+      {(mode === "all" || mode === "dynamic-parts") && (
+        <>
+          {props.showPanel && (
+            <rect
+              x={props.x}
+              y={props.y}
+              width={props.width}
+              height={props.height}
+              fill="none"
+              stroke="url(#primary)"
+              strokeWidth={props.strokeWidth}
+              opacity={opacity}
+              rx={6}
+              ry={6}
+            />
+          )}
+          <text
+            x={props.x + props.width / 2}
+            y={props.y + props.height / 2 + props.fontSize / 3}
+            fontSize={props.fontSize}
+            fontFamily={props.fontFamily}
+            fontWeight={props.fontWeight}
+            opacity={opacity}
+            fill="url(#primary)"
+            textAnchor="middle"
+          >
+            {props.name.toUpperCase()}
+          </text>
+        </>
       )}
-      <text
-        x={props.x + props.width / 2}
-        y={props.y + props.height / 2 + props.fontSize / 3}
-        fontSize={props.fontSize}
-        fontFamily={props.fontFamily}
-        fontWeight={props.fontWeight}
-        opacity={opacity}
-        fill="url(#primary)"
-        textAnchor="middle"
-      >
-        {props.name.toUpperCase()}
-      </text>
     </>
   );
 };
