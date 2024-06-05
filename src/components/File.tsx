@@ -1,6 +1,6 @@
 import { renderToString } from "react-dom/server";
 import { UIConfig, getControlData, isControl } from "../ControlModel";
-import { SvgControlViewer, SvgViewer } from "./svg/SvgViewer";
+import { SvgControlFrames, SvgControlViewer, SvgViewer } from "./svg/SvgViewer";
 import {
   DocumentUploadIcon,
   DocumentDownloadIcon,
@@ -47,7 +47,22 @@ export function File(props: {
     downloadFile(backgroundSvg, "background.svg", "text/svg");
 
     props.config.controls.forEach((control) => {
-      if (isControl(control)) {
+      if (!isControl(control)) return;
+
+      if (control.exportIndividualFrames) {
+        const controlFrames = SvgControlFrames(control, props.config);
+
+        controlFrames.forEach((frame, i) => {
+          const controlSvg = renderToString(frame);
+          const [x, y, width, height] = getControlData(control);
+
+          downloadFile(
+            controlSvg,
+            `${control.type}_${control.name}_x${x}y${y}_w${width}h${height}_${i}.svg`,
+            "text/svg"
+          );
+        });
+      } else {
         const controlSvg = renderToString(
           <SvgControlViewer
             config={props.config}

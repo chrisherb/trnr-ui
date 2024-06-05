@@ -38,6 +38,7 @@ export interface Control extends UIElement {
   exportResolution: number;
   exportOrientation: "horizontal" | "vertical";
   exportSquare: boolean;
+  exportIndividualFrames: boolean;
 }
 
 export class Panel implements UIElement {
@@ -83,6 +84,7 @@ export class Dial implements Control {
   bipolar: boolean = false;
   exportOrientation: "horizontal" | "vertical" = "vertical";
   exportSquare: boolean = true;
+  exportIndividualFrames: boolean = false;
 }
 
 export class Slider implements Control {
@@ -104,6 +106,7 @@ export class Slider implements Control {
   bipolar: boolean = false;
   exportOrientation: "horizontal" | "vertical" = "vertical";
   exportSquare: boolean = true;
+  exportIndividualFrames: boolean = false;
 }
 
 export class Digital implements Control {
@@ -120,6 +123,7 @@ export class Digital implements Control {
   exportResolution: number = 1;
   exportOrientation: "horizontal" | "vertical" = "vertical";
   exportSquare: boolean = true;
+  exportIndividualFrames: boolean = false;
 }
 
 export class WaveformDisplay implements Control {
@@ -139,6 +143,7 @@ export class WaveformDisplay implements Control {
   exportOrientation: "horizontal" | "vertical" = "horizontal";
   bipolar: boolean = false;
   exportSquare: boolean = true;
+  exportIndividualFrames: boolean = false;
 }
 
 export class Radio implements Control {
@@ -157,6 +162,7 @@ export class Radio implements Control {
   fontSize: number = 15;
   showPanel: boolean = true;
   exportSquare: boolean = true;
+  exportIndividualFrames: boolean = false;
 }
 
 export class Button implements Control {
@@ -172,6 +178,7 @@ export class Button implements Control {
   fontSize: number = 15;
   showPanel: boolean = true;
   exportSquare: boolean = true;
+  exportIndividualFrames: boolean = false;
 }
 
 export class Equalizer implements Control {
@@ -193,6 +200,7 @@ export class Equalizer implements Control {
   exponent: number = 1;
   bipolar: boolean = true;
   exportSquare: boolean = true;
+  exportIndividualFrames: boolean = false;
 }
 
 export function isPanel(obj: any): obj is Panel {

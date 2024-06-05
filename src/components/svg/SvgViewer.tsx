@@ -100,6 +100,46 @@ export function SvgControlViewer({
   );
 }
 
+/**
+ * Returns an array of SVG elements for the frames of the given control
+ */
+export function SvgControlFrames(exportControl: Control, config: UIConfig) {
+  const [x, y, w, h, frames] = getControlData(exportControl);
+
+  const max = Math.max(w, h);
+
+  const width = exportControl.exportSquare ? max : w;
+  const height = exportControl.exportSquare ? max : h;
+
+  return Array.from(Array(frames).keys()).map((i) => (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      x={0}
+      y={0}
+      viewBox={`${x} ${y} ${width} ${height}`}
+    >
+      <Honeycomb
+        primary={config.primaryColor}
+        secondary={config.secondaryColor}
+        opacity={config.honeycombOpacity}
+      />
+      {getComponent(
+        exportControl,
+        0,
+        config.fontFamily,
+        config.fontWeight,
+        config.fontSize,
+        config.strokeWidth,
+        "dynamic-parts",
+        i / (frames - 1)
+      )}
+    </svg>
+  ));
+}
+
 function getComponents(
   config: UIConfig,
   mode: "all" | "static-parts" | "dynamic-parts",
