@@ -14,6 +14,7 @@ import {
   WaveformDisplay,
   Radio,
   Equalizer,
+  Button,
 } from "../ControlModel";
 import { DeleteIcon, DuplicateIcon, MagnifierIcon, PlusIcon } from "./Icons";
 import { Modal } from "./Modal";
@@ -161,6 +162,8 @@ function createControl(type: ControlType): UIElement {
       return new Radio();
     case "Equalizer":
       return new Equalizer();
+    case "Button":
+      return new Button();
     default:
       return {
         type,

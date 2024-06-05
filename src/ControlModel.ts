@@ -8,6 +8,7 @@ export const CONTROL_TYPES = [
   "Meter",
   "Radio",
   "Equalizer",
+  "Button",
 ];
 export type ControlType = (typeof CONTROL_TYPES)[number];
 
@@ -152,6 +153,20 @@ export class Radio implements Control {
   showPanel: boolean = true;
 }
 
+export class Button implements Control {
+  [key: string]: any;
+  readonly type: ControlType = "Button";
+  name: string = "Button";
+  x: number = 100;
+  y: number = 100;
+  width: number = 80;
+  height: number = 35;
+  exportResolution: number = 1;
+  exportOrientation: "horizontal" | "vertical" = "vertical";
+  fontSize: number = 15;
+  showPanel: boolean = true;
+}
+
 export class Equalizer implements Control {
   [key: string]: any;
   readonly type: ControlType = "Equalizer";
@@ -208,6 +223,10 @@ export function isEqualizer(obj: any): obj is Equalizer {
   return obj && typeof obj.type === "string" && obj.type === "Equalizer";
 }
 
+export function isButton(obj: any): obj is Button {
+  return obj && typeof obj.type === "string" && obj.type === "Button";
+}
+
 export function isControl(obj: any): obj is Control {
   return (
     isDial(obj) ||
@@ -215,7 +234,8 @@ export function isControl(obj: any): obj is Control {
     isDigital(obj) ||
     isWaveform(obj) ||
     isRadio(obj) ||
-    isEqualizer(obj)
+    isEqualizer(obj) ||
+    isButton(obj)
   );
 }
 
@@ -291,6 +311,10 @@ export function getControlData(
       size + 4,
       control.steps * control.exportResolution - 1,
     ];
+  } else if (isButton(control)) {
+    const size =
+      control.width > control.height ? control.width : control.height;
+    return [control.x - 1, control.y - 1, size + 4, size + 4, 2];
   } else {
     return [200, 200, control.x, control.y, 1];
   }

@@ -12,6 +12,7 @@ import {
   isText,
   isRadio,
   isEqualizer,
+  isButton,
 } from "../../ControlModel";
 import SvgDial from "./SvgDial";
 import SvgDigital from "./SvgDigital";
@@ -22,6 +23,7 @@ import { SvgSlider } from "./SvgSlider";
 import { SvgText } from "./SvgText";
 import { SvgRadio } from "./SvgRadio";
 import { SvgEqualizer } from "./SvgEqualizer";
+import { SvgButton } from "./SvgButton";
 
 export function SvgViewer(props: {
   config: UIConfig;
@@ -213,6 +215,18 @@ function getComponent(
         fontFamily={fontFamily}
         fontWeight={fontWeight}
         fontSize={fontSize}
+        strokeWidth={strokeWidth}
+        mode={mode}
+        value={value}
+      />
+    );
+  } else if (isButton(control)) {
+    return (
+      <SvgButton
+        {...control}
+        key={index}
+        fontFamily={fontFamily}
+        fontWeight={fontWeight}
         strokeWidth={strokeWidth}
         mode={mode}
         value={value}
