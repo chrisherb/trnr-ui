@@ -323,9 +323,13 @@ export function getControlData(
       control.steps * control.exportResolution - 1,
     ];
   } else if (isButton(control)) {
-    const size =
-      control.width > control.height ? control.width : control.height;
-    return [control.x - 1, control.y - 1, size + 4, size + 4, 2];
+    return [
+      control.x - 1,
+      control.y - 1,
+      control.width + 4,
+      control.height + 4,
+      2,
+    ];
   } else {
     return [200, 200, control.x, control.y, 1];
   }
